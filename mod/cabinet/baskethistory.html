@@ -1,0 +1,118 @@
+{$text}
+
+{if sizeof($cabinetbaskethistory_orders)>0}
+<script>
+var duplicateOrder = function (order_id, order_hash)
+{
+	if(confirm('Добавить товары из заказа №'+order_id+' в текущий заказ?\nТовары, которых нет в наличии, добавлены не будут.'))
+	{
+		$.basket.to('/basket/?action=duplicate&order_id=' + order_id + '&oh=' + order_hash, 'abs', function(html){
+			$.fancybox(html);
+			$('.basket-item').ProductCalculator();
+		});
+	}
+	return false;
+}
+</script>
+{foreach from=$cabinetbaskethistory_orders item=order key=order_key}
+<hr />
+<a name="order_id_{$order_key}"></a>
+<p>
+	<big><b>Заказ №{$order_key}</b></big> от <em>{$order.content.created|date_format:"%d %B %Y"}</em>,
+	на сумму <b>{$order.content.summ|price:false} {numeral number=$order.content.summ ends=$GLOBS.allcurrencies[$order.content.currency].name}</b>
+	{if $GLOBS.order_status[$order.content.status]}
+		<span class="badge
+		{if $order.content.status eq 'A'}{/if}
+		{if $order.content.status eq 'F'}label-inverse{/if}
+		{if $order.content.status eq 'N'}badge-info{/if}
+		{if $order.content.status eq 'P'}badge-info{/if}
+		{if $order.content.status eq 'M'}badge-success{/if}
+		{if $order.content.status eq 'O'}badge-info{/if}
+		{if $order.content.status eq 'C'}badge-success{/if}
+		{if $order.content.status eq 'V'}badge-info{/if}
+		{if $order.content.status eq 'Z'}badge-important{/if}
+		{if $order.content.status eq 'R'}badge-warning{/if}
+		{if $order.content.status eq 'K'}badge-warning{/if}
+		">{$GLOBS.order_status[$order.content.status]}</span>
+		<span class="badge
+		{if $order.content.pay_status eq 'S'}badge-info{/if}
+		{if $order.content.pay_status eq 'HP'}badge-warning{/if}
+		{if $order.content.pay_status eq 'FP'}badge-success{/if}
+		">{$GLOBS.pay_status[$order.content.pay_status]}</span>
+	{/if}
+	&mdash; <a onclick="duplicateOrder('{$order_key}', '{$order.hash}');return false;" href="/basket/?action=duplicate&order_id={$order_key}&oh={$order.hash}"><small>Повторить заказ</small></a>
+</p>
+{if $GLOBS.merchants}
+<p>
+{if $order.content.pay_status neq 'FP'}
+{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=$order.content.summ order_id=$order_key currency=$GLOBS.allcurrencies[$order.content.currency]}
+{/if}
+</p>
+{/if}
+<!--a href="/basket/?action=showorder&id={$order_key}&oh={$order.hash}"><small>Постоянный адрес заказа</small></a-->
+<table class="table table-striped">
+<thead>
+<tr>
+	<!--th>Код</th-->
+	<th></th>
+	<th colspan="2">Название</th>
+
+	<!--th>Цена без скидки</th>
+	<th>Сумма без скидки</th-->
+	<th>Кол-во</th>
+	<th>Скидка (%)</th>
+	<th>Цена</th>
+	<th>Сумма</th>
+	<th></th>
+</tr>
+</thead>
+<tbody>
+{foreach from=$order.goods item=product}
+  {if $product.content.name}
+  <tr>
+    <!--td>{$product.code}</td-->
+    <td>{$product.content.articul}</td>
+    <td>
+	  	<a class="thumbnail" href="{$product.content.vlink}">
+	  	{foreach from=$product.content.images item="im"}<img src="/{image src=$im.path width=40 height=40 folder=".40x40"}" alt="{$im.name}">{break}{/foreach}
+	  	</a>
+    </td>
+    <td>
+    	<a href="{$product.content.vlink}">
+    		{$product.content.name}
+    	</a>
+        {if sizeof($product.params)>0}
+        <p><b>Опции : </b>
+        {foreach from=$product.params key=key item=value}
+        <br />&mdash; {$product.content[{$key}][{$value}]['name']}
+        {/foreach}
+        </p>
+        {/if}
+    </td>
+    <td>{$product.count}</td>
+    <!--td>{$product.oldprice|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
+    <td>{$product.oldtotal|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td-->
+    <td>{if $product.discount}{$product.discount}%{else}&mdash;{/if}</td>
+    <td>{$product.price|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
+    <td>{$product.total|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
+  </tr>
+  {else}
+  <tr>
+  	<td>{$product.code}</td>
+    <td>&mdash;</td>
+    <td>
+    </td>
+    <td>Товар удален из базы</td>
+    <td>{$product.oldprice|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
+    <td>{$product.discount|default:'&mdash;'}</td>
+    <td>{$product.price|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
+  </tr>  
+  {/if}
+{/foreach}
+</tbody>
+</table>
+
+{/foreach}
+{else}
+<p>Пока, вы не сделали ни одного заказа.</p>
+{/if}

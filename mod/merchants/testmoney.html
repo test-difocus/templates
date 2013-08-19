@@ -1,0 +1,9 @@
+<form action="http://www.pic.dev/merchant.php" method="POST" class="payment-form pull-left" />
+	<input type="hidden" name="order_id" value="{$order_id}" />
+	<input type="hidden" name="summ" value="{$summ}" />
+	<input type="hidden" name="currency" value="{$currency.code}" />
+	<input type="hidden" name="name" value="{$GLOBS.userdata.login}" />
+	<input type="hidden" name="email" value="{$GLOBS.userdata.email}" />
+	
+	<button type=submit class="btn">{$GLOBS.merchants.testmoney.btn|default:'Оплатить через TESTMONEY'}</button>
+</form>

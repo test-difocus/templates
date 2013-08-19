@@ -1,0 +1,6 @@
+{if $GLOBS.merchants}
+	{foreach from=$GLOBS.merchants item=item key=merchant}
+	{include file="$TMPL_FOLDER/mod/merchants/$merchant.html"}
+	{/foreach}
+	<p class="clearfix"></p>
+{/if}

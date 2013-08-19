@@ -1,0 +1,29 @@
+{foreach from=$menu item=item}
+	{if $item.level>=$menu_prevlevel}</li>{/if}
+
+	{if $item.level>$menu_prevlevel}
+		{section name=levelup start=$menu_prevlevel loop=$item.level step=1}</ul></li>{/section}
+	{/if}
+
+	{if $item.level<$menu_prevlevel}
+		{if $menu_prevlevel eq $menu_commonlevel}{* первый ul *}
+			<ul class="nav">
+		{else}
+			<ul{if $prevopened} {/if} {if $prevcountchilds>0} class="dropdown-menu"{/if}>
+		{/if}
+	{/if}
+	
+	{assign var="menu_prevlevel" value=$item.level}
+	
+	{if $item.level<$menu_prevlevel}
+		<ul{if $prevopened} {/if}>
+	{/if}
+
+	<li class="{if $item.opened}active{/if} {if $item.countchilds>0}dropdown{/if}">
+
+	<a {if $item.countchilds>0} href="#" class="dropdown-toggle" data-toggle="dropdown"{else}href="{$item.vlink}"{/if}>{$item.content.name}{if $item.countchilds>0} <b class="caret"></b>{/if}</a>
+	
+	{assign var="prevopened" value=$item.opened}
+	{assign var="prevcountchilds" value=$item.countchilds}
+{/foreach}
+{section name=levelup start=$menu_prevlevel loop=$menu_commonlevel step=1}</li></ul>{/section}

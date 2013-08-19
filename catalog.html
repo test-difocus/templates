@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {include file="$TMPL_FOLDER/inc/header.html"}
+  {include file="$TMPL_FOLDER/inc/scripts.html"}
+  <body>
+  <div class="wrapper">
+	{include file="$TMPL_FOLDER/inc/top.html"}
+	<div class="container">
+		<div class="page-title">
+			{if $name}<h1>{$name}{if $ext_tags && $tags_word}: {$tags_word}{/if}</h1>{/if}
+			{include file="$TMPL_FOLDER/mod/pathline.html"}
+		</div>
+		<section>
+			{include file="$TMPL_FOLDER/mod/anounces.html"}
+	    {if sizeof($directories_pubs)>0}
+	    	<div class="products">
+		    	{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage}
+				<div class="row-fluid">
+				{foreach from=$directories_pubs item="item" name="cat"}
+					{include file="$TMPL_FOLDER/inc/product-item.html" content=$item.content oid=$item.oid}
+				{if $smarty.foreach.cat.iteration % 4 == 0 && !$smarty.foreach.cat.last}</div><div class="row-fluid">{/if}
+				{/foreach}
+			    </div>
+				{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage}
+			<div>
+	    {else}
+	    	{if $smarty.post.filter}
+	    	<div class="well">
+	    		<h2>Нет результатов</h2>
+		    	<p>По заданным параметрам товаров не найдено.</p>
+	    	</div>
+	    	{else}
+	    	<div class="well">
+	    		<h2>Раздел пуст</h2>
+		    	<p>Текущий раздел, пока не заполнен.</p>
+	    	</div>	    	
+	    	{/if}
+	    {/if}
+	    	{if $text}<div class="well">
+		    	{$text}
+	    	</div>{/if}
+		</section>
+	</div>
+	{include file="$TMPL_FOLDER/inc/footer.html"}
+  </div>
+  </body>
+</html>

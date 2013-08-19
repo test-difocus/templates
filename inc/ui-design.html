@@ -1,0 +1,393 @@
+<form class="ui-design" action="/cabinet/">
+	<div class="ui-design-container">
+	<a href="#" rel="hide-ui-design" class="toggle hide"></a>
+	<a href="#" rel="show-ui-design" class="toggle show"></a>
+	
+	<select id="class-item">
+		<option value=".styles">Готовые стили</option>
+		<option value=".header .brand">Заголовок сайта</option>
+		<option value=".navbar-inner">Основное меню</option>
+		<option value=".navbar .nav > li > a">Cсылки в основном меню</option>
+		<option value=".slider-wrapper">Слайд-шоу</option>
+		<option value=".product-item .thumbnail">Товарная группа</option>
+		<option value=".categories">Категории товаров</option>
+		<option value=".filters">Фильтры товаров</option>
+		<option value=".container">Весь сайт</option>
+		<option value=".css">CSS</option>
+	</select>
+	<div>Весь css<br />
+		<textarea id="CSS" class="CSS-editor" style="height:600px;" type="css">{$GLOBS.style}</textarea>
+	</div>
+	<div>
+	Фон сайта<br />
+	<ul class="Selectors BackgroundImage-editor" id="BackgroundImage">
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'birds'} active{/if}" href="/cabinet/" value="birds">
+				<img src="/assets/origin/i/birds.gif" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'denim'} active{/if}" href="/cabinet/" value="denim">
+				<img src="/assets/origin/i/denim.gif" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'floral'} active{/if}" href="/cabinet/" value="floral">
+				<img src="/assets/origin/i/floral.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'brown'} active{/if}" href="/cabinet/" value="brown">
+				<img src="/assets/origin/i/brown.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'linen'} active{/if}" href="/cabinet/" value="linen">
+				<img src="/assets/origin/i/linen.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'paint'} active{/if}" href="/cabinet/" value="paint">
+				<img src="/assets/origin/i/paint.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'paisley'} active{/if}" href="/cabinet/" value="paisley">
+				<img src="/assets/origin/i/paisley.gif" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'grass'} active{/if}" href="/cabinet/" value="grass">
+				<img src="/assets/origin/i/grass.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'tulips'} active{/if}" href="/cabinet/" value="tulips">
+				<img src="/assets/origin/i/tulips.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'lightwood'} active{/if}" href="?bg=lightwood" value="lightwood">
+				<img src="/assets/origin/i/lightwood.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'wood'} active{/if}" href="/cabinet/" value="wood">
+				<img src="/assets/origin/i/wood.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<!--li>
+			<a class="selector{if $GLOBS.bg eq 'anchors'} active{/if}" href="/cabinet/" value="anchors">
+				<img src="/assets/origin/i/anchors.gif" style="width:56px;height:56px;">
+			</a>
+		</li-->
+		<!--li>
+			<a class="selector{if $GLOBS.bg eq 'fruits'} active{/if}" href="/cabinet/" value="fruits">
+				<img src="/assets/origin/i/fruits.gif" style="width:56px;height:56px;">
+			</a>
+		</li-->
+		<!--li>
+			<a class="selector{if $GLOBS.bg eq 'gray'} active{/if}" href="/cabinet/" value="gray">
+				<img src="/assets/origin/i/gray.png" style="width:56px;height:56px;">
+			</a>
+		</li-->
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'lotus'} active{/if}" href="/cabinet/" value="lotus">
+				<img src="/assets/origin/i/lotus.gif" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<!--li>
+			<a class="selector{if $GLOBS.bg eq 'panda'} active{/if}" href="/cabinet/" value="panda">
+				<img src="/assets/origin/i/panda.gif" style="width:56px;height:56px;">
+			</a>
+		</li-->
+		<li>
+			<a class="selector{if $GLOBS.bg eq 'ribbon'} active{/if}" href="/cabinet/" value="ribbon">
+				<img src="/assets/origin/i/ribbon.gif" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<!--li>
+			<a class="selector{if $GLOBS.bg eq 'butterflies'} active{/if}" href="/cabinet/" value="butterflies">
+				<img src="/assets/origin/i/butterflies.gif" style="width:56px;height:56px;">
+			</a>
+		</li-->
+		<li>
+			<a class="selector{if $GLOBS.bg eq ''} active{/if}" href="/cabinet/" value="remove">
+				<img src="/assets/origin/i/remove.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+	</ul>
+	</div>
+	<div>
+	Дизайн сайта<br />
+	<ul class="Selectors MainStyle-editor" id="MainStyle">
+		<li>
+			<a class="selector{if $GLOBS.css eq 'amelia'} active{/if}" href="/cabinet/" value="amelia" title="amelia">
+				<img src="/assets/origin/icons/amelia.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'cerulean'} active{/if}" href="/cabinet/" value="cerulean" title="cerulean">
+				<img src="/assets/origin/icons/cerulean.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'cyborg'} active{/if}" href="/cabinet/" value="cyborg" title="cyborg">
+				<img src="/assets/origin/icons/cyborg.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'origin'} active{/if}" href="/cabinet/" value="origin" title="origin">
+				<img src="/assets/origin/icons/origin.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'readable'} active{/if}" href="/cabinet/" value="readable" title="readable">
+				<img src="/assets/origin/icons/readable.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'simplex'} active{/if}" href="/cabinet/" value="simplex" title="simplex">
+				<img src="/assets/origin/icons/simplex.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'slate'} active{/if}" href="/cabinet/" value="slate" title="slate">
+				<img src="/assets/origin/icons/slate.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'spacelab'} active{/if}" href="/cabinet/" value="spacelab" title="spacelab">
+				<img src="/assets/origin/icons/spacelab.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'spruce'} active{/if}" href="/cabinet/" value="spruce" title="spruce">
+				<img src="/assets/origin/icons/spruce.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'superhero'} active{/if}" href="/cabinet/" value="superhero" title="superhero">
+				<img src="/assets/origin/icons/superhero.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'united'} active{/if}" href="/cabinet/" value="united" title="united">
+				<img src="/assets/origin/icons/united.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'first'} active{/if}" href="/cabinet/" value="first" title="first">
+				<img src="/assets/origin/icons/first.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'yellowblack'} active{/if}" href="/cabinet/" value="yellowblack" title="yellowblack">
+				<img src="/assets/origin/icons/yellow-black.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'reight'} active{/if}" href="/cabinet/" value="reight" title="reight">
+				<img src="/assets/origin/icons/reight.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'orange'} active{/if}" href="/cabinet/" value="orange" title="orange">
+				<img src="/assets/origin/icons/orange.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'chami'} active{/if}" href="/cabinet/" value="chami" title="chami">
+				<img src="/assets/origin/icons/chami.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>		
+		<li>
+			<a class="selector{if $GLOBS.css eq 'wine'} active{/if}" href="/cabinet/" value="wine" title="wine">
+				<img src="/assets/origin/icons/wine.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>		
+		<li>
+			<a class="selector{if $GLOBS.css eq 'redgray'} active{/if}" href="/cabinet/" value="redgray" title="redgray">
+				<img src="/assets/origin/icons/red-gray.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'redoval'} active{/if}" href="/cabinet/" value="redoval" title="redoval">
+				<img src="/assets/origin/icons/redoval.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'wooden'} active{/if}" href="/cabinet/" value="wooden" title="wooden">
+				<img src="/assets/origin/icons/wooden.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'antiq'} active{/if}" href="/cabinet/" value="antiq" title="antiq">
+				<img src="/assets/origin/icons/antiq.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'bubbles'} active{/if}" href="/cabinet/" value="bubbles" title="bubbles">
+				<img src="/assets/origin/icons/bubbles.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'ryushi'} active{/if}" href="/cabinet/" value="ryushi" title="ryushi">
+				<img src="/assets/origin/icons/ryushi.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'steak'} active{/if}" href="/cabinet/" value="steak" title="steak">
+				<img src="/assets/origin/icons/steak.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'books'} active{/if}" href="/cabinet/" value="books" title="books">
+				<img src="/assets/origin/icons/books.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+<!--
+		<li>
+			<a class="selector{if $GLOBS.css eq 'pets'} active{/if}" href="/cabinet/" value="pets" title="pets">
+				<img src="/assets/origin/icons/pets.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+-->
+		<li>
+			<a class="selector{if $GLOBS.css eq 'mobile'} active{/if}" href="/cabinet/" value="mobile" title="mobile">
+				<img src="/assets/origin/icons/mobile.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'surfer'} active{/if}" href="/cabinet/" value="surfer" title="surfer">
+				<img src="/assets/origin/icons/surfer.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'linen'} active{/if}" href="/cabinet/" value="linen" title="linen">
+				<img src="/assets/origin/icons/linen.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'bereza'} active{/if}" href="/cabinet/" value="bereza" title="bereza">
+				<img src="/assets/origin/icons/bereza.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'journal'} active{/if}" href="/cabinet/" value="journal" title="journal">
+				<img src="/assets/origin/icons/journal.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'pink'} active{/if}" href="/cabinet/" value="pink" title="pink">
+				<img src="/assets/origin/icons/pink.jpg" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'spice'} active{/if}" href="/cabinet/" value="spice" title="spice">
+				<img src="/assets/origin/icons/spice.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+		<li>
+			<a class="selector{if $GLOBS.css eq 'remove'} active{/if}" href="/cabinet/" value="remove" title="Убрать стиль">
+				<img src="/assets/origin/i/remove.png" style="width:56px;height:56px;">
+			</a>
+		</li>
+	</ul>
+	</div>
+	
+	<div>Тень<br />
+		<ul class="Selectors Container-editor" id="Container">
+			<li><a class="selector{if $GLOBS.container neq 'show'} active{/if}" href="/cabinet/" value="hide">Скрывать</a></li>
+			<li><a class="selector{if $GLOBS.container eq 'show'} active{/if}" href="/cabinet/" value="show">Показывать</a></li>
+		</ul>
+	</div>
+
+	<select id="Display" class="Display-editor" title="Отображать или нет на сайте" rel="tooltip" data-placement="right">
+		<option value="">По-умолчанию показывать</option>
+		<option value="none">Скрывать</option>
+	</select>
+	
+	<div id="FontGroup">Шрифт<br />
+	<select id="fontFamily" class="Font-editor" title="Название шрифта" rel="tooltip" data-placement="right">
+	<option value="">По-умолчанию</option>
+	<option value="Arial, sans-serif">Arial</option>
+	<option value="Helvetica, sans-serif">Helvetica</option>
+	<option value="Comic Sans MS">Comic Sans</option>
+	<option value="Courier New">Courier New</option>
+	<option value="Georgia, serif">Georgia</option>
+	<option value="Lucida Console, sans-serif">Lucida Console</option>
+	<option value="Tahoma, Geneva, sans-serif">Tahoma</option>
+	<option value="Palatino Linotype, Book Antiqua, Palatino, serif">Palatino Linotype, Book Antiqua</option>
+	<option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+	<option value="MS Sans Serif, Geneva, sans-serif">MS Sans Serif</option>
+	<option value="Lobster, sans-serif">Lobster</option>
+	</select>
+	
+	<div class="slider" title="Размер шрифта в пикселях" rel="tooltip" data-placement="right"><input type="text" id="fontSize" class="Font-editor px" value="" /></div>
+	<input type="text" id="textColor" class="Font-editor colorpicker" value=""  title="Цвет текста" data-color-format="hex" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	<input type="text" id="anchorColor" class="Anchor-editor colorpicker" value="" title="Цвет ссылки" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	<input type="text" id="hoverColor" class="Anchor-editor colorpicker" value="" title="Цвет ссылки при наведении" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	<input type="text" id="textShadow" class="Font-editor colorpicker" value="" title="Цвет тени для текста" rel="tooltip" data-placement="right" placeholder="Например, #000"/>
+	</div>
+	<div id="BackgroundGroup">Фон<br />
+	<input type="text" id="backgroundTop" class="Background-editor colorpicker" value="" title="Первый цвет градиента" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	<input type="text" id="backgroundBottom" class="Background-editor colorpicker" value="" title="Второй цвет градиента" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	</div>
+	
+	<div id="BorderGroup">
+	Граница<br />
+	<div class="slider" title="Ширина границы в пикселях" rel="tooltip" data-placement="right"><input type="text" id="borderThickness" class="Border-editor px" value="" readonly /></div>
+	<input type="text" id="borderColor" class="Border-editor colorpicker" value=""  title="Цвет границы" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+
+	<div class="slider" title="Скругление границы" rel="tooltip" data-placement="right"><input type="text" id="Radius" class="Radius-editor px" value="" readonly /></div> 
+	</div>
+
+	<div id="ShadowGroup">
+	Тень блока<br />
+	<div class="slider" title="Внутренняя тень" rel="tooltip" data-placement="right"><input type="text" id="innerHighlight" class="Shadow-editor px" value="0px" readonly /></div>
+<!--
+	<select title="Внутренняя тень" rel="tooltip" data-placement="right" id="innerHighlight" class="Shadow-editor px">
+		<option value="">По-умолчанию</option>
+		<option value="0px">Отключить</option>
+	</select>
+-->
+	<div class="slider" title="Внешняя тень" rel="tooltip" data-placement="right"><input type="text" id="outerHighlight" class="Shadow-editor px" value="" readonly /></div>
+<!--
+	<select title="Внешняя тень" rel="tooltip" data-placement="right" id="outerHighlight" class="Shadow-editor px">
+		<option value="">По-умолчанию</option>
+		<option value="0px">Отключить</option>
+	</select>
+-->
+
+	</div>
+	
+	<div id="IndentGroup">
+		Отступы<br />
+		<div class="slider" title="Внутренний отступ" rel="tooltip" data-placement="right"><input type="text" id="Padding" class="Padding-editor px" value="" readonly /></div>
+		<div class="slider" title="Внешний отступ" rel="tooltip" data-placement="right"><input type="text" id="Margin" class="Margin-editor px" value="" readonly /></div>
+	</div>
+	
+	<div align="center" class="buttons">
+		<button type="submit" id="SaveButton" class="submit SAVE-editor">Сохранить</button>
+		<br />
+		<img src="/media0/img/exclamation.png" alt="exclamation" width="10" height="10" /> <a href="#ui-instruction" class="fancybox" style="color:white;">инструкция</a>
+		<div id="ui-instruction" class="hide">
+		<h3>Иструкция по использованию</h3>
+		<p>Для подключения стиля или смены фона необходимо нажать на пиктограмму<br>
+		со схематичным изображением фона или дизайна сайта,<br>
+		после появления надписи "Сохранено" - изменения внесены.
+		<p>Изменение дизайна происходит при использовании визуального редактора <br>
+		CSS(все разделы, кроме "CSS" и "Готовые стили"). Для сохранения изменений,<br>
+		необходимо нажать кнопку сохранить.</p>
+		<p>Для редактирования CSS-кода вручную(раздел "CSS"):</p>
+		<ul>
+			<li>Сохраните изменения в визуальном редакторе CSS<br> и обновите страницу сайта(ctrl+F5);</li>
+			<li>Перейдите во вкладку CSS;</li>
+			<li>Внесите исправления вручную и нажмите сохранить;</li>
+			<li>После внесения исправлений вручную использование <br>визуального редактора CSS - <b>запрещено</b>.</li>
+		</ul>
+		</div>
+	</div>
+	</div>
+</form>

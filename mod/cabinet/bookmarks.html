@@ -1,0 +1,55 @@
+{if sizeof($cabinetbookmarks_pubs)>0}
+<div class="row-fluid">
+{foreach from=$cabinetbookmarks_pubs item="item" key=key name=fav}
+	<div class="product-item span3 inbasket-item">
+		<div class="product-item-inner thumbnail">
+			{if $item.content.product_flags}<span class="badge badge-warning left">{$GLOBS.product_flags[$item.content.product_flags]}</span>{/if}
+			{if $item.content.discount.percent}<span class="btn btn-success product-circle right">-{$item.content.discount.percent}%</span>{/if}
+			<a href="{$item.vlink}">{if sizeof($item.content.images)>0}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path height=150 folder=".150"}" alt="{$im.name}" />{break}{/foreach}{else}<img src="/media0/img/no-image.png" alt="Нет изображения" height=130 />{/if}</a>
+			
+			<div class="caption">
+				<h5><a href="{$item.vlink}">{$item.content.name}</a></h5>
+	
+				{if $item.content.price}
+				<p class="price-block short">
+					{if $item.content.minprice && $item.content.minprice < $item.content.maxprice}
+						от {$item.content.minprice|discount:$item.content.discount.percent|price}
+						{if $item.content.discount.percent}<s>от {$item.content.minprice|price}</s>{else if $item.content.old_price}<s>{$item.content.old_price|price}</s>{/if}
+					{else}
+						{$item.content.price|discount:$item.content.discount.percent|price}
+						{if $item.content.discount.percent}<s>{$item.content.price|price}</s>{else if $item.content.old_price}<s>{$item.content.old_price|price}</s>{/if}
+					{/if}
+					
+				</p>
+				<p class="price-block long">
+					{if $item.content.minprice && $item.content.minprice < $item.content.maxprice}
+						Цена от {$item.content.minprice|discount:$item.content.discount.percent|price}
+						<small>{if $item.content.discount.percent}<s>Старая цена от {$item.content.minprice|price}</s>{else if $item.content.old_price}<s>Старая цена {$item.content.old_price|price}</s>{/if}</small>
+					{else}
+						Цена: {$item.content.price|discount:$item.content.discount.percent|price}
+						<small>{if $item.content.discount.percent}<s>Старая цена {$item.content.price|price}</s>{else if $item.content.old_price}<s>Старая цена {$item.content.old_price|price}</s>{/if}</small>
+					{/if}
+				</p>
+				<a href="/basket/?action=add&oid={$key}&time={$smarty.now}" class="btn btn-primary inbasket"><i class="icon-shopping-cart icon-white"></i> Купить</a>
+				{else}
+				<p class="price-block">
+					Цена не указана
+				</p>
+				{/if}
+				<a class="btn btn-bookmark" href="/cabinet/bookmarks.html?{$key}&time={$smarty.now}" title="Убрать из избранного"><i class="icon-star"></i></a>
+			</div>
+		</div>
+	</div>
+	{if $smarty.foreach.fav.iteration % 4 == 0 && $smarty.foreach.fav.iteration!=$smarty.foreach.fav.last}</div><div class="row-fluid">{/if}
+{/foreach}
+</div>
+{else}
+	{if $text}
+	{$text}
+	{else}
+	<h2 align="center">Пока, вы не добавили ни одной закладки,<br>но это не трудно сделать</h2>
+	<p align="center">
+		Нажмите на "Добавить в избранное" рядом с кнопкой "Купить" на странице товара,<br> и он появится здесь, чтобы вы позже могли быстро его найти.
+	</p>
+	{/if}
+{/if}

@@ -1,0 +1,7 @@
+<ul class="nav nav-pills">
+{foreach from=$directories_folders item=item}
+	<li class="{if $item.vlink eq $vpath}active{/if}">
+		<a href="{$item.vlink}">{$item.content.name}</a>
+	</li>
+{/foreach}
+</ul>

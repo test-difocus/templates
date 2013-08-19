@@ -1,0 +1,10 @@
+{if sizeof($lastpublish_pubs)>0}
+<section class="lastpublish">
+	{foreach from=$lastpublish_pubs item="item"}
+	<div class="lastpublish-item">
+		<h5><small style="font-size:10px;">{$item.created|date_format:"%d %B %Y"}</small> <a href="{$item.content.vlink}">{$item.content.name}</a></h5>
+		<p>{if $item.content.annotate}{$item.content.annotate}{else}{$item.content.text|strip_tags|truncate:100}{/if}</p>
+	</div>
+	{/foreach}
+</section>
+{/if}

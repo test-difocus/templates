@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {include file="$TMPL_FOLDER/inc/header.html"}
+  {include file="$TMPL_FOLDER/inc/scripts.html"}
+  <body>
+  <div class="wrapper">
+	{include file="$TMPL_FOLDER/inc/top.html"}
+	<div class="container">
+		<div class="page-title">
+			{if $name}<h1>{$name}</h1>{/if}
+			{include file="$TMPL_FOLDER/mod/pathline.html"}
+		</div>
+
+		{if sizeof($basketdata)}
+			<section class="basket-content">
+				
+				{if $coupon.coupon_id}
+				{if !$coupon.status}
+					<div class="alert alert-error">
+					{if !$coupon.statuses.date}<li>Время купона истекло.{/if}
+					{if !$coupon.statuses.price}<li>Сумма заказа не подходит. {/if}
+					{if !$coupon.statuses.count}<li>Количество товаров слишком мало. {/if}
+					{if !$coupon.statuses.used}<li>Купон уже использовали максимальное количество раз. {/if}
+					{if !$coupon.statuses.self_used}<li>Вы активировали купон ранее. {/if}
+					</div>
+				{/if}
+				<div class="alert alert-success">
+					Вы активировали купон <b>{$coupon.name}</b> на скидку в <b>{$coupon.discount}%</b><br>
+					{if $coupon.count_from || $coupon.count_to || $coupon.price_from || $coupon.price_to}
+					При покупке
+					{if $coupon.count_from} <u>от {$coupon.count_from} {numeral number=$coupon.count_from ends="вещи, вещей, вещей"}</u>{/if}
+					{if $coupon.count_to} до {$coupon.count_to} {numeral number=$coupon.count_from ends="вещи, вещей, вещей"}{/if}
+					{if $coupon.price_from || $coupon.price_to} на общую сумму {/if}
+					{if $coupon.price_from} <u>от {$coupon.price_from} {numeral number=$coupon.price_from|price:false ends=$GLOBS.currency.name}</u>{/if}
+					{if $coupon.price_to} до {$coupon.price_to} {numeral number=$coupon.price_to|price:false ends=$GLOBS.currency.name}{/if}.
+					{/if}
+					Время действия до {$coupon.date_to|date_format:"%d %B"}.
+					<a href="?coupon_destroy">Не использовать купон в этом заказе.</a>
+				</div>
+				
+				{/if}
+				
+				<table class="table table-striped">
+				<thead>
+				  <tr>
+				    <th></th>
+				    <th>Товар</th>
+				    <th nowrap="nowrap">Кол-во</th>
+				    <th>Цена</th>
+				    <!--th>Скидка (%)</th-->
+				    <!--th>Цена со скидкой</th-->
+				    <th>Всего</th>
+				    <!--th>Всего со скидкой</th-->
+				    <th></th>
+				  </tr>
+				</thead>
+				<tbody>
+
+				{foreach from=$basketdata item=item}
+				{include file="$TMPL_FOLDER/mod/basket/basket-item.html"}
+				{/foreach}
+				
+				</tbody>
+				</table>
+				
+				{* вывод сразу всех накопительных скидок *}
+				{if sizeof($discounts)}
+				<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds} } ); {/foreach}</script>
+				{/if}
+				<blockquote class="pull-right">
+					<h1>Итого</h1>
+					<p>
+					
+					<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
+					{if $oldtotal}<small>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>{/if}</p>
+				</blockquote>
+				<br clear="all" />
+				{if !$coupon.coupon_id && $coupons_enable}
+				<form action="/basket/" method="post" class="pull-right">
+					<div class="input-append">
+					<input type="text" id="inputCoupon" name="coupon" value="">
+					<button type="submit" class="btn btn-primary">Использовать купон</button>
+					</div>
+				</form>
+				{/if}
+			</section>
+			<br clear="all" />
+			<section class="orderform-content">
+				<div class="page-header">
+					<h1>Оформление заказа</h1>
+				</div>
+
+				{if $GLOBS.user_id eq 6}
+					<div class="well">{$text}</div>
+				{/if}
+				
+				{include file="$TMPL_FOLDER/mod/basket/order-form.html"}
+			</section>
+		{else}
+		<section class="basket-content">
+			<p>У вас нет отложенных в корзину товаров.</p>
+		</section>
+		{/if}
+	</div>
+    {include file="$TMPL_FOLDER/inc/footer.html"}
+  </div>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+{include file="$TMPL_FOLDER/inc/header.html"}
+{include file="$TMPL_FOLDER/inc/scripts.html"}
+<body>
+<div class="wrapper">
+	{include file="$TMPL_FOLDER/inc/top.html"}
+	<div class="container">
+		<div class="page-title">
+			<!--h1>Ваш заказ оформлен</h1-->
+		</div>
+		<article style="margin-top:15px;">
+			<div class="hero-unit">
+				<h1>Номер вашего заказа <u>{$onumber}</u></h1>
+				<p>
+					{*if $order_content.pay_status eq 'FP'}<span class="badge badge-success" style="vertical-align: super;">Оплачен</span>{else if $order_content.pay_status eq 'HP'}<span class="badge badge-warning" style="vertical-align: super;">Оплачен не полностью</span>{/if*}
+					Сумма вашего заказа составила <b>{$order_total|price}</b>, спасибо, что выбрали наш магазин.
+				{if $GLOBS.user_id eq 6}
+					{$text}
+				{else}
+					Историю заказов можно посмотреть в <a href="/cabinet/history.html">личном кабинете</a>.
+				{/if}
+				</p>
+			<p class="pull-right"><a href="/basket/?action=showorder&id={$onumber}&oh={$order_hash}"><small>Постоянный адрес заказа №{$onumber}</small></a></p>
+			</div>
+			{if $GLOBS.merchants}
+				{if !$order_content.pay_status || $order_content.pay_status eq 'S'}
+				<h1>Оплатите ваши покупки</h1>
+				<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=$order_total order_id=$onumber currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
+				{else if $order_content.pay_status eq 'HP'}
+				<h1>Заказ оплачен не полностью</h1>
+				<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=($order_total-$order_content.paid) order_id=$onumber currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
+				{/if}
+			{/if}
+			
+			<div class="page-header">
+				<h1>Ваши покупки</h1>
+			</div>
+			{if sizeof($basketdata)}
+			<section>
+				<div class="row-fluid">
+				{foreach from=$basketdata item=item name="orderitems"}
+				<div class="product-item span3">
+				  <div class="product-item-inner thumbnail">
+				    <a href="{$item.vlink}">{if sizeof($item.content.images)>0}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path height=150 folder=".150"}" alt="{$im.name}" />{break}{/foreach}{else}<img src="/media0/img/no-image.png" alt="Нет изображения" height=130 />{/if}</a>
+				    <div class="caption">
+					    <h5><a href="{$item.vlink}">{$item.content.name}</a></h5>
+						<p>
+							Цена: {$item.content.price|price}<br />
+							{if $item.content.oldprice!=$item.content.price}<s>Цена: {$item.content.oldprice|price}</s><br />{/if}
+							Всего за <b>{$item.count} шт.</b> &mdash; {($item.content.price*$item.count)|price}
+						</p>
+				    </div>
+				  </div>
+				</div>
+				{if $smarty.foreach.orderitems.iteration % 4 == 0 && $smarty.foreach.orderitems.iteration!=$smarty.foreach.orderitems.last}</div><div class="row-fluid">{/if}
+				{/foreach}
+				</div>
+				{if $orderduplicate}
+				<script>
+				var duplicateOrder = function (order_id, order_hash)
+				{
+					if(confirm('Добавить товары из заказа №'+order_id+' в текущий заказ?\nТовары, которых нет в наличии, добавлены не будут.'))
+					{
+						$.basket.to('/basket/?action=duplicate&order_id=' + order_id + '&oh=' + order_hash, 'abs', function(html){
+							$.fancybox(html);
+							$('.basket-item').ProductCalculator();
+						});
+					}
+					return false;
+				}
+				</script>
+				<form class="form-horizontal" action="/basket/?action=duplicate" method="post">
+					<input name="order_id" type="hidden" value="{$onumber}" />
+					<input name="oh" type="hidden" value="{$order_hash}" />
+					<fieldset>
+						<div class="form-actions">
+							<span class="help-inline">{$orderduplicate}</span>
+							<button type="submit" class="btn btn-primary" onclick="duplicateOrder('{$onumber}', '{$order_hash}');return false;">Повторить заказ</button>
+						</div>
+					</fieldset>
+				</form>
+				{/if}
+			</section>
+			{else}
+			<p>У вас нет отложенных в корзину товаров.</p>
+			{/if}
+		</article>
+	</div>
+	{include file="$TMPL_FOLDER/inc/footer.html"}
+</div>
+</body>
+</html>

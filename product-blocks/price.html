@@ -1,0 +1,61 @@
+{if $price}
+<div class="page-header">
+	<div class="price-block">
+		Цена
+		<span class="price" data-price="{$price|discount:$discount.percent}" data-oldprice="{$price}">
+			{$price|discount:$discount.percent|price:false}
+		</span>
+		
+		{$GLOBS.currency.shortname}
+		{if $units}за {numeral ends=$units number=1}{/if}
+		
+		{if $discount.percent}
+		<div class="discount-block">
+			<span class="badge badge-success">
+				Скидка {$discount.percent}%
+			</span>
+			
+			{if $discount.date_to_days < 30}
+			<div class="coundown" data-date="{$discount.date_to}">
+				<em class="icon-time"></em>
+				<span class=days></span>
+				<span class=hours></span>
+				<span class=minutes></span>
+				<span class=seconds></span>
+			</div>
+			{/if}
+		</div>
+		
+		<br />
+		<small><s>
+			Старая цена
+			<span class="oldprice">{$price|price:false}</span>{$GLOBS.currency.shortname}
+		</s></small>
+		
+		{else if $old_price}
+		<br />
+		<small><s>
+			Старая цена
+			<span class="oldprice">{$old_price|price:false}</span>{$GLOBS.currency.shortname}
+		</s></small>
+		{/if}
+		
+		<script src="/media0/js/jquery.countdown.js"></script>
+		<script>$('.coundown').countdown();</script>
+
+	</div>	
+	
+	{if $points && $GLOBS.user_id neq 6}
+	<div align="center">
+		При покупке добавляет <i class="icon-gift"></i>{$points} бонусов
+	</div>
+	{/if}
+</div>
+{else}
+<div class="page-header">
+	<div class="price-block">
+		Цена не указана
+		<span class="price" data-price="0" style="display:none;"></span>
+	</div>
+</div>
+{/if}

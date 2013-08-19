@@ -1,0 +1,13 @@
+<form method="GET" action="https://z-payment.com/merchant.php" class="payment-form pull-left">
+	<input type="hidden" value="{$order_id}" name="LMI_PAYMENT_NO"/>
+	<input type="hidden" value="{$summ}" name="LMI_PAYMENT_AMOUNT"/>
+	
+	<input type="hidden" value="{$GLOBS.merchants.zpayment.id}" name="LMI_PAYEE_PURSE"/>
+
+	<input type="hidden" value="{$GLOBS.merchants.zpayment.serviceName|default:'Оплата заказа №'}{$order_id}" name="LMI_PAYMENT_DESC"/>
+
+	<!--input type="hidden" value="{$GLOBS.userdata.login}" name="USER_VALUE1"/>
+	<input type="hidden" value="{$GLOBS.userdata.email}" name="CLIENT_MAIL"/-->
+
+	<button type=submit class="btn">{$GLOBS.merchants.zpayment.btn|default:'Оплатить через Z-Payment'}</button>
+</form>

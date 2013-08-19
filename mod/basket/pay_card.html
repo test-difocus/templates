@@ -1,0 +1,20 @@
+<form action="https://merchant.intellectmoney.ru/ru/" name="pay" method="POST">
+<input type="hidden" name="eshopId" value="432365">
+<input type="hidden" name="orderId" value="{$orderId}">
+<input type="hidden" name="userName" value="{$GLOBS.userdata.name}"> 
+<input type="hidden" name="userEmail" value="{$GLOBS.userdata.email}">
+
+{*<input type="hidden" name="userID" value="{$GLOBS.userdata.email}">*}
+
+<input type="hidden" name="serviceName" value="{foreach from=$basketdata item=item}{$item.content.name}, {/foreach}">
+<input type="hidden" name="recipientAmount" value="{$cost}">
+<input type="hidden" name="recipientCurrency" value="RUR">
+{*<input type="hidden" name="recipientCurrency" value="TST">*}
+
+<input type="hidden" name="hash" value="{$hash}">
+<input type="hidden" name="email" value="{$GLOBS.userdata.email}">
+<input type="hidden" name="preference" value="bankCard">
+<input type="hidden" name="successUrl" value="http://www.oncoupon.ru/basket/?action=order&order_id={$orderId}&pay_method={$pay_method}">
+<input type="hidden" name="failUrl" value="http://www.oncoupon.ru/basket/?action=order&order_id={$orderId}&pay_method={$pay_method}">
+
+<span class="btn png"><input class="png" type="submit" value="&nbsp;Оплатить заказ&nbsp;" /></span>

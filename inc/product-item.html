@@ -1,0 +1,45 @@
+<div class="product-item span3 inbasket-item">
+	<div class="product-item-inner thumbnail">
+		{if $content.product_flags}<span class="badge badge-warning left">{$GLOBS.product_flags[$content.product_flags]}</span>{/if}
+		{if $content.discount.percent}<span class="btn btn-success product-circle right">-{$content.discount.percent}%</span>{/if}
+		<a href="{$item.vlink}">{if sizeof($content.images)>0}{foreach from=$content.images item="im"}<img src="/{image src=$im.path height=$GLOBS.img_height|default:150 folder=$GLOBS.img_height|default:"150" crop=true}" alt="{$im.name}" />{break}{/foreach}{else}<img src="/media0/img/no-image.png" alt="Нет изображения" />{/if}</a>
+		
+		<div class="caption">
+			<h5><a href="{$item.vlink}">{$content.name}</a>
+		{if $content.available eq 'no'}<span class="label label-important">Продано</span>{/if}
+		{*if $content.available eq 'wait'}<span class="label label-warning">Ожидается</span>{/if*}
+		{*if $content.available eq 'never'}<span class="label label-important">Продано</span>{/if*}
+		{*if $content.available eq 'phone'}<span class="label label-info">Уточняйте наличие</span>{/if*}
+		{*if $content.available eq 'order'}<span class="label label-warning">Под заказ</span>{/if*}
+			</h5>
+
+			{if $content.price}
+			<p class="price-block short">
+				{if $content.minprice}
+					{if $content.minprice < $content.maxprice}от{/if}
+					{$content.minprice|discount:$content.discount.percent|price}
+					{if $content.discount.percent}<s>{if $content.minprice < $content.maxprice}от{/if} {$content.minprice|price}</s>{else if $content.old_price}<s>{$content.old_price|price}</s>{/if}
+				{else}
+					{$content.price|discount:$content.discount.percent|price}
+					{if $content.discount.percent}<s>{$content.price|price}</s>{else if $content.old_price}<s>{$content.old_price|price}</s>{/if}
+				{/if}
+				
+			</p>
+			<p class="price-block long">
+				{if $content.minprice}
+					Цена{if $content.minprice < $content.maxprice} от{else}:{/if} {$content.minprice|discount:$content.discount.percent|price}
+					<small>{if $content.discount.percent}<s>Старая цена {if $content.minprice < $content.maxprice}от{/if} {$content.minprice|price}</s>{else if $content.old_price}<s>Старая цена {$content.old_price|price}</s>{/if}</small>
+				{else}
+					Цена: {$content.price|discount:$content.discount.percent|price}
+					<small>{if $content.discount.percent}<s>Старая цена {$content.price|price}</s>{else if $content.old_price}<s>Старая цена {$content.old_price|price}</s>{/if}</small>
+				{/if}
+			</p>
+			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-primary inbasket"><i class="icon-shopping-cart icon-white"></i> Купить</a>
+			{else}
+			<p class="price-block">
+				Цена не указана
+			</p>
+			{/if}
+		</div>
+	</div>
+</div>

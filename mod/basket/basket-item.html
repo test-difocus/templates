@@ -1,0 +1,42 @@
+	  <tr class="basket-item inbasket-item" id="product{$item.oid}">
+	  	<td style="max-width:100px;">
+		  	<a class="thumbnail" href="{$item.vlink}">
+		  	{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}
+		  	</a>
+	  	</td>
+	    <td>
+		    <h3><a href="{$item.vlink}">{$item.content.name}</a> <sup class="badge badge-success {if !$item.content.discount.percent}hide{/if}">Скидка <span class="discount">{$item.content.discount.percent}</span>%</sup></h3>
+		    {if sizeof($item.params)>0}
+		    <p><b>Опции : </b>
+		    <small>
+		    {foreach from=$item.params key=key item=value}
+		    <br />
+		    &mdash;
+		    {$GLOBS.fieldnames[7][$key]}:
+		    {$item.content[$key][$value]['name']}
+		    {if $item.content[$key][$value]['price']} - <b>{$item.content[$key][$value]['price']}{$GLOBS.currency.shortname}</b>{/if}
+		    {/foreach}
+		    </small>
+		    </p>
+		    {/if}
+	    </td>
+	    <td class="nowrap"><span class="count">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}</td>
+	    <!--td>{if $item.content.oldprice}<span class="oldprice">{$item.content.oldprice|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
+	    <!--td>{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td-->
+	    <td class="nowrap">
+	    	<span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}" {/if}>
+	    		{$item.content.price|price:false}
+	    	</span>{$GLOBS.currency.shortname}
+	    </td>
+	    <!--td>{if $item.content.oldprice}<span class="oldtotal">{($item.content.oldprice*$item.count)|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
+	    <td class="nowrap">
+	    	<span class="total">
+	    		{($item.content.price*$item.count)|price:false}
+		    </span>{$GLOBS.currency.shortname}
+		</td>
+	    <td class="nowrap">
+		<a href="/basket/?action=add&oid={$item.oid}&time={$smarty.now}" class="btn btn-primary btn-mini controls" data-action="increase" data-product="product{$item.oid}"><i class="icon-plus icon-white"></i></a>
+		<a href="/basket/?action=del&oid={$item.oid}&time={$smarty.now}" class="btn btn-primary btn-mini controls" data-action="reduce" data-product="product{$item.oid}"><i class="icon-minus icon-white"></i></a>
+		<a href="/basket/?action=del&oid={$item.oid}&count={$item.count}" class="btn btn-danger btn-mini controls" data-action="remove" data-product="product{$item.oid}">Удалить</a>
+	    </td>
+	  </tr>

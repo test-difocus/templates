@@ -1,0 +1,16 @@
+{if $ext_productchecked && sizeof($productchecked_products)}
+<section class="productchecked">
+<!-- productchecked -->
+{if $productchecked_name}
+<div class="page-header">
+	<h3>{$productchecked_name}</h3>
+</div>
+{/if}
+<div class="row-fluid">
+{foreach from=$productchecked_products item="item" key="oid" name=cat}
+    {include file="$TMPL_FOLDER/inc/product-item.html" content=$item oid=$oid}
+	{if $smarty.foreach.cat.iteration % 4 == 0 && $smarty.foreach.cat.iteration!=$smarty.foreach.cat.last}</div><div class="row-fluid">{/if}
+{/foreach}
+</div>
+</section>
+{/if}

@@ -1,0 +1,11 @@
+{if sizeof($lastphotos_photos)>0}
+<div class="row-fluid lastphotos">
+	{foreach from=$lastphotos_photos item="item" name=limiter}
+	    <li class="span6">
+	        <a href="{$item.content.vlink}" title="{$item.content.name}" class="thumbnail"><img src='/{image src=$item.content.randimage width=150 height=100 folder='.150x100'}' width=150 /></a>
+	      </a>
+	    </li>
+	    {if $smarty.foreach.limiter.iteration % 2 == 0 && $smarty.foreach.limiter.iteration!=$smarty.foreach.limiter.last}</div><div class="row-fluid">{/if}
+	{/foreach}
+</div>
+{/if}

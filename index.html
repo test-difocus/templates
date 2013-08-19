@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {include file="$TMPL_FOLDER/inc/header.html"}
+  {include file="$TMPL_FOLDER/inc/scripts.html"}
+  <body id="index">
+  <div class="wrapper">
+	{include file="$TMPL_FOLDER/inc/top.html"}
+	<div class="container">
+		<div class="page-title">
+			{if $name}<h1>{$name}</h1>{/if}
+			{include file="$TMPL_FOLDER/mod/pathline.html"}
+			{if $annotate}<div class="article"><p class="lead">{$annotate}</p></div>{/if}
+		</div>
+		<aside>
+			{include file="$TMPL_FOLDER/inc/sidebar.html"}
+			{include file="$TMPL_FOLDER/mod/newsline.html"}
+			{include file="$TMPL_FOLDER/mod/lastpublish.html"}
+			{include file="$TMPL_FOLDER/mod/lastphotos.html"}
+			{include file="$TMPL_FOLDER/mod/lastcomments.html"}
+		</aside>
+		<section class="content">
+			{include file="$TMPL_FOLDER/mod/slideshow.html"}
+			{include file="$TMPL_FOLDER/mod/anounces.html"}
+			{include file="$TMPL_FOLDER/mod/objectsconnected.html"}
+			{include file="$TMPL_FOLDER/mod/objectsattached.html"}
+			{include file="$TMPL_FOLDER/mod/productpurchased.html"}
+			{include file="$TMPL_FOLDER/mod/productchecked.html"}
+			{include file="$TMPL_FOLDER/mod/productdiscount.html"}
+			{if $text}<div class="article">{$text}</div>{/if}
+		</section>
+	</div>
+	{include file="$TMPL_FOLDER/inc/footer.html"}
+  </div>
+  </body>
+</html>

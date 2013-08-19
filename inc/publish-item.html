@@ -1,0 +1,10 @@
+<div class="publish-item span6">
+  <div class="publish-item-inner">
+    {foreach from=$content.images item="im"}<a href="{$item.vlink}" class="publish-item-image"><img src="/{image src=$im.path width=210 folder=".210"}" alt="{$im.name}"></a>{break}{/foreach}
+    <div class="caption">
+      <h3><a href="{$item.vlink}">{$content.name}</a></h3>
+      <p>{if $content.annotate}{$content.annotate}{else}{$content.text|strip_tags|truncate:300}{/if}</p>
+      {if $content.tags}<p class="visible-desktop"><small>{tags value=$content.tags}</small></p>{/if}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<form class="form-horizontal" action="/basket/?action=order" method="post">
+	<input name="orderflag" type="hidden" value="1" />
+	<fieldset>
+		<div class="row">
+		{if $orderfields}
+			{assign var='fieldscount' value=sizeof($orderfields)}
+			<div class="span5">
+			{foreach from=$orderfields item=item name=fieldscounter}
+				{if $item.editable eq 'true'}
+				{if $item.htmltype eq 'textfield'}
+				<div class="control-group {if $order_fields[$item.name]['error']} error{/if}">
+					<label class="control-label" for="input{$item.name|capitalize}">{$item.runame}{if $item.necessary eq 'true'} <sup style="color:red;">!</sup> {/if}</label>
+					<div class="controls">
+						{if $order_fields[$item.name]['value']}
+						<input type="text" id="input{$item.name|capitalize}" name="{$item.name}" value="{$order_fields[$item.name]['value']}" placeholder="{$item.description}">
+						{else}
+						<input type="text" id="input{$item.name|capitalize}" name="{$item.name}" value="{if $GLOBS.userdata[$item.name] neq 'guest'}{$GLOBS.userdata[$item.name]}{/if}" placeholder="{$item.description}">
+						{/if}
+						{if $order_fields[$item.name]['error']} <span class="help-inline">Обязательно для заполнения</span>{/if}
+					</div>
+				</div>
+				{/if}
+				
+				{if $item.htmltype eq 'combostore'}
+				<div class="control-group {if $order_fields[$item.name]['error']} error{/if}">
+					<label class="control-label" for="input{$item.name|capitalize}">{$item.runame}{if $item.necessary eq 'true'} <sup style="color:red;">!</sup> {/if}</label>
+					<div class="controls">
+						<select name="{$item.name}" id="select{$item.name|capitalize}">
+						{foreach from=$GLOBS[$item.name] item=field_item key=field_item_key}
+							<option value="{$field_item_key}" {if $order_fields[$item.name]['value'] eq $field_item_key}selected{/if}>{$field_item}</option>
+						{/foreach}
+						</select>
+						{if $order_fields[$item.name]['error']} <span class="help-inline">Обязательно для заполнения</span>{/if}
+						{if $item.description}<span class="help-block">{$item.description}</span>{/if}
+					</div>
+				</div>
+				{/if}
+				
+				{if $item.htmltype eq 'textarea'}
+				<div class="control-group {if $order_fields[$item.name]['error']} error{/if}">
+					<label class="control-label" for="textarea{$item.name|capitalize}">{$item.runame}{if $item.necessary eq 'true'} <sup style="color:red;">!</sup> {/if}</label>
+					<div class="controls">
+						{if $order_fields[$item.name]['value']}
+						<textarea name="{$item.name}" cols=30 wrap="wrap" id="textarea{$item.name|capitalize}" placeholder="{$item.description}">{$order_fields[$item.name]['value']}</textarea>
+						{else}
+						<textarea name="{$item.name}" cols=30 wrap="wrap" id="textarea{$item.name|capitalize}" placeholder="{$item.description}">{$GLOBS.userdata[$item.name]}</textarea>
+						{/if}
+						{if $order_fields[$item.name]['error']} <span class="help-inline">Обязательно для заполнения</span>{/if}
+					</div>
+				</div>
+				{/if}
+				
+				{if $item.htmltype eq 'delivery' && sizeof($delivery)>0}				
+				<div class="control-group {if $order_fields[$item.name]['error']} error{/if}">
+					<label class="control-label" for="select{$item.name|capitalize}">{$item.runame}{if $item.necessary eq 'true'} <sup style="color:red;">!</sup> {/if}</label>
+					<div class="controls">
+						<select name="delivery" id="select{$item.name|capitalize}">
+							{foreach from=$delivery item=delivery_item key=delivery_key}
+							<option value="{$delivery_key}"
+									data-total-from="{$delivery_item.total_from|default:0}"
+									data-total-to="{$delivery_item.total_to|default:0}"
+									{if $delivery_item.disabled} disabled {/if}>
+								{$delivery_item.name} {if $delivery_item.price}( {$delivery_item.price|price:false} {numeral number=$delivery_item.price|price:false ends=$GLOBS.currency.name}){/if}
+								</option>
+							{/foreach}
+						</select>
+						{if $order_fields[$item.name]['error']} <span class="help-inline">Обязательно для заполнения</span>{/if}
+						{if $item.description}<span class="help-block">{$item.description}</span>{/if}
+					</div>
+				</div>
+				{/if}
+				{/if}
+				{if $smarty.foreach.fieldscounter.iteration%(($fieldscount+$fieldscount%2)/2) == 0 && $smarty.foreach.fieldscounter.iteration!=$smarty.foreach.fieldscounter.last}</div><div class="span5">{/if}
+			{/foreach}
+			</div>
+		{else}
+			<div class="span5">
+				<div class="control-group">
+					<label class="control-label" for="inputName">Имя</label>
+					<div class="controls">
+						<input type="text" id="inputName" name="name" value="{if $GLOBS.userdata.name neq 'guest'}{$GLOBS.userdata.name}{/if}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">Электронная почта</label>
+					<div class="controls">
+						<input type="text" id="inputEmail" name="email" value="{$GLOBS.userdata.email}">
+					</div>
+				</div>
+			</div>
+			<div class="span5">
+				<div class="control-group">
+					<label class="control-label" for="inputPhone">Номер телефона</label>
+					<div class="controls">
+						<input type="text" id="inputPhone" name="phone" value="{$GLOBS.userdata.phone}">
+					</div>
+				</div>
+				{if sizeof($delivery)>0}
+				<div class="control-group">
+					<label class="control-label" for="inputPhone">Тип доставки</label>
+					<div class="controls">
+						<select name="delivery">
+							{foreach from=$delivery item=item key=key}
+							<option value="{$key}">{$item.name} {if $item.price}( {$item.price|price:false} {numeral number=$item.price|price:false ends=$GLOBS.currency.name}){else}{/if}</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				{/if}
+				<div class="control-group">
+					<label class="control-label" for="inputPhone">Адрес доставки</label>
+					<div class="controls">
+						<textarea name="address" cols=30 wrap="wrap">{$GLOBS.userdata.delivery}</textarea>
+					</div>
+				</div>
+			</div>
+			{/if}
+		</div>
+	  	<input type="hidden" name="antispam" value="{$smarty.now}" />
+		<div class="form-actions">
+
+			{if $orderwelcome}<span class="help-inline">{$orderwelcome}</span>{/if}
+			<button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+		</div>
+	</fieldset>
+	<script>$(document).ready(function(){ $("input[name*=antispam]").val('{$antispam}'); });</script>
+</form>

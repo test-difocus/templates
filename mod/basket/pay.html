@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+{include file="$TMPL_FOLDER/inc/head.thm"}
+<body>
+	<div class="wrap">
+		<div class="header">
+		{include file="$TMPL_FOLDER/inc/menu.thm"}
+		<a href="/" class="logo png"></a>
+		{include file="$TMPL_FOLDER/inc/login.thm"}
+		
+		</div>
+		<div class="content png">
+			<div class="slices">
+				<em class="t png"></em>
+				<em class="b png"></em>
+			</div>
+			
+			
+			<div class="block-in png content-padding">
+				<big class="content-title">Ваша покупка</big>
+				<div class="about">
+					{if $GLOBS.user_id neq 6}
+					{if sizeof($basketdata)>0}
+							{foreach from=$basketdata item=item}
+							<div>{$item.content.name}&nbsp;&nbsp;&nbsp;&nbsp;{$item.count} {numeral number=$item.count ends='купон, купона, купонов'}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;<big><strong>{$item.content.price*$item.count}</strong> руб</big></div>
+							{/foreach}
+							<br /><br /><hr />
+							<div>Итого: <big><strong>{$cost}</strong> руб</big></div>
+							<table>
+								{if $pay_method eq 1}
+								<tr><td>Оплата через:</td><td>IntellectMoney</td></tr>
+								<tr><td>&nbsp;</td><td>банковской картой (VISA, MasterCard)</td></tr>
+								{elseif $pay_method eq 2}
+								<tr><td>Оплата через:</td><td>IntellectMoney</td></tr>
+								<tr><td>&nbsp;</td><td>платежные терминалы, банк</td></tr>
+								{elseif $pay_method eq 3}
+								<tr><td>Оплата через:</td><td>IntellectMoney</td></tr>
+								<tr><td>&nbsp;</td><td>электронными деньгами (Webmoney, Яндекс.Деньги и т.д.)</td></tr>
+								{elseif $pay_method eq 4}
+								<tr><td>Оплата через:</td><td>ОнКупон</td></tr>
+								<tr><td>&nbsp;</td><td>с текущего счета пользователя</td></tr>
+								{/if}
+							</table>
+
+						
+						{if $pay_method eq 4}{include file="$TMPL_FOLDER/mod/basket/pay_account.thm"}
+						{elseif $pay_method eq 1}{include file="$TMPL_FOLDER/mod/basket/pay_card.thm"}
+						{elseif $pay_method eq 2}{include file="$TMPL_FOLDER/mod/basket/pay_terminals.thm"}
+					    {elseif $pay_method eq 3}{include file="$TMPL_FOLDER/mod/basket/pay_emoney.thm"}{/if}
+
+					{else}
+					<p>Пока Вы не выбрали ни одного купона.<br/>
+					Чтобы отложить купон для покупки вы должны нажать кнопку купить рядом с нужным предложением.
+					</p>
+					{/if}
+					
+					{else}
+					<h1>Необходима авторизация</h1>
+					<p>Для того что бы покупать купоны, вам необходимо <a href="/cabinet/reg.html">зарегистрироваться</a> и пройти процедуру авторизации</p>
+					{/if}
+				</div>
+			</div>
+		</div>
+		<div class="news">
+			{foreach from=$news item=item}
+			<div class="news-box">
+				<span>{$item.date.d} {$item.date.M}</span>
+				<p><a href="{$item.content.vlink}">{$item.content.annotate}</a></p>
+			</div>
+			{/foreach}
+		</div>
+		{include file="$TMPL_FOLDER/inc/footer.thm"}
+	</div>
+</body>
+</html>

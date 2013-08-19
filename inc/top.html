@@ -1,0 +1,36 @@
+<header class="container header">
+	<div class="header-inner">
+		<p class="contacts pull-right">
+			{if $GLOBS.PHONE}<big>{$GLOBS.PHONE}</big>{/if}
+			{if $GLOBS.PHONES}<small>{$GLOBS.PHONES}</small>{/if}
+			{if $GLOBS.MAIL}<a href="mailto:{$GLOBS.MAIL}">{$GLOBS.MAIL}</a>{/if}
+		</p>
+		<div class="brand"><a href="/">{$GLOBS.SITENAME}</a><small>{$GLOBS.SITEDESCRIPTION}</small></div>
+	</div>
+	{if sizeof($menu)}
+	<nav class="navbar">
+		<div class="navbar-inner">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<div class="nav-collapse">
+				{include file="$TMPL_FOLDER/mod/menu.html"}
+				{include file="$TMPL_FOLDER/inc/right-menu.html"}
+			</div>
+		</div>
+	</nav>
+	{/if}
+	{if $ext_livesearch}	
+	<form class="form-search" method="get" action="/search/">
+		<div class="input-append">
+			<input type="text" class="input-medium search-query" name="q" value="{$searchquery}" placeholder="Поиск по сайту" x-webkit-speech speech >
+			<button type="submit" class="btn"><em class="icon-search"></em></button>
+		</div>
+	</form>
+		<script src="/media0/js/jquery.autocomplete.js"></script>
+		<script src="/media0/js/jquery.highlight.js"></script>
+		<script>$('.search-query').AutoCompleter();</script>
+	{/if}
+</header>

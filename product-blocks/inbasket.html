@@ -1,0 +1,78 @@
+<form class="inbasket" action="/basket/" method=post>
+	{if sizeof($basketparams_fields)>0}
+	<fieldset>
+		{foreach from=$basketparams_fields item=field key=name}
+		{if $field.values|editable_count}
+		<div class="control-group">
+			<label class="control-label" for="selectParams_{$name}">
+				{$GLOBS.fieldnames[$objinfo.type][$name]}
+			</label>
+			<div class="controls">
+				<select name="params[{$oid}][{$name}]" style="width:80%;" class="input-xlarge" id="selectParams_{$name}">
+				{foreach from=$field.values item=item key=key}
+				{if $item.editable eq 'true'}
+				<option value="{$key}" data-price="{$item.price|discount:$discount.percent|price:false}" data-oldprice="{$item.price}" data-discount="{$discount.percent.percent|default:0}" data-type="{$item.type}">
+					{$item.name}
+				
+					{if $item.price && $item.type eq 'plus'},
+					дополнительно {$item.price|discount:$discount.percent|price:false} {numeral number=$item.price|discount:$discount.percent|price:false ends=$GLOBS.currency.name}
+					{elseif $item.price}
+					, цена {$item.price|discount:$discount.percent|price:false} {numeral number=$item.price|discount:$discount.percent|price:false ends=$GLOBS.currency.name}
+					{else}
+					{/if}
+				</option>
+				{/if}
+				{/foreach}
+				</select>
+			</div>
+		</div>
+		{/if}
+		{/foreach}
+	</fieldset>
+	{/if}
+	
+	{*
+	Сумма товара со скидкой <span class="total"></span> р.<br>
+	Сумма товара без скидки <span class="oldtotal"></span> р.<br>
+	<input type="text" name="count" class="count" value="1" /><br>
+	*}
+	
+	<input type="hidden" name="action" value="add" />
+	<input type="hidden" name="count" class="count" value="1" />
+	<input type="hidden" name="oid" value="{$oid}" />
+	<input type="hidden" name="time" value="{$smarty.now}" />
+	{if $price}<button type="submit" class="btn btn-primary"><i class="icon-shopping-cart icon-white"></i> Купить</button>{/if}
+	{if $ext_productscompared || $ext_bookmarked && $GLOBS.user_id neq 6}
+	&nbsp;&mdash;
+	{/if}
+	{if $ext_bookmarked && $GLOBS.user_id neq 6}
+	{if $bookmarked}
+	<a class="btn btn-bookmark btn-link btn-mini" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Убрать из избранного</a>
+	{else}
+	<a class="btn btn-bookmark btn-link btn-mini" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Добавить в избранное</a>
+	{/if}
+	{/if}
+	{if $ext_productscompared}
+	{if $smarty.session.ProductsCompare[$oid]}
+	<a class="btn btn-link btn-mini" href="/compare/">Сравнить</a>
+	<a class="btn btn-link btn-compare btn-mini" href="/compare/?{$oid}&r=1&time={$smarty.now}">Убрать из сравнения</a>
+	{else}
+	<a class="btn btn-link btn-compare btn-mini" href="/compare/?{$oid}&r=1&time={$smarty.now}">Добавить к сравнению</a>
+	{/if}
+	{/if}
+
+
+</form>
+{if $ext_socialposting}
+<div class="alert alert-info">
+{if $socialposting_name}<h5>{$socialposting_name}</h5>{/if}
+<a class="social-32-vkontakte" href="http://vk.com/share.php?url=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=636,height=300'); return false"></a>
+<a class="social-32-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+<a class="social-32-google" href="https://plus.google.com/share?url=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+<a class="social-32-twitter" href="http://twitter.com/intent/tweet?text={$name|urlencode}+http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}" title="Опубликовать ссылку в Twitter" onclick="window.open(this.href, 'Опубликовать ссылку в Twitter', 'width=490,height=400'); return false" target="_blank"></a>
+<a class="social-32-mailru" href="http://connect.mail.ru/share?url=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}&title={$name|urlencode}" title="Поделиться в Мой Мир" onclick="window.open(this.href, 'Опубликовать ссылку в Мой Мир', 'width=636,height=300'); return false" target="_blank"></a>
+<a class="social-32-yandex" href="http://my.ya.ru/posts_add_link.xml?title={$name|urlencode}&URL=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}" title="Опубликовать ссылку в Я.ру" onclick="window.open(this.href, 'Опубликовать ссылку в Я.ру', 'width=1024,height=768'); return false" target="_blank"></a>
+<a class="social-32-lj" href="http://www.livejournal.com/update.bml?url=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}&subject={$name|urlencode}&event={$annotate|urlencode}" title="Поделиться в Livejournal" onclick="window.open(this.href, 'Поделиться в Livejournal', 'width=1024,height=768'); return false" target="_blank"></a>
+<a class="social-32-odnoklassniki" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl=http%3A%2F%2F{$smarty.server.HTTP_HOST|urlencode}{$vpath|urlencode}"  title="Опубликовать ссылку в Одноклассниках" onclick="window.open(this.href, 'Опубликовать ссылку  в Одноклассниках', 'width=800,height=300'); return false" target="_blank"></a>
+</div>
+{/if}

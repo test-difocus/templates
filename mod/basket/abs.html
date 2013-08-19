@@ -1,0 +1,59 @@
+{if sizeof($basketdata)>0}
+{* вывод сразу всех накопительных скидок *}
+{if sizeof($discounts)}
+<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds} } ); {/foreach}</script>
+{/if}
+<table class="table table-striped" style="width:640px;">
+<thead>
+  <tr>
+    <th>Название</th>
+    <th></th>
+    <th nowrap="nowrap">Кол-во</th>
+    <th>Цена</th>
+    <th>Итого</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+{foreach from=$basketdata item=item}
+  <tr id="product{$item.oid}" class="basket-item inbasket-item">
+    <td><a href="{$item.content.vlink}">{$item.content.name}</a>
+	    {if sizeof($item.params)>0}
+	    <small style="font-size:11px;line-height:10px;">
+	    {foreach from=$item.params key=key item=value}<br />&mdash; {$GLOBS.fieldnames[7][$key]}: {$item.content[$key][$value]['name']} {/foreach}
+	    </small>
+	    {/if}
+    </td>
+    <td nowrap="nowrap">
+		<sup class="badge badge-success {if !$item.content.discount.percent}hide{/if}">Скидка <span class="discount">{$item.content.discount.percent}</span>%</sup>
+    </td>
+    <td>
+	    <span class="count">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
+	    <span class="oldprice hide">{$item.content.oldprice|price:false}</span>
+	    <span class="oldtotal hide">{($item.content.oldprice*$item.count)|price:false}</span>
+    </td>
+    <td nowrap="nowrap"><span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}" {/if}>{$item.content.price|price:false}</span>{$GLOBS.currency.shortname}</td>
+	<td nowrap="nowrap"><span class="total">{($item.content.price*$item.count)|price:false}</span>{$GLOBS.currency.shortname}</td>
+	<td nowrap="nowrap">
+		<a href="/basket/?action=add&oid={$item.oid}&tmpl=mini&time={$smarty.now}" class="btn btn-primary btn-mini controls" data-action="increase" data-product="product{$item.oid}"><i class="icon-plus icon-white"></i></a>
+		<a href="/basket/?action=del&oid={$item.oid}&tmpl=mini&time={$smarty.now}" class="btn btn-primary btn-mini controls" data-action="reduce" data-product="product{$item.oid}"><i class="icon-minus icon-white"></i></a>
+		<a href="/basket/?action=del&oid={$item.oid}&count={$item.count}&tmpl=mini" class="btn btn-danger btn-mini controls" data-action="remove" data-product="product{$item.oid}">Удалить</a>
+    </td>
+    
+  </tr>
+{/foreach}
+</tbody>
+</table>
+
+<blockquote class="pull-right">
+    <p><span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span>{$GLOBS.currency.shortname}</b><br />
+	{if $oldtotal}<small>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span>{$GLOBS.currency.shortname}</small></p>{/if}
+</blockquote>
+<br clear="all" />
+<p align="center"><i><a href="#" onclick="$.fancybox.close();">Продолжить покупки</a> <span class="divider">|</span> <a href="/basket/">Оформить заказ &rarr;</a></i></p>
+{else}
+<p>
+	Пока Вы не выбрали ни одного товара.<br/>
+	Чтобы отложить товар для покупки вы должны нажать кнопку купить рядом с нужным предложением.
+</p>
+{/if}

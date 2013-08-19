@@ -1,0 +1,40 @@
+<footer class="container footer">
+	<div class="footer-inner">
+		<p class="pull-right"><a href="#" id="button-up"></a></p>
+		{if $GLOBS.user_id == 3}
+		<p><a href="/adm/#!{$oid}" target="_admin_panel" style="background: url(/adm/extJS/images/_admin_panel.png) 0 0 no-repeat;position: fixed;top:0;right:0;display: block;width: 55px;height: 55px;"></a></p>
+		{/if}
+
+		<div class="row-fluid">
+			<div class="span5">
+		<p>{$GLOBS.COPYRIGHT} &mdash; {$GLOBS.SITENAME}<br />
+			
+			{if $GLOBS.SE_COPYRIGHT eq '1'}
+			<a href="http://shopexpress.difocus.ru" target="_blank">ShopExpress &mdash; cоздание интернет-магазинов</a>
+			{else if $GLOBS.SE_COPYRIGHT eq '2'}
+			<a href="http://www.difocus.ru" target="_blank">Создание сайта &mdash; Difocus</a>
+			{else if $GLOBS.SE_COPYRIGHT eq '3'}
+			<a href="http://shopexpress.difocus.ru" target="_blank">Интернет-магазин от ShopExpress</a>			
+			{else}
+			<a href="http://shopexpress.difocus.ru" target="_blank">ShopExpress &mdash; cоздание интернет-магазинов</a>
+			{/if}
+		</p>
+		</div>
+			<div class="span3">
+		{include file="$TMPL_FOLDER/inc/counters.html"}
+		</div>
+			<div class="span4">
+		{if $social_button}
+			Мы в социальных сетях <br />
+			{foreach from=$GLOBS.metatags item=tag}
+		    {if $tag.name|contains:'social:'}
+			<a href="{$tag.content}" class="social-32-{$tag.name|replace:'social:':''}" target="_blank" rel="tooltip" title="{$tag.name|replace:'social:':''|ucfirst}"></a>
+			{/if}
+			{/foreach}
+		{/if}
+		</div>
+		</div>
+	</div>
+</footer>
+
+{if $GLOBS.user_id eq 3}{include file="$TMPL_FOLDER/inc/ui-design.html"}{/if}

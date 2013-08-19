@@ -1,0 +1,28 @@
+{if $ext_comments}
+<div class="comments">
+	<hr />
+	<div class="list">
+		{if $authOnly && $GLOBS.user_id eq 6}
+			{*include file="$TMPL_FOLDER/mod/comments/socials.html"*}
+			<p><a href="/cabinet/?tmpl=short&r={$vpath|escape:url}" class="fancybox fancybox.ajax btn btn-success"><i class="icon-user icon-white"></i> Авторизуйтесь</a> чтобы оставлять комментарии.</p>
+		{else} 
+			<p class="controls">
+				<a href="#message" class="btn btn-blue" rel="answer" data-coid="0">Написать комментарий</a>
+				{*<a href="#lastcomments" class="btn">Последние комментарии</a> <a href="#message" class="btn">Участники</a>*}
+			</p>
+			{include file="$TMPL_FOLDER/mod/comments/new-message.html"}
+		{/if}
+
+		{if sizeof($comments)>0}
+		{foreach from=$comments item=comment}
+			{include file="$TMPL_FOLDER/mod/comments/message.html"}
+		{/foreach}
+		{*else}
+		<div class="comment-item">
+			<p>Мы будем благодарны, если Вы выразите свои мысли по поводу этой публикации и поставите оценку. Ваша положительная оценка повысит общий рейтинг статьи и поможет нам лучше определиться с направленностью будущих материалов.
+			</p>
+		</div>*}
+		{/if}
+	</div>
+</div>
+{/if}

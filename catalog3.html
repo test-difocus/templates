@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {include file="$TMPL_FOLDER/inc/header.html"}
+  {include file="$TMPL_FOLDER/inc/scripts.html"}
+  <body>
+  <div class="wrapper">
+	{include file="$TMPL_FOLDER/inc/top.html"}
+	<div class="container">
+		<div class="page-title">
+			{if $name}<h1>{$name}{if $ext_tags && $tags_word}: {$tags_word}{/if}</h1>{/if}
+			{include file="$TMPL_FOLDER/mod/pathline.html"}
+		</div>
+		<aside>
+			{include file="$TMPL_FOLDER/inc/sidebar.html"}
+			{include file="$TMPL_FOLDER/mod/lastpublish.html"}
+			{include file="$TMPL_FOLDER/mod/lastphotos.html"}
+			{include file="$TMPL_FOLDER/mod/lastcomments.html"}
+		</aside>
+		<section class="content">
+			{include file="$TMPL_FOLDER/mod/anounces.html"}
+    		{include file="$TMPL_FOLDER/inc/topbar.html"}
+	    	{if $text}<div class="well">
+		    	{$text}
+	    	</div>{/if}
+		</section>
+	</div>
+	{include file="$TMPL_FOLDER/inc/footer.html"}
+  </div>
+  </body>
+</html>

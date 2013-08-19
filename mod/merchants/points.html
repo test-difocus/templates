@@ -1,0 +1,16 @@
+{if ($summ-$GLOBS.merchants.points.min)<=0}
+<div class="payment-form pull-left">
+	Минимальная сумма оплаты {$GLOBS.merchants.points.min} {numeral number=$GLOBS.merchants.points.min ends="бонус, бонуса, бонусов"}
+</div>
+{else}
+{if ($GLOBS.userdata.points-$summ)>=0}
+<form method="post" action="/cabinet/pay.html?provider=points" class="payment-form pull-left">
+	<input type="hidden" value="{$order_id}" name="order_id"/>
+	<button type=submit class="btn" rel=tooltip title="У вас {$GLOBS.userdata.points} бонусных баллов">{$GLOBS.merchants.points.btn|default:'Оплатить баллами'}</button>
+</form>
+{else}
+<div class="payment-form pull-left">
+	<button class="btn" rel=tooltip title="У вас недостаточно бонусных баллов">{$GLOBS.merchants.points.btn|default:'Оплатить баллами'}</button>
+</div>
+{/if}
+{/if}

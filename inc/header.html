@@ -1,0 +1,78 @@
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>{if $title}{$title}{elseif $name}{$name}{elseif $GLOBS.SITENAME}{$GLOBS.SITENAME}{/if}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="title" content="{$title}">
+    {foreach from=$GLOBS.metatags item=tag}
+    {if $tag.name eq 'favicon'}
+    <link rel="icon" href="{$tag.content}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{$tag.content}" type="image/ico" />
+    {else if $tag.name|contains:'fb:'}
+	<meta property="{$tag.name}" content="{$tag.content}">
+    {else if $tag.name|contains:'social:'}
+    {assign var=social_button value=1 scope=parent}
+    {else}
+    <meta name="{$tag.name}" content="{$tag.content}">
+    {/if}
+    {/foreach}
+	
+    {if $meta_description}<meta name="description" content="{$meta_description}">{/if}
+    {if $meta_keywords}<meta name="keywords" content="{$meta_keywords}">{/if}
+    <meta name="author" content="{$objinfo.master_src.name}">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    {if $GLOBS.favicon}
+	<link rel="icon" href="{$GLOBS.favicon}" type="image/x-icon" />
+	<link rel="shortcut icon" href="{$GLOBS.favicon}" type="image/ico" />
+	{/if}
+	
+	{if $GLOBS.user_id eq 3}
+    <link href="/media0/css/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="/media0/css/jquery.ui-design.css" rel="stylesheet">
+    {if $smarty.cookies.uidesign eq 'hide'}
+    <style>
+    	form.ui-design { left : -250px; }
+    	form.ui-design a.toggle.show { display: block; }
+    	form.ui-design a.toggle.hide { display: none; }
+    </style>
+    {else}
+    <style>
+       	html { padding-left : 250px; }
+    </style>
+    {/if}
+    {/if}
+
+    <link href="/media0/css/jquery.basket.css" rel="stylesheet">
+    <link href="/media0/css/jquery.fancybox.css" rel="stylesheet">
+    <link href="/media0/css/jquery.comments.css" rel="stylesheet">
+    <link href="/media0/css/cupertino/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+	
+    {if !$GLOBS.css && !$GLOBS.style}
+    	<link href="/media0/css/bootstrap.min.css" rel="stylesheet" id="MainStyleCSS">
+    	<link href="/media0/css/bootstrap-responsive.min.css" rel="stylesheet">
+    {/if}
+    <link {if $GLOBS.css}href="/assets/origin/css/{$GLOBS.css}.css"{/if} rel="stylesheet" id="MainStyleCSS">
+    <link {if $GLOBS.bg}href="/assets/origin/css/background-{$GLOBS.bg}.css"{/if} rel="stylesheet" id="BackgroundImageCSS">
+
+    {if $GLOBS.container eq 'show'}
+   	<link href="/assets/origin/css/container.css" rel="stylesheet" id="GlobalContainerCSS">
+   	{if $GLOBS.css}<link href="/assets/origin/css/{$GLOBS.css}/container.css" rel="stylesheet" id="ContainerCSS">{/if}
+   	{else}
+   	<link rel="stylesheet" id="GlobalContainerCSS">
+   	<link rel="stylesheet" id="ContainerCSS">
+    {/if}
+	
+    <style id="custom-style" type="text/css">{$GLOBS.style}</style>
+	{if $ext_socialposting}
+	<meta property="og:title" content="{$title}"/>
+	<meta property="og:image" content="http://{$smarty.server.SERVER_NAME}{$images[0].path}"/>
+	<link rel="image_src" href="http://{$smarty.server.SERVER_NAME}{$images[0].path}" />
+	<meta property="og:site_name" content="{$GLOBS.SITENAME}"/>
+	<meta property="og:description" content="{$annotate|addslashes|strip_tags}"/>
+	{/if}
+  </head>

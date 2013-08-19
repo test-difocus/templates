@@ -1,0 +1,11 @@
+<i class="icon-shopping-cart"></i> <span>{$count}</span>
+
+<span class="hide">
+{if $count}
+В вашей корзине {$count}
+{numeral number=$count ends='товар,товара,товаров'}
+{*<span class="gray">на сумму</span> {$total|price} {numeral number=$total ends='рубль,рубля,рублей'}.{else}<a href="/basket/" title="Перейти в корзину"><span class="green">Корзина:</span></a> ваша корзина пуста{/if*}
+{else}
+Ваша корзина
+{/if}
+</span> 

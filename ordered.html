@@ -1,0 +1,76 @@
+{if $order_errors.spam} спам{/if}
+{if $order_ok}
+<h3>{$order_answer|default:'Спасибо,<br /> Ваш вопрос отправлен.'}</h3>
+{else}
+{$text}
+<form class="form-horizontal" id="order_form" method="post" enctype='multipart/form-data' action="{$vlink}" style="margin: 15px 15px 0 15px;">
+<fieldset>
+{if $order_errors}<div class="alert alert-error">При заполнении формы, были допущены ошибки.</div>{/if}
+{foreach from=$order_fields item=field name=fieldscounter}
+{if $field.editable eq 'true'}
+{if $field.htmltype eq 'textfield'}
+  <div class="control-group {if $field.error}error{/if}">
+    <label class="control-label" for="input{$field.name|capitalize}">{$field.runame}{if $field.necessary eq 'true'} <span style="color:#9F305F;">*</span> {/if}</label>
+    <div class="controls">
+      <input type="text" id="input{$field.name|capitalize}" name="{$field.name}" style="width:300px;" value="{$field.value}" placeholder="{$field.description}" />
+    </div>
+  </div>
+{/if}
+
+{if $field.htmltype eq 'textarea'}
+  <div class="control-group {if $field.error}error{/if}">
+    <label class="control-label" for="textarea{$field.name|capitalize}">{$field.runame}{if $field.necessary eq 'true'} <span style="color:#9F305F;">*</span> {/if}</label>
+    <div class="controls">
+      <textarea class="input-xlarge" id="textarea{$field.name|capitalize}" rows="3" name="{$field.name}" style="width:300px;" placeholder="{$field.description}">{$field.value}</textarea>
+    </div>
+  </div>
+{/if}
+
+{if $field.htmltype eq 'combostore'}
+  <div class="control-group {if $field.error}error{/if}">
+    <label class="control-label" for="textarea{$field.name|capitalize}">{$field.runame}{if $field.necessary eq 'true'} <span style="color:#9F305F;">*</span> {/if}</label>
+    <div class="controls">
+		<select name="{$field.name}" id="select{$field.name|capitalize}">
+		{foreach from=$GLOBS[$field.name] item=field_item key=field_item_key}
+			<option value="{$field_item_key}">{$field_item}</option>
+		{/foreach}
+		</select>
+		{if $field.description}<span class="help-block">{$field.description}</span>{/if}
+	</div>
+</div>
+{/if}
+
+{if $field.htmltype eq 'delivery'}
+  <div class="control-group {if $field.error}error{/if}">
+    <label class="control-label" for="textarea{$field.name|capitalize}">{$field.runame}{if $field.necessary eq 'true'} <span style="color:#9F305F;">*</span> {/if}</label>
+    <div class="controls">
+      <span class="help-inline">Поле данного типа можно использовать только в корзине.</span>
+    </div>
+  </div>
+{/if}
+
+{/if}
+{/foreach}
+  <div class="form-actions">
+  	<input type="hidden" name="antispam" value="" />
+  	<input type="hidden" name="from" value="{$order_from}" />
+  	<input type="hidden" name="submit" value="1" />
+    <button type="submit" class="btn btn-primary">Отправить форму</button>
+    <button class="btn" type="reset">Очистить</button>
+  </div>
+</fieldset>
+</form>
+<script>
+$(document).ready(function(){
+	$("input[name*=antispam]").val('{$antispam}');
+	$('#order_form').on('submit', function() {
+	    $(this).ajaxSubmit({
+	    	success: function(responseText){
+	    		$.fancybox(responseText);
+	    	}
+	    });
+	    return false;
+	});
+});
+</script>
+{/if}

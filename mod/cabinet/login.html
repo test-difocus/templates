@@ -1,0 +1,41 @@
+{if $GLOBS.user_id eq 6}
+<div id="login">
+	<div class="row" style="padding: 0 20px 0 20px;margin-bottom:0;">
+		<div class="span3" style="width:270px;">
+		<h4>Я уже зарегистрирован</h4>
+		<form action="" method="POST">
+		  <input type="text" placeholder="Электронная почта" name="login" /><br />
+		  <input type="password" placeholder="Пароль" name="password" /><br />
+		  <button type="submit" class="btn btn-success">Войти</button> &mdash; <a href="#forgot" class="fancybox"><small>Восстановить пароль</small></a>
+		</form>
+		</div>
+		<div class="span3" style="width:270px;">
+			<h4>Я новый покупатель</h4>
+			<form action="/cabinet/reg.html" method="POST" style="margin-bottom:10px;">
+			  <div class="control-group" style="margin:0;">
+				  <div class="controls">
+					  <input type="text" placeholder="Электронная почта" name="regdata[email]" id="regdata_email" class="error"/><br />
+					  <script> $('#regdata_email').validator('email'); </script>
+				  </div>
+			  </div>
+			  <input type="hidden" name="fast" value="1" />
+			  <button type="submit" class="btn btn-info">Зарегистрироваться</button>
+			</form>
+			<p><small>Сделайте покупки удобнее.<br />Это просто и займет всего минуту.</small></p>
+		</div>
+	</div>
+    {if $ext_authsocial}
+    <hr style="margin:5px 0 5px 0;"/>
+    <h4 align="center">Или войдите, через социальную сеть</h4>
+	<p align="center">
+		{if $authsocial_facebook}<a href="/cabinet/?provider=facebook&r={$authsocial_comebackurl|escape:url}" class="social-32-facebook" rel="tooltip" title="Facebook"></a>{/if}
+		{if $authsocial_twitter}<a href="/cabinet/?provider=twitter&r={$authsocial_comebackurl|escape:url}" class="social-32-twitter" rel="tooltip" title="Twitter"></a>{/if}
+		{if $authsocial_google}<a href="/cabinet/?provider=google&r={$authsocial_comebackurl|escape:url}" class="social-32-google" rel="tooltip" title="Google"></a>{/if}
+		{if $authsocial_vkontakte}<a href="/cabinet/?provider=vkontakte&r={$authsocial_comebackurl|escape:url}" class="social-32-vkontakte" rel="tooltip" title="Вконтакте"></a>{/if}
+		{if $authsocial_yandex}<a href="/cabinet/?provider=yandex&r={$authsocial_comebackurl|escape:url}" class="social-32-yandex" rel="tooltip" title="Яндекс"></a>{/if}
+		{if $authsocial_mailru}<a href="/cabinet/?provider=mailru&r={$authsocial_comebackurl|escape:url}" class="social-32-mailru" rel="tooltip" title="Mail.Ru"></a>{/if}
+	</p>
+	{/if}
+</div>
+{else}
+{/if}

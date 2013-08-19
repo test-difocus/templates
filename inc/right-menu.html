@@ -1,0 +1,30 @@
+<ul class="nav pull-right second-navbar">
+  {if $GLOBS.user_id eq 6}
+  <li><a href="/cabinet/?tmpl=short&r={$vpath|escape:url}" class="fancybox fancybox.ajax" title="Вход/Регистрация"><i class="icon-user"></i> <span class="hide">Вход/Регистрация</span></a></li>
+  {else}
+  <li>
+  	<a href="/cabinet/" title="Ваш личный кабинет, {$GLOBS.userdata.name|default:$GLOBS.userdata.login}">
+  		<i class="icon-home"></i>
+  		<span class="hide">Ваш личный кабинет</span><span class="hide userdata-name">{$GLOBS.userdata.name|default:$GLOBS.userdata.login}</span>
+  	</a>
+  </li>
+  {/if}
+  
+  <li class="divider-vertical"></li>
+  <li class=""><a href="/basket/" id="minibasket" title="Ваша корзина"><i class="icon-shopping-cart"></i> <span class="hide">Ваша корзина</span></a></li>
+  <li class="divider-vertical"></li>
+  <li class=""><a href="/contacts/order.html?from={$oid}" class="fancybox fancybox.ajax" title="Отправить письмо - заявку"><i class="icon-envelope"></i> <span class="hide">Отправить заявку</span></a></li>
+</ul>
+<div class="hide">
+	<div id="forgot">
+		<div style="max-width:400px;padding: 0 20px 0 20px;">
+		<form action="/cabinet/reg.html" method="GET">
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">Введите почту или логин</label>
+			<input type="text" name="fog_login" id="inputEmail" placeholder="yourname@domain.ru или login" style="width:280px;" required />
+		</div>
+		<button type="submit" class="btn btn-success">Восстановить пароль</button> &mdash; <a href="/cabinet/?tmpl=short&r={$vpath|escape:url}" class="fancybox fancybox.ajax"><small>Вернуться</small></a>
+		</form>
+		</div>
+	</div>
+</div>

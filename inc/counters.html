@@ -1,0 +1,48 @@
+{if $GLOBS.GOOGLECOUNTER|strpos:'Например' !== 0}
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '{$GLOBS.GOOGLECOUNTER}']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_set', 'currencyCode', '{$GLOBS.currency.code}']);
+  {if $onumber && !$order_show}
+  _gaq.push(['_addTrans', '{$onumber}', '{$GLOBS.SITENAME}', '{($order_total-$order_content.delivery_price)|replace:',':'.'}', '0', '{$order_content.delivery_price|replace:',':'.'}', '{$order_content.address}', '','']);
+  {foreach from=$basketdata item=item name="orderitems"}
+  _gaq.push(['_addItem', '{$onumber}', '{$item.oid}', '{$item.content.name}','{$item.parent.name}', /* category or variation*/ '{$item.content.price|replace:',':'.'}', '{$item.count}']);
+  {/foreach}
+  _gaq.push(['_trackTrans']);
+  {/if}
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+	$(function (){
+		$('a.inbasket').click( function(){
+			var category_name = $('h1').first().text();
+			var product_name = $(this).parent().children('h5').children('a').text();
+			var product_link = $(this).parent().children('h5').children('a').attr('href');
+			if( category_name.length == 0 ) name_category = 'Главная страница';
+			if( product_name.length == 0 ) name_product = $(this).attr('href');
+
+			_gaq.push(['_trackEvent', 'В корзину', category_name, product_name, product_link ]);
+		});
+		$('form.inbasket').click( function(){
+			_gaq.push(['_trackEvent', 'В корзину', '{$name}' ]);
+		});
+	});
+</script>
+{/if}
+
+{if $GLOBS.LIRUCOUNTER && $GLOBS.LIRUCOUNTER eq 'yes'}
+<script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t18.4;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+";h"+escape(document.title.substring(0,80))+";"+Math.random()+"' alt='' title='LiveInternet: показано число просмотров за 24"+" часа, посетителей за 24 часа и за сегодня' "+"border='0' width='88' height='31'><\/a>")
+</script>
+{/if}
+
+{if $GLOBS.YACOUNTER && $GLOBS.YACOUNTER|strpos:'Например' !== 0}
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter{$GLOBS.YACOUNTER} = new Ya.Metrika({ id:{$GLOBS.YACOUNTER}, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/{$GLOBS.YACOUNTER}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+{/if}
+
+{if $GLOBS.JSCOUNTER && $GLOBS.JSCOUNTER|strpos:'Например' !== 0}
+{$GLOBS.JSCOUNTER}
+{/if}
