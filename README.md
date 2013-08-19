@@ -3,7 +3,7 @@
 Smarty шаблоны вывода страниц для ShopExress.Difocus.Ru.
 Полная информация о шаблонах <a href="http://shopexpress.difocus.ru/help/dobavlenie-i-redaktirovanie/%D0%A8%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D1%8B%20%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4%D0%B0">тут.</a>
 
-Таблица идентификаторов
+
 =========
 <table class="table" cellspacing="0" cellpadding="0">
 <thead>
