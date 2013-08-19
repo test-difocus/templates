@@ -15,15 +15,14 @@
 			<section class="basket-content">
 				
 				{if $coupon.coupon_id}
-				{if !$coupon.status}
-					<div class="alert alert-error">
+				<div class="coupon-alert alert {if !$coupon.status}alert-error{else}hide{/if}">
 					{if !$coupon.statuses.date}<li>Время купона истекло.{/if}
 					{if !$coupon.statuses.price}<li>Сумма заказа не подходит. {/if}
 					{if !$coupon.statuses.count}<li>Количество товаров слишком мало. {/if}
 					{if !$coupon.statuses.used}<li>Купон уже использовали максимальное количество раз. {/if}
 					{if !$coupon.statuses.self_used}<li>Вы активировали купон ранее. {/if}
-					</div>
-				{/if}
+				</div>
+				
 				<div class="alert alert-success">
 					Вы активировали купон <b>{$coupon.name}</b> на скидку в <b>{$coupon.discount}%</b><br>
 					{if $coupon.count_from || $coupon.count_to || $coupon.price_from || $coupon.price_to}
@@ -65,7 +64,7 @@
 				
 				{* вывод сразу всех накопительных скидок *}
 				{if sizeof($discounts)}
-				<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds} } ); {/foreach}</script>
+				<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } ); {/foreach}</script>
 				{/if}
 				<blockquote class="pull-right">
 					<h1>Итого</h1>
