@@ -14,7 +14,7 @@
 			{include file="$TMPL_FOLDER/mod/anounces.html"}
 	    {if sizeof($directories_pubs)>0}
 	    	<div class="products">
-		    	{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage}
+		    	{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage total=$directories_total}
 				<div class="row-fluid">
 				{foreach from=$directories_pubs item="item" name="cat"}
 					{include file="$TMPL_FOLDER/inc/product-item.html" content=$item.content oid=$item.oid}

@@ -11,7 +11,7 @@
 		</div>
 		<article style="margin-top:15px;">
 			<div class="hero-unit">
-				<h1>Номер вашего заказа <u>{$onumber}</u></h1>
+				<h1>Номер вашего заказа <u>{$order_id}</u></h1>
 				<p>
 					{*if $order_content.pay_status eq 'FP'}<span class="badge badge-success" style="vertical-align: super;">Оплачен</span>{else if $order_content.pay_status eq 'HP'}<span class="badge badge-warning" style="vertical-align: super;">Оплачен не полностью</span>{/if*}
 					Сумма вашего заказа составила <b>{$order_total|price}</b>, спасибо, что выбрали наш магазин.
@@ -21,16 +21,17 @@
 					Историю заказов можно посмотреть в <a href="/cabinet/history.html">личном кабинете</a>.
 				{/if}
 				</p>
-			<p class="pull-right"><a href="/basket/?action=showorder&id={$onumber}&oh={$order_hash}"><small>Постоянный адрес заказа №{$onumber}</small></a></p>
+			<p class="pull-right"><a href="/basket/?action=showorder&id={$order_id}&oh={$order_hash}"><small>Постоянный адрес заказа №{$order_id}</small></a></p>
 			</div>
-			{if $GLOBS.merchants}
-				{if !$order_content.pay_status || $order_content.pay_status eq 'S'}
-				<h1>Оплатите ваши покупки</h1>
-				<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=$order_total order_id=$onumber currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
-				{else if $order_content.pay_status eq 'HP'}
-				<h1>Заказ оплачен не полностью</h1>
-				<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=($order_total-$order_content.paid) order_id=$onumber currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
-				{/if}
+
+			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method eq 'NON'}
+			{if $order_content.pay_status eq 'HP'}
+			<h1>Заказ оплачен не полностью</h1>
+			{else}
+			<h1>Оплатите ваши покупки</h1>
+			{/if}
+			
+			<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
 			{/if}
 			
 			<div class="page-header">
@@ -71,12 +72,12 @@
 				}
 				</script>
 				<form class="form-horizontal" action="/basket/?action=duplicate" method="post">
-					<input name="order_id" type="hidden" value="{$onumber}" />
+					<input name="order_id" type="hidden" value="{$order_id}" />
 					<input name="oh" type="hidden" value="{$order_hash}" />
 					<fieldset>
 						<div class="form-actions">
 							<span class="help-inline">{$orderduplicate}</span>
-							<button type="submit" class="btn btn-primary" onclick="duplicateOrder('{$onumber}', '{$order_hash}');return false;">Повторить заказ</button>
+							<button type="submit" class="btn btn-primary" onclick="duplicateOrder('{$order_id}', '{$order_hash}');return false;">Повторить заказ</button>
 						</div>
 					</fieldset>
 				</form>

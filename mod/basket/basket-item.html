@@ -20,11 +20,11 @@
 		    </p>
 		    {/if}
 	    </td>
-	    <td class="nowrap"><span class="count">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}</td>
+	    <td class="nowrap"><span class="count" data-ends="{$item.content.units|default:'шт.,шт.,шт.'}">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}</td>
 	    <!--td>{if $item.content.oldprice}<span class="oldprice">{$item.content.oldprice|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
 	    <!--td>{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td-->
 	    <td class="nowrap">
-	    	<span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}" {/if}>
+	    	<span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}"{/if}>
 	    		{$item.content.price|price:false}
 	    	</span>{$GLOBS.currency.shortname}
 	    </td>

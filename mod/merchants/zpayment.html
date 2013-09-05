@@ -9,5 +9,7 @@
 	<!--input type="hidden" value="{$GLOBS.userdata.login}" name="USER_VALUE1"/>
 	<input type="hidden" value="{$GLOBS.userdata.email}" name="CLIENT_MAIL"/-->
 
-	<button type=submit class="btn">{$GLOBS.merchants.zpayment.btn|default:'Оплатить через Z-Payment'}</button>
+	<!-- button type=submit class="btn">{$GLOBS.merchants.zpayment.btn|default:'Оплатить через Z-Payment'}</button-->
+	<button type=submit class="btn btn-large" title="{$GLOBS.merchants.zpayment.btn|default:'Оплатить через Z-Payment'}" rel="tooltip"><img src="/media0/img/merchants/ZPayment.png" alt="Z-Payment" width="150" /></button>	
+	 
 </form>

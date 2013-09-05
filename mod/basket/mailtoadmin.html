@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Заказ №{$onumber} в {$GLOBS.SITENAME}</title>
+<title>Заказ №{$order_id} в {$GLOBS.SITENAME}</title>
 </head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #FAFAFA;width: 100% !important;">
     	<center>
@@ -8,7 +8,7 @@
             	<tr>
                 	<td align="center" valign="top" style="border-collapse: collapse;">
                         	<!-- // Begin Template Preheader \\ -->
-							<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Номер заказа №{$onumber}</h1>
+							<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Номер заказа №{$order_id}</h1>
 							<h3 style="font-family: 'trebuchet ms', geneva;font-size:18px;text-align:left;">Контактные данные</h3>
 							<p style="font-family: 'trebuchet ms', geneva;font-size:14px;text-align:left;">{if $order_content.fio}ФИО: {$order_content.fio}<br />{/if}
 							{*$order_content.currency*}
@@ -48,9 +48,9 @@
 							        {/if}
 									<p>{$item.content.annotate}</p>
 								</td>
-							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{$item.count} {$item.content.units|default:'шт.'}</td>
+							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{$item.count} {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}</td>
 							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{if $item.content.oldprice} {$item.content.oldprice|price}{else}&mdash;{/if}</td>
-							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td>
+							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{if $item.content.discount}{$item.content.discount.percent}%{else}&mdash;{/if}</td>
 							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{$item.content.price|price}</td>
 							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{if $item.content.oldprice}{($item.content.oldprice*$item.count)|price}{else}&mdash;{/if}</td>
 							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{($item.content.price*$item.count)|price}</td>
@@ -64,7 +64,7 @@
 									{if $oldtotal!=$total}<small>Сумма без скидки: {$oldtotal|price}</small><br />{/if}
 									{if $order_delivery}{$order_delivery['name']}{if $order_delivery.price} : {$order_delivery.price|price}{/if}<br />{/if}
 									</p>
-									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}/basket/?action=showorder&id={$onumber}&oh={$order_hash}">Постоянный адрес заказа</a></p>
+									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}/basket/?action=showorder&id={$order_id}&oh={$order_hash}">Постоянный адрес заказа</a></p>
 									{if sizeof($order_fields)>0}
 									<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Дополнительные данные</h1>
 									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;">{foreach from=$order_fields item=item key=key}<b>{$item.runame}: </b> {$item.value} <br />{/foreach}</p>

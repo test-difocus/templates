@@ -14,11 +14,14 @@ var duplicateOrder = function (order_id, order_hash)
 	return false;
 }
 </script>
-{foreach from=$cabinetbaskethistory_orders item=order key=order_key}
+{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$cabinetbaskethistory_paging page=$cabinetbaskethistory_current perpage=$cabinetbaskethistory_perpage total=$cabinetbaskethistory_total}
+
+{foreach from=$cabinetbaskethistory_orders item=order key=order_id}
+{assign var=order_hash value=$order.hash}
 <hr />
-<a name="order_id_{$order_key}"></a>
+<a name="order_id_{$order_id}"></a>
 <p>
-	<big><b>Заказ №{$order_key}</b></big> от <em>{$order.content.created|date_format:"%d %B %Y"}</em>,
+	<big><b>Заказ №{$order_id}</b></big> от <em>{$order.content.created|date_format:"%d %B %Y"}</em>,
 	на сумму <b>{$order.content.summ|price:false} {numeral number=$order.content.summ ends=$GLOBS.allcurrencies[$order.content.currency].name}</b>
 	{if $GLOBS.order_status[$order.content.status]}
 		<span class="badge
@@ -40,16 +43,12 @@ var duplicateOrder = function (order_id, order_hash)
 		{if $order.content.pay_status eq 'FP'}badge-success{/if}
 		">{$GLOBS.pay_status[$order.content.pay_status]}</span>
 	{/if}
-	&mdash; <a onclick="duplicateOrder('{$order_key}', '{$order.hash}');return false;" href="/basket/?action=duplicate&order_id={$order_key}&oh={$order.hash}"><small>Повторить заказ</small></a>
+	&mdash; <a onclick="duplicateOrder('{$order_id}', '{$order.hash}');return false;" href="/basket/?action=duplicate&order_id={$order_id}&oh={$order.hash}"><small>Повторить заказ</small></a>
 </p>
-{if $GLOBS.merchants}
-<p>
-{if $order.content.pay_status neq 'FP'}
-{include file="$TMPL_FOLDER/mod/merchants/merchant.html" summ=$order.content.summ order_id=$order_key currency=$GLOBS.allcurrencies[$order.content.currency]}
+{if $GLOBS.merchants && $order.content.pay_status neq 'FP' && $order.content.pay_method eq 'NON'}
+<p>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order.content.delivery_price basketdata=$order.goods summ=$order.content.summ order_id=$order_id currency=$GLOBS.allcurrencies[$order.content.currency]}</p>
 {/if}
-</p>
-{/if}
-<!--a href="/basket/?action=showorder&id={$order_key}&oh={$order.hash}"><small>Постоянный адрес заказа</small></a-->
+<!--a href="/basket/?action=showorder&id={$order_id}&oh={$order.hash}"><small>Постоянный адрес заказа</small></a-->
 <table class="table table-striped">
 <thead>
 <tr>
@@ -74,7 +73,7 @@ var duplicateOrder = function (order_id, order_hash)
     <td>{$product.content.articul}</td>
     <td>
 	  	<a class="thumbnail" href="{$product.content.vlink}">
-	  	{foreach from=$product.content.images item="im"}<img src="/{image src=$im.path width=40 height=40 folder=".40x40"}" alt="{$im.name}">{break}{/foreach}
+	  	{foreach from=$product.content.images item="im"}<img src="/{image src=$im.path width=40 height=40 folder=".40x40"}" width=40 height=40 alt="{$im.name}">{break}{/foreach}
 	  	</a>
     </td>
     <td>
@@ -111,8 +110,8 @@ var duplicateOrder = function (order_id, order_hash)
 {/foreach}
 </tbody>
 </table>
-
 {/foreach}
+{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$cabinetbaskethistory_paging page=$cabinetbaskethistory_current perpage=$cabinetbaskethistory_perpage total=$cabinetbaskethistory_total}
 {else}
 <p>Пока, вы не сделали ни одного заказа.</p>
 {/if}
