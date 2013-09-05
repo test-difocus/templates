@@ -21,7 +21,7 @@
 				{if $smarty.foreach.cat.iteration % 4 == 0 && !$smarty.foreach.cat.last}</div><div class="row-fluid">{/if}
 				{/foreach}
 			    </div>
-				{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage}
+				{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage total=$directories_total}
 			<div>
 	    {else}
 	    	{if $smarty.post.filter}
