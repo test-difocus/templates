@@ -33,23 +33,26 @@
 
 			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method neq 'NON'}
 				<div class="page-header"><h1>Ваш способ оплаты</h1></div>
+				<section>
 				<!--p>{$GLOBS.pay_methods[$order_content.pay_method]}</p-->
-				{include file="$TMPL_FOLDER/mod/merchants/`$order_content.pay_method`.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency] order_content=$order_content}
+				{assign var=merchant value=$order_content.pay_method|lower}
+				{include file="$TMPL_FOLDER/mod/merchants/$merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency] order_content=$order_content}
 				<p class="clearfix"></p>
 				<script>
 				!function ($) {
 					$(function(){
 						$('#change_merchant').click(function()
 						{
-							if($('#merchants').is(':visible'))
-								$('#merchants').slideUp('fast');
-							else
-								$('#merchants').slideDown('fast');
+							if($('#merchants').is(':visible')) $('#merchants').slideUp('fast');
+							else $('#merchants').slideDown('fast');
+							
+							return false;
 						});
 					});
 				}(window.jQuery);
 				</script>
 				<p><a href="#" id="change_merchant">Выбрать другой способ оплаты</a> <i class="icon-chevron-right"></i></p>
+				</section>
 				<section class="hide" id="merchants">{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
 			{/if}
 

@@ -60,6 +60,7 @@ var duplicateOrder = function (order_id, order_hash)
 				else $('#merchants{$order_id}').slideDown('fast');
 			});
 			$('#merchants{$order_id}').hide();
+			return false;
 		});
 	}(window.jQuery);
 	</script>
