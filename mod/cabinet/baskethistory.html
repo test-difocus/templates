@@ -20,7 +20,7 @@ var duplicateOrder = function (order_id, order_hash)
 {assign var=order_hash value=$order.hash}
 <hr />
 <a name="order_id_{$order_id}"></a>
-<p>
+<div>
 	<big><b>Заказ №{$order_id}</b></big> от <em>{$order.content.created|date_format:"%d %B %Y"}</em>,
 	на сумму <b>{$order.content.summ|price:false} {numeral number=$order.content.summ ends=$GLOBS.allcurrencies[$order.content.currency].name}</b>
 	{if $GLOBS.order_status[$order.content.status]}
@@ -44,10 +44,39 @@ var duplicateOrder = function (order_id, order_hash)
 		">{$GLOBS.pay_status[$order.content.pay_status]}</span>
 	{/if}
 	&mdash; <a onclick="duplicateOrder('{$order_id}', '{$order.hash}');return false;" href="/basket/?action=duplicate&order_id={$order_id}&oh={$order.hash}"><small>Повторить заказ</small></a>
-</p>
-{if $GLOBS.merchants && $order.content.pay_status neq 'FP' && $order.content.pay_method eq 'NON'}
-<p>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order.content.delivery_price basketdata=$order.goods summ=$order.content.summ order_id=$order_id currency=$GLOBS.allcurrencies[$order.content.currency]}</p>
+
+{*  Выбор способа оплаты *}
+{if $GLOBS.merchants && $order.content.pay_status neq 'FP'}
+	{* Способ оплаты выбран, + ссылка скрыть/показать способы оплаты *}
+	{if $order.content.pay_method neq 'NON'}
+	<br />Способ оплаты: {$GLOBS.pay_methods[$order.content.pay_method]}. <a href="#" id="change_merchant{$order_id}"><small>Выбрать другой способ оплаты</small>.</a>
+	
+	<script>
+	!function ($) {
+		$(function(){
+			$('#change_merchant{$order_id}').click(function()
+			{
+				if($('#merchants{$order_id}').is(':visible')) $('#merchants{$order_id}').slideUp('fast');
+				else $('#merchants{$order_id}').slideDown('fast');
+			});
+			$('#merchants{$order_id}').hide();
+		});
+	}(window.jQuery);
+	</script>
+	{/if}
+
+	{* Список способов оплаты *}
+	<section id="merchants{$order_id}" style="margin-top:10px;">
+		{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order.content.delivery_price basketdata=$order.goods summ=$order.content.summ order_id=$order_id currency=$GLOBS.allcurrencies[$order.content.currency] order_content=$order.content}
+	</section>
 {/if}
+
+{*  Заказ оплачен , отображаем способ оплаты *}
+{if $GLOBS.merchants && $order.content.pay_status eq 'FP' && $order.content.pay_method neq 'NON'}
+	<br/>Способ оплаты: {$GLOBS.pay_methods[$order.content.pay_method]}.
+{/if}
+</div>
+
 <!--a href="/basket/?action=showorder&id={$order_id}&oh={$order.hash}"><small>Постоянный адрес заказа</small></a-->
 <table class="table table-striped">
 <thead>

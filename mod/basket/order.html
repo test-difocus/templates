@@ -25,15 +25,34 @@
 			</div>
 
 			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method eq 'NON'}
-			{if $order_content.pay_status eq 'HP'}
-			<h1>Заказ оплачен не полностью</h1>
-			{else}
-			<h1>Оплатите ваши покупки</h1>
-			{/if}
 			
+			{if $order_content.pay_status eq 'HP'}<h1>Заказ оплачен не полностью</h1>{else}<h1>Оплатите ваши покупки</h1>{/if}
+
 			<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
 			{/if}
-			
+
+			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method neq 'NON'}
+				<div class="page-header"><h1>Ваш способ оплаты</h1></div>
+				<!--p>{$GLOBS.pay_methods[$order_content.pay_method]}</p-->
+				{include file="$TMPL_FOLDER/mod/merchants/`$order_content.pay_method`.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency] order_content=$order_content}
+				<p class="clearfix"></p>
+				<script>
+				!function ($) {
+					$(function(){
+						$('#change_merchant').click(function()
+						{
+							if($('#merchants').is(':visible'))
+								$('#merchants').slideUp('fast');
+							else
+								$('#merchants').slideDown('fast');
+						});
+					});
+				}(window.jQuery);
+				</script>
+				<p><a href="#" id="change_merchant">Выбрать другой способ оплаты</a> <i class="icon-chevron-right"></i></p>
+				<section class="hide" id="merchants">{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
+			{/if}
+
 			<div class="page-header">
 				<h1>Ваши покупки</h1>
 			</div>

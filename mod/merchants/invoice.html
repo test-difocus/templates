@@ -1,0 +1,6 @@
+<form method="post" accept-charset="UTF-8" action="/cabinet/pay.html?provider=invoice" class="payment-form pull-left">
+	<input type="hidden" name="order_id" value="{$order_id}" />
+	<input type="hidden" name="order_hash" value="{$order_hash}" />
+	<input type="hidden" name="r" value="{$vpath}" />
+	<button type=submit class="btn btn-large" title="{$GLOBS.merchants.invoice.btn|default:'Оплатить по счету'}" rel="tooltip"><img src="/media0/img/merchants/invoice.png" width="150" /></button>
+</form>
