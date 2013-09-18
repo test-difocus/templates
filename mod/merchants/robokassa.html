@@ -9,8 +9,8 @@
 	<input type="hidden" name="InvId" value="{$order_id}" />
 	<input type="hidden" name="Desc" value="{$GLOBS.merchants.robokassa.Desc|default:'Заказ №'}{$order_id}" />
 	{*<input type="hidden" name="IncCurrLabel" value="{$GLOBS.currency.code}">*}
-	<input type="hidden" name="shpEmail" value="{$GLOBS.userdata.email}" />
-	<input type="hidden" name="SignatureValue" value="{md5 value="`$GLOBS.merchants.robokassa.login`:$summ:$order_id:`$GLOBS.merchants.robokassa.password1`:shpEmail=`$GLOBS.userdata.email`"}" />
+	<input type="hidden" name="shpEmail" value="{$order_content.email}" />
+	<input type="hidden" name="SignatureValue" value="{md5 value="`$GLOBS.merchants.robokassa.login`:$summ:$order_id:`$GLOBS.merchants.robokassa.password1`:shpEmail=`{$order_content.email}`"}" />
 	<!-- button type=submit class="btn">{$GLOBS.merchants.robokassa.btn|default:'Оплатить через ROBOKASSA'}</button -->
 	<button type=submit class="btn btn-large" title="{$GLOBS.merchants.robokassa.btn|default:'Оплатить через ROBOKASSA'}" rel="tooltip"><img src="/media0/img/merchants/ROBOKASSA.png" alt="ROBOKASSA" width="150" /></button>
 </form>

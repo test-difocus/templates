@@ -43,7 +43,14 @@
 					<p class="filters-content">
 					{foreach from=$filter_field item=item}
 						{if $item.value}
-						<label><input type="checkbox" value="{$item.value|escape}" name="filter[{$name}][]" {if $item.checked}checked="checked"{/if} /> {$item.value}</label>
+						<label>
+							<input type="checkbox" value="{$item.value|escape}" name="filter[{$name}][]" {if $item.checked}checked="checked"{/if} />
+							{if isset($GLOBS[$name][$item.value])}
+							{$GLOBS[$name][$item.value]}
+							{else}
+							{$item.value}
+							{/if}
+						</label>
 						{/if}
 					{/foreach}
 					</p>

@@ -1,6 +1,6 @@
 <form action=https://rbkmoney.ru/acceptpurchase.aspx class="payment-form pull-left">
 	<input type="hidden" name="eshopId" value="{$GLOBS.merchants.rbkmoney.eshopId}">
-	<input type="hidden" name="user_email" value="{$GLOBS.userdata.email}">
+	<input type="hidden" name="user_email" value="{$order_content.email}">
 	<input type="hidden" name="orderId" value="{$order_id}">
 	<input type="hidden" name="recipientAmount" value="{$summ}">
 	<input type="hidden" name="recipientCurrency" value="{$currency.code}">

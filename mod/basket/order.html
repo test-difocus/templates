@@ -21,7 +21,7 @@
 					Историю заказов можно посмотреть в <a href="/cabinet/history.html">личном кабинете</a>.
 				{/if}
 				</p>
-			<p class="pull-right"><a href="/basket/?action=showorder&id={$order_id}&oh={$order_hash}"><small>Постоянный адрес заказа №{$order_id}</small></a></p>
+				<p class="pull-right"><a href="/basket/?action=showorder&id={$order_id}&oh={$order_hash}"><small>Постоянный адрес заказа №{$order_id}</small></a></p>
 			</div>
 
 			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method eq 'NON'}
@@ -57,7 +57,24 @@
 			{/if}
 
 			<div class="page-header">
-				<h1>Ваши покупки</h1>
+				<h1>
+					Ваши покупки{if $order_content.pay_status eq 'FP'} <sup class="badge badge-success">Заказ оплачен</sup>{/if}
+					{if $GLOBS.order_status[$order_content.status]}
+						<sup class="badge
+						{if $order_content.status eq 'A'}{/if}
+						{if $order_content.status eq 'F'}label-inverse{/if}
+						{if $order_content.status eq 'N'}badge-info{/if}
+						{if $order_content.status eq 'P'}badge-info{/if}
+						{if $order_content.status eq 'M'}badge-success{/if}
+						{if $order_content.status eq 'O'}badge-info{/if}
+						{if $order_content.status eq 'C'}badge-success{/if}
+						{if $order_content.status eq 'V'}badge-info{/if}
+						{if $order_content.status eq 'Z'}badge-important{/if}
+						{if $order_content.status eq 'R'}badge-warning{/if}
+						{if $order_content.status eq 'K'}badge-warning{/if}
+						">{$GLOBS.order_status[$order_content.status]}</sup>
+					{/if}
+				</h1>
 			</div>
 			{if sizeof($basketdata)}
 			<section>
@@ -79,6 +96,7 @@
 				{if $smarty.foreach.orderitems.iteration % 4 == 0 && $smarty.foreach.orderitems.iteration!=$smarty.foreach.orderitems.last}</div><div class="row-fluid">{/if}
 				{/foreach}
 				</div>
+				
 				{if $orderduplicate}
 				<script>
 				var duplicateOrder = function (order_id, order_hash)

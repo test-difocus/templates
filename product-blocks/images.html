@@ -14,7 +14,7 @@
 		<div class="span3">
 			<a href="{$im.path}" class="thumbnail fancybox" target="_blank" title="{$im.name}" rel="group">
 				<img src="/{image src=$im.path width=100 height=100 folder=".100" crop=true align=center}" alt="{$im.name}">
-				<center>{$item.name}</center>
+				<center class="hide">{$im.name}</center>
 			</a>
 		</div>
 	{if $smarty.foreach.itemcounter.iteration % 4 == 0}</div><div class="thumbnails">{/if}

@@ -4,7 +4,7 @@
 	<input type="hidden" name="LMI_PAYMENT_AMOUNT" value="{$summ}" />
 	<input type="hidden" name="LMI_SIM_MODE" value="0" />
 	<input type="hidden" name="LMI_PAYEE_PURSE" value="{$GLOBS.merchants.webmoney.wm}" >
-	<input type="hidden" name="LMI_PAYMER_EMAIL" value="{$GLOBS.userdata.email}" >
+	<input type="hidden" name="LMI_PAYMER_EMAIL" value="{$order_content.email}" >
 	<input type="hidden" name="FIELD_1" value="{$GLOBS.userdata.email}" >
 	<!-- button type=submit class="btn">{$GLOBS.merchants.webmoney.btn|default:'Оплатить через Webmoney'}</button-->
 	<button type=submit class="btn btn-large" title="{$GLOBS.merchants.webmoney.btn|default:'Оплатить через Webmoney'}" rel="tooltip"><img src="/media0/img/merchants/Webmoney.png" alt="Webmoney" width="150" /></button>

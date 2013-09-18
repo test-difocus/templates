@@ -2,8 +2,8 @@
 	<input type="hidden" name="order_id" value="{$order_id}" />
 	<input type="hidden" name="summ" value="{$summ}" />
 	<input type="hidden" name="currency" value="{$currency.code}" />
-	<input type="hidden" name="name" value="{$GLOBS.userdata.login}" />
-	<input type="hidden" name="email" value="{$GLOBS.userdata.email}" />
+	<input type="hidden" name="name" value="{$order_content.fio}" />
+	<input type="hidden" name="email" value="{$order_content.email}" />
 	
 	<button type=submit class="btn">{$GLOBS.merchants.testmoney.btn|default:'Оплатить через TESTMONEY'}</button>
 </form>
