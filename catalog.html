@@ -12,7 +12,8 @@
 		</div>
 		<section>
 			{include file="$TMPL_FOLDER/mod/anounces.html"}
-	    {if sizeof($directories_pubs)>0}
+			{if $annotate}<p class="lead">{$annotate}</p>{/if}
+		    {if sizeof($directories_pubs)>0}
 	    	<div class="products">
 		    	{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage total=$directories_total}
 				<div class="row-fluid">
@@ -23,7 +24,7 @@
 			    </div>
 				{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage total=$directories_total}
 			<div>
-	    {else}
+		    {else}
 	    	{if $smarty.post.filter}
 	    	<div class="well">
 	    		<h2>Нет результатов</h2>
@@ -35,7 +36,7 @@
 		    	<p>Текущий раздел, пока не заполнен.</p>
 	    	</div>	    	
 	    	{/if}
-	    {/if}
+		    {/if}
 	    	{if $text}<div class="well">
 		    	{$text}
 	    	</div>{/if}

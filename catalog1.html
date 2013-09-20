@@ -18,6 +18,7 @@
 		</aside>
 		<section class="content">
 			{include file="$TMPL_FOLDER/mod/anounces.html"}
+			{if $annotate}<p class="lead">{$annotate}</p>{/if}
 	    {if sizeof($directories_pubs)>0}
 	    	<div class="products">
 		    	{include file="$TMPL_FOLDER/mod/paging.html" pagekey="page" pages=$directories_paging page=$directories_current perpage=$directories_perpage total=$directories_total}

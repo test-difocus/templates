@@ -18,6 +18,7 @@
 		</aside>
 		<section class="content">
 			{include file="$TMPL_FOLDER/mod/anounces.html"}
+			{if $annotate}<p class="lead">{$annotate}</p>{/if}
     		{include file="$TMPL_FOLDER/inc/topbar.html"}
 	    	{if $text}<div class="well">
 		    	{$text}
