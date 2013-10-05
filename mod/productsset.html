@@ -1,0 +1,21 @@
+{if $set && is_array($set) && sizeof($set)}
+<section class="productsset">
+	<div class="page-header">
+		<h3>В составе набора</h3>
+	</div>
+	<div class="row-fluid">
+	{assign var="divider_counter" value=0}
+	{foreach from=$set item="item" name=cat}
+		{if $item.type eq 7}
+		{include file="$TMPL_FOLDER/inc/product-item.html" content=$item.content oid=$item.oid}
+		{assign var="divider_counter" value=$divider_counter+3}
+		{else}
+		{include file="$TMPL_FOLDER/inc/publish-item.html" content=$item.content oid=$item.oid}
+		{assign var="divider_counter" value=$divider_counter+6}
+		{/if}
+		
+		{if $divider_counter % 12 == 0 && !$smarty.foreach.cat.last}</div><div class="row-fluid">{/if}
+	{/foreach}
+	</div>
+</section>
+{/if}

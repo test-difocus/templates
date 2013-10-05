@@ -23,19 +23,24 @@
 			{if $vpath neq '/'}<!--/noindex-->{/if}
 		</p>
 		</div>
-			<div class="span3">
-		{include file="$TMPL_FOLDER/inc/counters.html"}
-		</div>
-			<div class="span4">
+		
 		{if $social_button}
+		<div class="span3">
+			{include file="$TMPL_FOLDER/inc/counters.html"}
+		</div>
+		<div class="span4">
 			Мы в социальных сетях <br />
 			{foreach from=$GLOBS.metatags item=tag}
 		    {if $tag.name|contains:'social:'}
 			<a href="{$tag.content}" class="social-32-{$tag.name|replace:'social:':''}" target="_blank" rel="tooltip" title="{$tag.name|replace:'social:':''|ucfirst}"></a>
 			{/if}
 			{/foreach}
-		{/if}
 		</div>
+		{else}
+		<div class="span7">
+			{include file="$TMPL_FOLDER/inc/counters.html"}
+		</div>		
+		{/if}
 		</div>
 	</div>
 </footer>

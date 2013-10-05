@@ -2,53 +2,24 @@
 <img src="/media0/img/merchants/QIWI.png" alt="QIWI" width="150" />
 </a>
 <div class="hide" id="QiwiPayForm{$order_id}">
-<script src="/media0/js/qiwi.wallet.js"></script>
-<div style="margin:0 auto; padding:5px; width:450px; border:1px solid #ddd; background:#fff; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; font:normal 14px/14px Geneva,Verdana,Arial,Helvetica,Tahoma,sans-serif;">
-	<form action="http://w.qiwi.ru/setInetBill_utf.do" method="get" accept-charset="UTF-8" onSubmit="return checkSubmit{$order_id}();">
+<div style="margin:0 auto; padding:5px; width:350px; border:1px solid #ddd; background:#fff; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; font:normal 14px/14px Geneva,Verdana,Arial,Helvetica,Tahoma,sans-serif;">
+	<form action="http://w.qiwi.ru/setInetBill_utf.do" method="POST" accept-charset="UTF-8">
 	
 		<input type="hidden" name="from" value="{$GLOBS.merchants.qiwi.id}"/>
-		<input type="hidden" name="lifetime" value="1222.0"/>
+		<input type="hidden" name="lifetime" value="1080.0"/>
 		<input type="hidden" name="check_agt" value="{$GLOBS.merchants.qiwi.check_agt}"/>
     	<input type="hidden" name="txn_id" value="{$order_id}"/>
-    	
+    	<input type="hidden" name="amount_rub" value="{$summ}" />
 		<p style="text-align:center; color:#006699; padding:20px 0px; background:url(https://ishop.qiwi.ru/img/button/logo_31x50.jpg) no-repeat 10px 50%;">Выставить счёт за покупку</p>
-		<table style="border-collapse:collapse;">
+		<table style="border-collapse:collapse;width:100%;">
 			<tr style="background:#f1f5fa;">
-				<td style="color:#a3b52d; width:45%; text-align:center; padding:10px 0px;">Мобильный телефон (пример: 9057772233)</td>
+				<td style="color:#a3b52d; width:45%; text-align:center; padding:10px 0px;">Мобильный телефон<br/><small>(пример: 9057772233)</small></td>
 				<td style="padding:10px">
-					<input type="text" name="to" id="idto{$order_id}" style="width:130px; border: 1px inset #555;"></input>
-					<span id="div_idto{$order_id}"></span>
-					<script type="text/javascript">
-						inputMasks["idto{$order_id}"] = new Mask(document.getElementById("idto{$order_id}"));
-
-						function checkSubmit{$order_id}()
-						{
-							console.log("idto{$order_id}");
-							if (inputMasks["idto{$order_id}"].getValue().{literal}match(/^\d{10}$/)){/literal}
-							{
-								document.getElementById("idto{$order_id}").setAttribute("disabled", "disabled");
-								inputMasks["idto{$order_id}"].makeHInput();
-								return true;
-							} else {
-								alert("Введите номер телефона в федеральном формате без \"8\" и без \"+7\"");
-								return false;
-							}
-						}
-					</script>
+					<input type="text" name="to" style="width:155px; border: 1px inset #555;" placeholder="9057772233" value="{$GLOBS.userdata.phone|regex_replace:'/^8/':''|regex_replace:'/^\+7/':''|regex_replace:'/[^\d]+/':''}" />
     			</td>
 			</tr>
-			<tr>
-				<td style="color:#a3b52d; padding:10px 0px; width:45%; text-align:center;">Сумма</td>
-				<td style="padding:10px">
-					<input type="text" name="amount_rub" value="{$summ}" maxlength="5" style="width:50px; text-align:right;  border: 1px inset #555;" /> руб. 
-				</td>
-			</tr>
-			<tr style="background:#f1f5fa;">
-				<td style="color:#a3b52d; padding:10px 0px; width:45%; text-align:center;">Комментарий</td>
-				<td style="padding:10px"><textarea rows="2" cols="30" name="com" style="width:200px; border: 1px inset #555;"></textarea></td>
-			</tr>
 		</table>
-		<p style="text-align:center;"><input type="submit" value="Выставить счёт за покупку" style=" padding:10px 0;border:none; background:url(https://ishop.qiwi.ru/img/button/superBtBlue.jpg) no-repeat 0 50%; color:#fff; width:300px;"/></p>
+		<p style="text-align:center;"><input type="submit" value="Выставить счёт" style=" padding:10px 0;border:none; background:url(https://ishop.qiwi.ru/img/button/superBtBlue.jpg) no-repeat 0 50%; color:#fff; width:300px;"/></p>
 	</form>
 </div>
 <!--form method="POST" action="https://w.qiwi.ru/setInetBill_utf.do" target="iframeName">
