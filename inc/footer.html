@@ -44,5 +44,18 @@
 		</div>
 	</div>
 </footer>
-
+{*
+<div class="widget facebook">
+	<div class="flag"></div>
+<div class="fb-like-box" data-href="https://www.facebook.com/ShopExpressDifocus" data-width="400" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div><div id="fb-root"></div><script>(function(d, s, id) {	  var js, fjs = d.getElementsByTagName(s)[0];	  if (d.getElementById(id)) return;	  js = d.createElement(s); js.id = id;	  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";	  fjs.parentNode.insertBefore(js, fjs);	}(document, 'script', 'facebook-jssdk'));</script>
+</div>
+<div class="widget vk">
+	<div class="flag"></div>
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script><div id="vk_groups"></div><script type="text/javascript">VK.Widgets.Group("vk_groups", { mode: 0, width: "400", height: "400" }, 20003922);</script>
+</div>
+<div class="widget map">
+	<div class="flag"></div>
+	<script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=DghMPWgduIzOLH_vFI_RXuPAMEPKmFQq&width=400&height=450"></script>
+</div>
+*}
 {if $GLOBS.user_id eq 3}{include file="$TMPL_FOLDER/inc/ui-design.html"}{/if}
