@@ -2,7 +2,7 @@
 <div class="page-header">
 	<div class="price-block">
 		Цена
-		<span class="price" data-price="{$price|discount:$discount.percent}" data-oldprice="{$price}">
+		<span class="price" data-price="{$price|discount:$discount.percent}" data-oldprice="{$price|price:false:false}">
 			{$price|discount:$discount.percent|price:false}
 		</span>
 		
