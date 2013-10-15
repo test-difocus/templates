@@ -8,17 +8,7 @@
             	<tr>
                 	<td align="center" valign="top" style="border-collapse: collapse;">
                         	<!-- // Begin Template Preheader \\ -->
-							<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Номер заказа №{$order_id}</h1>
-							<h3 style="font-family: 'trebuchet ms', geneva;font-size:18px;text-align:left;">Контактные данные</h3>
-							<p style="font-family: 'trebuchet ms', geneva;font-size:14px;text-align:left;">{if $order_content.fio}ФИО: {$order_content.fio}<br />{/if}
-							{*$order_content.currency*}
-							{if $order_content.phone}Телефон: {$order_content.phone}<br />{/if}
-							{if $order_content.email}Эл. почта: {$order_content.email}<br />{/if}
-							{if $order_content.comment}Комментарий к заказу: {$order_content.comment}<br />{/if}
-							{if $order_content.address}Адрес: {$order_content.address|nl2br}<br />{/if}
-							{if $order_content.discount}Общая скидка посетителя: {$order_content.discount}<br />{/if}
-							</p>
-							<h3 style="font-family: 'trebuchet ms', geneva;font-size:18px;text-align:left;">Список товаров</h3>
+							<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Новый заказ <u>№{$order_id}</u></h1>
 							<table cellpadding="10" cellspacing="0" border="0" width=100% style="background-color: #FAFAFA;border: 0px solid #DDDDDD;">
 							<thead>
 							  <tr>
@@ -38,7 +28,7 @@
 								</td>
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva; max-width:400px;">
 									<h3 style="font-size:16px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}{$item.vlink}">{$item.content.name}</a></h3>
-								    {if $item.content.articul}<p><b>Артикул: </b> {$item.content.articul}</p>{/if}
+									{if $item.content.articul}<p><b>Артикул: </b> {$item.content.articul}</p>{/if}
 								    {if sizeof($item.params)>0}
 							        <p><b>Опции : </b>
 							        {foreach from=$item.params key=key item=value}
@@ -56,24 +46,135 @@
 							    <td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;">{($item.content.price*$item.count)|price}</td>
 							</tr>
 							{/foreach}
+							{if $order_content.coupon_param}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									&nbsp;
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="7">
+									Скидка по купону "{$order_content.coupon_param.name}" - {$order_content.coupon_param.discount}%, код: {$order_content.coupon_param.coupon_id}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.delivery_id}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+								&nbsp;
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="6">
+									Доставка: {$order_content.delivery}
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;" nowrap="nowrap">
+									 {if $order_content.delivery_price}{$order_content.delivery_price|price}{else}&mdash;{/if}
+								</td>
+							</tr>
+							{/if}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD; font-size:20px;font-family: 'trebuchet ms', geneva;text-align:right;-moz-border-radius: 0px 0px 0px 5px;-webkit-border-radius: 0px 0px 0px 5px;border-radius: 0px 0px 0px 5px;">
+									&nbsp;
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;font-size:20px;font-family: 'trebuchet ms', geneva;" colspan="5">
+									Итого:
+								</td>
+								{*
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD; font-size:20px;font-family: 'trebuchet ms', geneva;text-align:right;">
+									&nbsp;
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD; font-size:20px;font-family: 'trebuchet ms', geneva;text-align:right;">
+									{$order_content.oldtotal|price}
+								</td>
+								*}
+								<td nowrap="nowrap" style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:20px;font-family: 'trebuchet ms', geneva;text-align:right;-moz-border-radius: 0px 0px 5px;-webkit-border-radius: 0px 0px 5px 0px; border-radius: 0px 0px 5px;" colspan="2">
+									{$order_total|price}
+								</td>
+							</tr>
 							<tr>
-								<td style="border-collapse: collapse;border: none; font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="8">
-									<blockquote align=right>
-									<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;">Итого {$order_total|price}</h1>
-									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;">{$count} шт. на сумму: <b>{$total|price}</b><br />
-									{if $oldtotal!=$total}<small>Сумма без скидки: {$oldtotal|price}</small><br />{/if}
-									{if $order_delivery}{$order_delivery['name']}{if $order_delivery.price} : {$order_delivery.price|price}{/if}<br />{/if}
-									</p>
+								<td style="border-collapse: collapse;border: none; font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;" colspan="8">
 									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}/basket/?action=showorder&id={$order_id}&oh={$order_hash}">Постоянный адрес заказа</a></p>
-									{if sizeof($order_fields)>0}
-									<h1 style="font-family: 'trebuchet ms', geneva;font-size:24px;text-align:left;">Дополнительные данные</h1>
-									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;">{foreach from=$order_fields item=item key=key}<b>{$item.runame}: </b> {$item.value} <br />{/foreach}</p>
-									{/if}
-									</blockquote>
 								</td>
 							</tr>
 							</table>
-                        <br>
+	                        <br>
+							<table cellpadding="10" cellspacing="0" border="0" width=100% style="background-color: #FAFAFA;border: 0px solid #DDDDDD;">
+							<thead>
+							  <tr>
+							    <th colspan="2" style="background-color: #f8ffe2;border: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;-moz-border-radius: 5px 5px 0px 0px;-webkit-border-radius: 5px 5px 0px 0px 0px;border-radius: 5px 5px 0px 0px;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);text-align:left;">Введенные данные</th>
+							  </tr>
+							{if $order_content.fio}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_formfields.name}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_content.fio}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.phone}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_formfields.phone}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_content.phone}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.email}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_formfields.email}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_content.email}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.pay_method neq 'NON'}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									Способ оплаты:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$GLOBS.pay_methods[$order_content.pay_method]}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.address}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_formfields.address}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_content.address}
+								</td>
+							</tr>
+							{/if}
+							{if $order_content.comment}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_formfields.comment}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$order_content.email}
+								</td>
+							</tr>
+							{/if}
+							{if sizeof($order_fields)>0}
+							{foreach from=$order_fields item=field}
+							{if $field.value eq ''}
+							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{$field.runame}:
+								</td>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
+									{if $GLOBS[$field.name][$field.value]}{$GLOBS[$field.name][$field.value]}{else}{$field.value}{/if}
+								</td>
+							</tr>
+							{/if}
+							{/foreach}
+							{/if}
+							</table>
                     </td>
                 </tr>
             </table>
