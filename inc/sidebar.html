@@ -32,9 +32,19 @@
 	</section>
 {/if}
 {if sizeof($directories_filters)>0 && $directories_filters_url}
+	<link href="/media0/css/filters.css" rel="stylesheet">
+	<script src="/media0/js/jquery.filters.js"></script>
+	<script>$(function(){ $('.filters form').filters() });</script>
+		
+	<script src="/media0/js/ion.rangeSlider.min.js"></script>
+	<link href="/media0/css/ion.rangeSlider.css" rel="stylesheet">
+	<link href="/media0/css/ion.rangeSlider.skinNice.css" rel="stylesheet">
+	
 	<section class="filters well">
 		<div class="filters-inner">
 			<form action="{$directories_filters_url}" method="GET">
+				<input type="hidden" name="oid" value="{$oid}" />
+				<input type="hidden" name="parent_oid" value="{$objinfo.parent_oid}" />
 				{if $tags_word}<input type="hidden" name="value" value="{$tags_word}" />{/if}
 				{if $searchquery}<input type="hidden" name="q" value="{$searchquery}" />{/if}
 				{foreach from=$directories_filters item=filter_field key=name}
@@ -61,31 +71,30 @@
 				{assign var="min" value=$max}
 				{foreach from=$filter_field item=item}{if $item.value < $min}{assign var="min" value=$item.value}{/if}{/foreach}
 				
-				<input type="text" id="amount-filter-{$name}" readonly="" value="от {$directories_filters_query[$name]['from']|default:$min|default:0|string_format:"%d"} до {$directories_filters_query[$name]['to']|default:$max|default:100|string_format:"%d"}" style="width:90%;"/>
 				<input type="hidden" id="amount-filter-{$name}-from" name="filter[{$name}][from]" value="{$directories_filters_query[$name]['from']}" />
 				<input type="hidden" id="amount-filter-{$name}-to" name="filter[{$name}][to]"  value="{$directories_filters_query[$name]['to']}" />
 				
-				<div id="slider-range-{$name}" style="width:90%;"></div>
-				
 				<script>
-				$(function() {
-					$( "#slider-range-{$name}" ).slider({
-						range: true,
-						min: {$min|default:0|string_format:"%d"},
-						max: {$max|default:100|string_format:"%d"},
-						values: [
-							{$directories_filters_query[$name]['from']|default:$min|default:0|string_format:"%d"},
-							{$directories_filters_query[$name]['to']|default:$max|default:100|string_format:"%d"}
-						],
-						slide: function( event, ui ) {
-							$( "#amount-filter-{$name}" ).val( "от " + ui.values[ 0 ] + " до " + ui.values[ 1 ] + " ");
-							$( "#amount-filter-{$name}-from" ).val( ui.values[ 0 ]);
-							$( "#amount-filter-{$name}-to" ).val( ui.values[ 1 ]);
+				$(function()
+				{
+					$("#slider-range-{$name}").ionRangeSlider({
+						onFinish: function(obj)
+						{
+							$( "#amount-filter-{$name}-from" ).val( obj.fromNumber );
+							$( "#amount-filter-{$name}-to" ).val( obj.toNumber );
+							
+							$.filters.update($('#slider-range-{$name}').parent());
 						}
 					});
 				});
 				</script>
-				
+				<input type="text" id="slider-range-{$name}" value="{$min|default:0|string_format:"%d"};{$max|default:100|string_format:"%d"}"
+					data-type="double"
+					data-hasgrid="true"
+					data-postfix=" {$GLOBS.currency.shortname}"
+					data-from="{$directories_filters_query[$name]['from']}"
+					data-to="{$directories_filters_query[$name]['to']}"
+					data-step="{$max/20|ceil}">
 				</div>
 				{/if}
 				
