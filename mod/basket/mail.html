@@ -159,13 +159,13 @@
 									{$order_formfields.comment}:
 								</td>
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
-									{$order_content.email}
+									{$order_content.comment}
 								</td>
 							</tr>
 							{/if}
 							{if sizeof($order_fields)>0}
 							{foreach from=$order_fields item=field}
-							{if $field.value eq ''}
+							{if $field.value neq ''}
 							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
 									{$field.runame}:
