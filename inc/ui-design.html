@@ -1,3 +1,7 @@
+<script src="/media0/js/ion.rangeSlider.js"></script>
+<link href="/media0/css/ion.rangeSlider.css" rel="stylesheet">
+<link href="/media0/css/ion.rangeSlider.skinNice.css" rel="stylesheet">
+
 <form class="ui-design" action="/cabinet/">
 	<div class="ui-design-container">
 	<a href="#" rel="hide-ui-design" class="toggle hide"></a>
@@ -324,7 +328,9 @@
 	<option value="Lobster, sans-serif">Lobster</option>
 	</select>
 	
-	<div class="slider" title="Размер шрифта в пикселях" rel="tooltip" data-placement="right"><input type="text" id="fontSize" class="Font-editor px" value="" /></div>
+
+	<input type="text" id="fontSize" class="Font-editor px slider">
+	
 	<input type="text" id="textColor" class="Font-editor colorpicker" value=""  title="Цвет текста" data-color-format="hex" rel="tooltip" data-placement="right" placeholder="Например, #000" />
 	<input type="text" id="anchorColor" class="Anchor-editor colorpicker" value="" title="Цвет ссылки" rel="tooltip" data-placement="right" placeholder="Например, #000" />
 	<input type="text" id="hoverColor" class="Anchor-editor colorpicker" value="" title="Цвет ссылки при наведении" rel="tooltip" data-placement="right" placeholder="Например, #000" />
@@ -337,24 +343,26 @@
 	
 	<div id="BorderGroup">
 	Граница<br />
-	<div class="slider" title="Ширина границы в пикселях" rel="tooltip" data-placement="right"><input type="text" id="borderThickness" class="Border-editor px" value="" readonly /></div>
-	<input type="text" id="borderColor" class="Border-editor colorpicker" value=""  title="Цвет границы" rel="tooltip" data-placement="right" placeholder="Например, #000" />
 
-	<div class="slider" title="Скругление границы" rel="tooltip" data-placement="right"><input type="text" id="Radius" class="Radius-editor px" value="" readonly /></div> 
+	<input type="text" id="borderThickness" class="Border-editor px slider">
+	<input type="text" id="borderColor" class="Border-editor colorpicker" value=""  title="Цвет границы" rel="tooltip" data-placement="right" placeholder="Например, #000" />
+	<input type="text" id="Radius" class="Radius-editor px slider">
 	</div>
 
 	<div id="ShadowGroup">
 	Тень блока<br />
-	<div class="slider" title="Внутренняя тень" rel="tooltip" data-placement="right"><input type="text" id="innerHighlight" class="Shadow-editor px" value="0px" readonly /></div>
+	<input type="text" id="innerHighlight" class="Shadow-editor px slider">
+					
 <!--
-	<select title="Внутренняя тень" rel="tooltip" data-placement="right" id="innerHighlight" class="Shadow-editor px">
+	<select title="Внутренняя тень" rel="tooltip" data-placement="right" id="innerHighlight" class="Shadow-editor px slider">
 		<option value="">По-умолчанию</option>
 		<option value="0px">Отключить</option>
 	</select>
 -->
-	<div class="slider" title="Внешняя тень" rel="tooltip" data-placement="right"><input type="text" id="outerHighlight" class="Shadow-editor px" value="" readonly /></div>
+	<input type="text" id="outerHighlight" class="Shadow-editor px slider">
+	
 <!--
-	<select title="Внешняя тень" rel="tooltip" data-placement="right" id="outerHighlight" class="Shadow-editor px">
+	<select title="Внешняя тень" rel="tooltip" data-placement="right" id="outerHighlight" class="Shadow-editor px slider">
 		<option value="">По-умолчанию</option>
 		<option value="0px">Отключить</option>
 	</select>
@@ -364,8 +372,8 @@
 	
 	<div id="IndentGroup">
 		Отступы<br />
-		<div class="slider" title="Внутренний отступ" rel="tooltip" data-placement="right"><input type="text" id="Padding" class="Padding-editor px" value="" readonly /></div>
-		<div class="slider" title="Внешний отступ" rel="tooltip" data-placement="right"><input type="text" id="Margin" class="Margin-editor px" value="" readonly /></div>
+		<input type="text" id="Padding" class="Padding-editor px slider">
+		<input type="text" id="Margin" class="Margin-editor px slider">
 	</div>
 	
 	<div align="center" class="buttons">
