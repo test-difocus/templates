@@ -5,7 +5,10 @@
 		  	</a>
 	  	</td>
 	    <td>
-		    <h3><a href="{$item.vlink}">{$item.content.name}</a> <sup class="badge badge-success {if !$item.content.discount.percent}hide{/if}">Скидка <span class="discount">{$item.content.discount.percent}</span>%</sup></h3>
+		    <h3>
+			    <a href="{$item.vlink}">{$item.content.name}</a>
+			    <sup class="badge badge-success {if !$item.content.basketdiscount}hide{/if}">Скидка <span class="discount">{$item.content.basketdiscount}</span>%</sup>
+			</h3>
 		    {if sizeof($item.params)>0}
 		    <p><b>Опции : </b>
 		    <small>
@@ -20,11 +23,20 @@
 		    </p>
 		    {/if}
 	    </td>
-	    <td class="nowrap"><span class="count" data-ends="{$item.content.units|default:'шт.,шт.,шт.'}">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}</td>
+	    <td class="nowrap">
+	    	<span class="count" data-ends="{$item.content.units|default:'шт.,шт.,шт.'}">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
+		    
+		    {if $item.content.weight}<br>Вес: {$item.content.weight} {numeral number=$item.content.weight|price:false ends='грамм,грамма,грамм'}{/if}
+	    </td>
 	    <!--td>{if $item.content.oldprice}<span class="oldprice">{$item.content.oldprice|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
 	    <!--td>{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td-->
 	    <td class="nowrap">
-	    	<span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}"{/if}>
+	    	<span class="price"
+	    			data-oldprice="{$item.content.oldprice}"
+	    			data-price="{$item.content.price}"
+	    			data-discount="{$item.content.basketdiscount|default:0}"
+	    			data-productdiscount="{$item.content.discount.percent|default:0}"
+	    			data-weight="{$item.content.weight}">
 	    		{$item.content.price|price:false}
 	    	</span>{$GLOBS.currency.shortname}
 	    </td>

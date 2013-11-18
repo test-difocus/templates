@@ -25,14 +25,25 @@
 	    {/if}
     </td>
     <td nowrap="nowrap">
-		<sup class="badge badge-success {if !$item.content.discount.percent}hide{/if}">Скидка <span class="discount">{$item.content.discount.percent}</span>%</sup>
+		<sup class="badge badge-success {if !$item.content.basketdiscount}hide{/if}">Скидка <span class="discount">{$item.content.basketdiscount}</span>%</sup>
     </td>
+    
     <td>
 	    <span class="count">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
 	    <span class="oldprice hide">{$item.content.oldprice|price:false}</span>
 	    <span class="oldtotal hide">{($item.content.oldprice*$item.count)|price:false}</span>
     </td>
-    <td nowrap="nowrap"><span class="price" data-oldprice="{$item.content.oldprice}" data-price="{$item.content.price}" data-discount="{$item.content.discount.percent|default:0}" {if $item.content.discount.type eq 'ONCE'}data-productdiscount="{$item.content.discount.percent|default:0}" {/if}>{$item.content.price|price:false}</span>{$GLOBS.currency.shortname}</td>
+    <td class="nowrap">
+    	<span class="price"
+    			data-oldprice="{$item.content.oldprice}"
+    			data-price="{$item.content.price}"
+    			data-discount="{$item.content.basketdiscount|default:0}"
+    			data-productdiscount="{$item.content.discount.percent|default:0}"
+    			data-weight="{$item.content.weight}">
+    		{$item.content.price|price:false}
+    	</span>{$GLOBS.currency.shortname}
+    </td>
+    
 	<td nowrap="nowrap"><span class="total">{($item.content.price*$item.count)|price:false}</span>{$GLOBS.currency.shortname}</td>
 	<td nowrap="nowrap">
 		<a href="/basket/?action=add&oid={$item.oid}&tmpl=mini&time={$smarty.now}" class="btn btn-primary btn-mini controls" data-action="increase" data-product="product{$item.oid}"><i class="icon-plus icon-white"></i></a>
