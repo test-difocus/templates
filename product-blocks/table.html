@@ -4,6 +4,7 @@
 	{if $vendor}<tr><td>Фирма производитель</td><td>{$vendor}</td></tr>{/if}
 	{if $country}<tr><td>Страна производитель</td><td>{$country}</td></tr>{/if}
 	{if $articul}<tr><td>Артикул</td><td>{$articul}</td></tr>{/if}
+	{if $weight}<tr><td>Вес</td><td>{$weight} {numeral number=$weight|price:false ends='грамм,грамма,грамм'}</td></tr>{/if}
 	</tbody>
 </table>
 {/if}

@@ -2,13 +2,15 @@
 <div class="page-header">
 	<div class="price-block">
 		Цена
-		<span class="price" data-price="{$price|discount:$discount.percent}" data-oldprice="{$price|price:false:false}">
+		<span class="price"
+			data-price="{$price|discount:$discount.percent}"
+			{if $discount.percent}data-oldprice="{$price|price:false:false}"{else}data-oldprice="{$old_price|price:false:false}"{/if}>
 			{$price|discount:$discount.percent|price:false}
 		</span>
 		
 		{$GLOBS.currency.shortname}
 		{if $units}за {numeral ends=$units number=1}{/if}
-		
+
 		{if $discount.percent}
 		<div class="discount-block">
 			<span class="badge badge-success">

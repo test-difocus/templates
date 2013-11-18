@@ -31,29 +31,46 @@
 	</fieldset>
 	{/if}
 	<script>
-		var params_images = [];
-		$(".inbasket select").change(function()
-		{
-			var param_name = $(this).children(":selected").data('name');
-			
-			if(params_images.length == 0)
-			$('.thumbnails a.thumbnail').each(function()
+		$(document).ready(function () {
+		    $("#mimage").elevateZoom(
+		    	{
+		    		//gallery:'product_gallery',
+		    		cursor: 'pointer',
+		    		//galleryActiveClass: 'active',
+		    		imageCrossfade: true,
+		    		borderSize:1,
+		    		zoomWindowWidth: 350,
+		    		zoomWindowHeight: 350,
+		    		loadingIcon: '/media0/img/loading.gif'
+		    	}
+		    );
+		    var $elevate = $('#mimage').data('elevateZoom');
+			//console.log($elevate.getGalleryList());
+
+			var params_images = [];
+			$(".inbasket select").change(function()
 			{
-				params_images.push({
-					'name' : $(this).children('img').attr('alt'),
-					'src' : $(this).attr('href')
+				var param_name = $(this).children(":selected").data('name');
+				
+				if(params_images.length == 0)
+				$('.thumbnails a.thumbnail').each(function()
+				{
+					params_images.push({
+						'name' : $(this).children('img').attr('alt'),
+						'image' : $(this).data('image'),
+						'zoom-image' : $(this).data('zoom-image')
+					});
 				});
-			});
-			
-			for(var i=0;i<params_images.length;i++)
-			{
-				if( params_images[i]['name'] == param_name ){
-					$("#mimage").css('background-image','/media0/img/loading.gif');
-					$("#mimage").data('zoom-image', params_images[i]['src'] );
-					$("#mimage").attr('src', params_images[i]['src'] );
-					$('#mimage').elevateZoom({ borderSize:1, zoomWindowWidth: 350, zoomWindowHeight: 350 });
+				
+				for(var i=0;i<params_images.length;i++)
+				{
+					if( params_images[i]['name'] == param_name )
+					{
+						$elevate.zoomImagePre = params_images[i]['zoom-image'];
+						$elevate.swaptheimage(params_images[i]['image'], $elevate.zoomImagePre);
+					}
 				}
-			}
+			});
 		});
 	</script>
 	
