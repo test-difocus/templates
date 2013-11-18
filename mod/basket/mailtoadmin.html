@@ -62,7 +62,8 @@
 								&nbsp;
 								</td>
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="6">
-									Доставка: {$order_content.delivery}
+									Доставка: 
+									{if $GLOBS.delivery[$order_content.delivery]}{$GLOBS.delivery[$order_content.delivery]}{else}{$order_content.delivery}{/if}
 								</td>
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;" nowrap="nowrap">
 									 {if $order_content.delivery_price}{$order_content.delivery_price|price}{else}&mdash;{/if}

@@ -31,7 +31,7 @@
 			<section>{include file="$TMPL_FOLDER/mod/merchants/merchant.html" shipping_price=$order_content.delivery_price summ=$order_total order_id=$order_id currency=$GLOBS.allcurrencies[$order_content.currency]}</section>
 			{/if}
 
-			{if $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method neq 'NON'}
+			{if $order_content.pay_method && $GLOBS.merchants && $order_content.pay_status neq 'FP' && $order_content.pay_method neq 'NON'}
 				<div class="page-header"><h1>Ваш способ оплаты</h1></div>
 				<section>
 				<!--p>{$GLOBS.pay_methods[$order_content.pay_method]}</p-->

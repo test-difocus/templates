@@ -1,6 +1,6 @@
 {if $GLOBS.merchants}
 	{foreach from=$GLOBS.merchants item=item key=merchant}
-	{if $order_content.pay_method|lower neq $merchant}
+	{if $merchant && $order_content.pay_method|lower neq $merchant}
 	{include file="$TMPL_FOLDER/mod/merchants/$merchant.html"}
 	{/if}
 	{/foreach}

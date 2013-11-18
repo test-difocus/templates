@@ -66,12 +66,17 @@
 				{if sizeof($discounts)}
 				<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } ); {/foreach}</script>
 				{/if}
+				<script>var eShopPostIndex = '{$postindex}';</script>
+				
 				<blockquote class="pull-right">
 					<h1>Итого</h1>
 					<p>
 					
 					<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
-					{if $oldtotal}<small>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>{/if}</p>
+					{if $oldtotal}<small>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>{/if}
+					{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
+					</p>
+
 				</blockquote>
 				<br clear="all" />
 				{if !$coupon.coupon_id && $coupons_enable}
