@@ -8,7 +8,7 @@
   {if $order_id && !$order_show}
   _gaq.push(['_addTrans', '{$order_id}', '{$GLOBS.SITENAME}', '{($order_total-$order_content.delivery_price)|replace:',':'.'}', '0', '{$order_content.delivery_price|replace:',':'.'}', '{$order_content.address}', '','']);
   {foreach from=$basketdata item=item name="orderitems"}
-  _gaq.push(['_addItem', '{$onumber}', '{$item.oid}', '{$item.content.name}','{$item.parent.name}', /* category or variation*/ '{$item.content.price|replace:',':'.'}', '{$item.count}']);
+  _gaq.push(['_addItem', '{$order_id}', '{$item.oid}', '{$item.content.name}','{$item.parent.name}', /* category or variation*/ '{$item.content.price|replace:',':'.'}', '{$item.count}']);
   {/foreach}
   _gaq.push(['_trackTrans']);
   {/if}
