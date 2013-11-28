@@ -34,9 +34,7 @@
 		$(document).ready(function () {
 		    $("#mimage").elevateZoom(
 		    	{
-		    		//gallery:'product_gallery',
 		    		cursor: 'pointer',
-		    		//galleryActiveClass: 'active',
 		    		imageCrossfade: true,
 		    		borderSize:1,
 		    		zoomWindowWidth: 350,
@@ -45,7 +43,6 @@
 		    	}
 		    );
 		    var $elevate = $('#mimage').data('elevateZoom');
-			//console.log($elevate.getGalleryList());
 
 			var params_images = [];
 			$(".inbasket select").change(function()

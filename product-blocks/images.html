@@ -1,17 +1,19 @@
 {if sizeof($images)>0}
-<a class="thumbnail">
-	<img src="/{image src=$images[0].path width=400 folder=".400"}" data-zoom-image="{$images[0].path}" id="mimage">
-</a>
+<div class="thumbnails">
+	<a class="thumbnail span12">
+		<img src="/{image src=$images[0].path width=400 folder=".400"}" data-zoom-image="{$images[0].path}" id="mimage">
+	</a>
+</div>
 {/if}
 {if sizeof($images)>1}
 <hr />
-<div class="thumbnails" id="product_gallery">
+<div class="thumbnails row-fluid">
 {foreach from=$images item="im" name='itemcounter'}
 	<a href="{$im.path}" class="thumbnail span3 fancybox" title="{$im.name}" data-image="/{image src=$im.path width=400 folder=".400"}" data-zoom-image="{$im.path}" rel="group">
 		<img src="/{image src=$im.path width=100 height=100 folder=".100" crop=true align=center}" alt="{$im.name}">
 		<center class="hide">{$im.name}</center>
 	</a>
-{if $smarty.foreach.itemcounter.iteration % 4 == 0}</div><div class="thumbnails">{/if}
+{if $smarty.foreach.itemcounter.iteration % 4 == 0}</div><br /><div class="thumbnails row-fluid">{/if}
 {/foreach}
 </div>
 {/if}

@@ -85,7 +85,7 @@
 							$( "#amount-filter-{$name}-from" ).val( obj.fromNumber );
 							$( "#amount-filter-{$name}-to" ).val( obj.toNumber );
 
-							if(obj.toNumber != {$max|default:100|string_format:"%d"} || obj.fromNumber != {$min|default:0|string_format:"%d"} )
+							if(obj.toNumber != {$max|default:100|string_format:"%d"} && obj.fromNumber != {$min|default:0|string_format:"%d"} )
 								$.filters.update($('#slider-range-{$name}').parent());
 						}
 					});
@@ -96,8 +96,7 @@
 					data-hasgrid="true"
 					{* data-postfix=" {$GLOBS.currency.shortname}" *}
 					data-from="{$directories_filters_query[$name]['from']|default:$min|default:0}"
-					data-to="{$directories_filters_query[$name]['to']|default:$max|default:0}"
-					data-step="{(($max-$min)/30)|ceil}">
+					data-to="{$directories_filters_query[$name]['to']|default:$max|default:0}">
 				</div>
 				{/if}
 
