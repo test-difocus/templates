@@ -9,6 +9,8 @@
     {if $tag.name eq 'favicon'}
     <link rel="icon" href="{$tag.content}" type="image/x-icon" />
     <link rel="shortcut icon" href="{$tag.content}" type="image/ico" />
+    {else if $tag.name eq 'canonical'}
+	<link rel="canonical" href="http://{$smarty.server.HTTP_HOST}{$vlink|replace:'/index.html':'/'}" />
     {else if $tag.name|contains:'fb:'}
 	<meta property="{$tag.name}" content="{$tag.content}">
     {else if $tag.name|contains:'social:'}
@@ -17,6 +19,7 @@
     <meta name="{$tag.name}" content="{$tag.content}">
     {/if}
     {/foreach}
+
 	
     {if $meta_description}<meta name="description" content="{$meta_description}">{/if}
     {if $meta_keywords}<meta name="keywords" content="{$meta_keywords}">{/if}
@@ -72,6 +75,6 @@
 	<meta property="og:image" content="http://{$smarty.server.SERVER_NAME}{$images[0].path}"/>
 	<link rel="image_src" href="http://{$smarty.server.SERVER_NAME}{$images[0].path}" />
 	<meta property="og:site_name" content="{$GLOBS.SITENAME}"/>
-	<meta property="og:description" content="{$annotate|addslashes|strip_tags}"/>
+	<meta property="og:description" content="{if $annotate}{$annotate|addslashes|strip_tags}{else}{$text|addslashes|strip_tags|truncate:200}{/if}"/>
 	{/if}
   </head>
