@@ -3,18 +3,22 @@
 	<div class="price-block">
 		Цена
 		<span class="price"
-			data-price="{$price|discount:$discount.percent}"
-			{if $discount.percent}data-oldprice="{$price|price:false:false}"{else}data-oldprice="{$old_price|price:false:false}"{/if}>
-			{$price|discount:$discount.percent|price:false}
+			data-price="{$price|discount:$discount}"
+			data-discount-percent="{$discount.percent|default:0}"
+			data-discount-money="{$discount.money|default:0}"
+			data-oldprice="{$price}">
+			{$price|discount:$discount|price:false}
 		</span>
 		
 		{$GLOBS.currency.shortname}
 		{if $units}за {numeral ends=$units number=1}{/if}
 
-		{if $discount.percent}
+		{if $discount}
 		<div class="discount-block">
 			<span class="badge badge-success">
-				Скидка {$discount.percent}%
+	    		Скидка
+	    		{if $discount.percent}{$discount.percent}% {if $discount.money} и {/if}{/if}
+	    		{if $discount.money}{$discount.money|price:false} {numeral number=$discount.money|price:false ends=$GLOBS.currency.name}{/if}
 			</span>
 			
 			{if $discount.date_to_days < 30}

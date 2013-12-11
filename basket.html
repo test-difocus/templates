@@ -24,7 +24,7 @@
 				</div>
 				
 				<div class="alert alert-success">
-					Вы активировали купон <b>{$coupon.name}</b> на скидку в <b>{$coupon.discount}%</b><br>
+					Вы активировали купон <b>{$coupon.name}</b> на скидку в {if $coupon.percent} <b>{$coupon.percent}%</b> {if $coupon.money} и {/if}{/if} {if $coupon.money} <b>{$coupon.money} {numeral number=$coupon.money ends=$GLOBS.currency.name}</b>{/if} <br>
 					{if $coupon.count_from || $coupon.count_to || $coupon.price_from || $coupon.price_to}
 					При покупке
 					{if $coupon.count_from} <u>от {$coupon.count_from} {numeral number=$coupon.count_from ends="вещи, вещей, вещей"}</u>{/if}
@@ -64,7 +64,13 @@
 				
 				{* вывод сразу всех накопительных скидок *}
 				{if sizeof($discounts)}
-				<script>var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0}; var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0}; var discounts = []; {foreach from=$discounts item=discount} discounts.push( { 'percent' : {$discount.discount}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } ); {/foreach}</script>
+				<script>
+				var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0};
+				var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0};
+				var moneyRound = {$GLOBS.currency.round|default:0};
+				var discounts = [];
+				{foreach from=$discounts item=discount}discounts.push( { 'percent' : {$discount.percent|default:0}, 'money' : {$discount.money|default:0}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } );{/foreach}
+				</script>
 				{/if}
 				<script>var eShopPostIndex = '{$postindex}';</script>
 				
@@ -73,10 +79,18 @@
 					<p>
 					
 					<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
-					{if $oldtotal}<small>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>{/if}
+					
+					<small class="label label-success {if !$basketdiscount.money && !$basketdiscount.percent}hide{/if}">
+						Ваша скидка:
+							<span id="basketDiscount">
+								{if $basketdiscount.percent}{$basketdiscount.percent}% {if $basketdiscount.money} и {/if}{/if}
+								{if $basketdiscount.money}{$basketdiscount.money} {numeral number=$basketdiscount.money|price:false ends=$GLOBS.currency.name}{/if}
+							</span>
+					</small>
+
+					<small {if $oldtotal eq  $total}class="hide"{/if}>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>
 					{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
 					</p>
-
 				</blockquote>
 				<br clear="all" />
 				{if !$coupon.coupon_id && $coupons_enable}

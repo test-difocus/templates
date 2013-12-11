@@ -11,13 +11,13 @@
 				<select name="params[{$oid}][{$name}]" style="width:80%;" class="input-xlarge" id="selectParams_{$name}">
 				{foreach from=$field.values item=item key=key}
 				{if $item.editable eq 'true'}
-				<option value="{$key}" data-price="{$item.price|discount:$discount.percent|price:false}" data-oldprice="{$item.price}" data-discount="{$discount.percent.percent|default:0}" data-type="{$item.type}" data-name="{$item.name}">
+				<option value="{$key}" data-price="{$item.price|discount:$discount}" data-oldprice="{$item.price}" data-type="{$item.type}" data-name="{$item.name}">
 					{$item.name}
 				
 					{if $item.price && $item.type eq 'plus'},
-					дополнительно {$item.price|discount:$discount.percent|price:false} {numeral number=$item.price|discount:$discount.percent|price:false ends=$GLOBS.currency.name}
+					дополнительно {$item.price|discount:$discount|price:false} {numeral number=$item.price|discount:$discount|price:false ends=$GLOBS.currency.name}
 					{elseif $item.price}
-					, цена {$item.price|discount:$discount.percent|price:false} {numeral number=$item.price|discount:$discount.percent|price:false ends=$GLOBS.currency.name}
+					, цена {$item.price|discount:$discount|price:false} {numeral number=$item.price|discount:$discount|price:false ends=$GLOBS.currency.name}
 					{else}
 					{/if}
 				</option>

@@ -1,5 +1,43 @@
 {$text}
-
+<div id="invoce-req" class="hide">
+	<h2 align="center">Наши реквизиты</h2>
+	<table class="table table-striped table-hover">
+		<tr>
+			<td>Наименование организации</td>
+			<td>{$GLOBS.merchants.invoice.name}</td>
+		</tr>
+		{if $GLOBS.merchants.invoice.address}
+		<tr>
+			<td>Юридический адрес</td>
+			<td>{$GLOBS.merchants.invoice.address}</td>
+		</tr>
+		{/if}
+		<tr>
+			<td>Р/с</td>
+			<td>{$GLOBS.merchants.invoice.rs}</td>
+		</tr>
+		<tr>
+			<td>Банк</td>
+			<td>{$GLOBS.merchants.invoice.bank}</td>
+		</tr>
+		<tr>
+			<td>БИК</td>
+			<td>{$GLOBS.merchants.invoice.bik}</td>
+		</tr>
+		<tr>
+			<td>К/с</td>
+			<td>{$GLOBS.merchants.invoice.ks}</td>
+		</tr>
+		<tr>
+			<td>ИНН</td>
+			<td>{$GLOBS.merchants.invoice.inn}</td>
+		</tr>
+		<tr>
+			<td>КПП</td>
+			<td>{$GLOBS.merchants.invoice.kpp}</td>
+		</tr>
+	</table>
+</div>
 {if sizeof($cabinetbaskethistory_orders)>0}
 <script>
 var duplicateOrder = function (order_id, order_hash)
@@ -49,7 +87,7 @@ var duplicateOrder = function (order_id, order_hash)
 {if $GLOBS.merchants && $order.content.pay_status neq 'FP'}
 	{* Способ оплаты выбран, + ссылка скрыть/показать способы оплаты *}
 	{if $order.content.pay_method neq 'NON'}
-	<br />Способ оплаты: {$GLOBS.pay_methods[$order.content.pay_method]}. <a href="#" id="change_merchant{$order_id}"><small>Выбрать другой способ оплаты</small>.</a>
+	<br />Способ оплаты: {$GLOBS.pay_methods[$order.content.pay_method]}{if $order.content.pay_method eq 'INVOICE'} &mdash; <a href="#invoce-req" class="fancybox">посмотреть реквизиты</a>{/if}. <a href="#" id="change_merchant{$order_id}"><small>Выбрать другой способ оплаты</small>.</a>
 	
 	<script>
 	!function ($) {

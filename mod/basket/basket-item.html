@@ -7,7 +7,13 @@
 	    <td>
 		    <h3>
 			    <a href="{$item.vlink}">{$item.content.name}</a>
-			    <sup class="badge badge-success {if !$item.content.basketdiscount}hide{/if}">Скидка <span class="discount">{$item.content.basketdiscount}</span>%</sup>
+			    <sup class="badge badge-success {if $basketdiscount || (!$item.content.discount.percent && !$item.content.discount.money)}hide{/if}">
+			    	Скидка
+			    		<span class="discount">
+				    		{if $item.content.discount.percent}{$item.content.discount.percent}% {if $item.content.discount.money} и {/if}{/if}
+				    		{if $item.content.discount.money}{$item.content.discount.money|price:false} {numeral number=$item.content.discount.money|price:false ends=$GLOBS.currency.name}{/if}
+			    		</span>
+			    </sup>
 			</h3>
 		    {if sizeof($item.params)>0}
 		    <p><b>Опции : </b>
@@ -24,18 +30,23 @@
 		    {/if}
 	    </td>
 	    <td class="nowrap">
-	    	<span class="count" data-ends="{$item.content.units|default:'шт.,шт.,шт.'}">{$item.count}</span> {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
-		    
-		    {if $item.content.weight}<br>Вес: {$item.content.weight} {numeral number=$item.content.weight|price:false ends='грамм,грамма,грамм'}{/if}
+	    	<span class="count">
+		    	{$item.count} {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
+	    	</span>
+		    {if $item.content.weight}
+		    <br>Вес: <span class="weight">{$item.content.weight} {numeral number=$item.content.weight|price:false ends='грамм,грамма,грамм'}</span>{/if}
 	    </td>
 	    <!--td>{if $item.content.oldprice}<span class="oldprice">{$item.content.oldprice|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
 	    <!--td>{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td-->
 	    <td class="nowrap">
 	    	<span class="price"
-	    			data-oldprice="{$item.content.oldprice}"
-	    			data-price="{$item.content.price}"
-	    			data-discount="{$item.content.basketdiscount|default:0}"
-	    			data-productdiscount="{$item.content.discount.percent|default:0}"
+	    			data-oldprice="{$item.content.oldprice|price:false}"
+	    			data-price="{$item.content.price|price:false}"
+	    			data-count="{$item.count}"
+	    			data-units="{$item.content.units|default:'шт.,шт.,шт.'}"
+	    			data-currency="{$GLOBS.currency.name}"
+	    			data-discount-percent="{$item.content.discount.percent|default:0}"
+	    			data-discount-money="{$item.content.discount.money|default:0}"
 	    			data-weight="{$item.content.weight}">
 	    		{$item.content.price|price:false}
 	    	</span>{$GLOBS.currency.shortname}
