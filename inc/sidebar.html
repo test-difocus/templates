@@ -36,7 +36,7 @@
 	<script src="/media0/js/jquery.filters.js"></script>
 	<script>$(function(){ $('.filters form').filters() });</script>
 		
-	<script src="/media0/js/ion.rangeSlider.js"></script>
+	<script src="/media0/js/ion.rangeSlider.min.js"></script>
 	<link href="/media0/css/ion.rangeSlider.css" rel="stylesheet">
 	<link href="/media0/css/ion.rangeSlider.skinNice.css" rel="stylesheet">
 	
@@ -85,7 +85,7 @@
 							$( "#amount-filter-{$name}-from" ).val( obj.fromNumber );
 							$( "#amount-filter-{$name}-to" ).val( obj.toNumber );
 
-							if(obj.toNumber != {$max|default:100|string_format:"%d"} && obj.fromNumber != {$min|default:0|string_format:"%d"} )
+							if(obj.toNumber != {$max|default:100|string_format:"%d"} || obj.fromNumber != {$min|default:0|string_format:"%d"} )
 								$.filters.update($('#slider-range-{$name}').parent());
 						}
 					});
