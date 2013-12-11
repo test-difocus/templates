@@ -12,7 +12,7 @@
 							<table cellpadding="10" cellspacing="0" border="0" width=100% style="background-color: #FAFAFA;border: 0px solid #DDDDDD;">
 							<thead>
 							  <tr>
-							    <th colspan="2" style="background-color: #f8ffe2;border: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;-moz-border-radius: 5px 0px 0px;-webkit-border-radius: 5px 0px 0px 0px;border-radius: 5px 0px 0px;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);">Наименование</th>
+							    <th style="background-color: #f8ffe2;border: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;-moz-border-radius: 5px 0px 0px;-webkit-border-radius: 5px 0px 0px 0px;border-radius: 5px 0px 0px;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);">Наименование</th>
 							    <th style="background-color: #f8ffe2;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);">Кол-во<br><small>наименований</small></th>
 							    <th style="background-color: #f8ffe2;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);">Цена<br><small>без&nbsp;скидки</small></th>
 							    <th style="background-color: #f8ffe2;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:12px;font-family: 'trebuchet ms', geneva;text-shadow:1px 1px 0 white;background-image: -moz-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -ms-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -o-linear-gradient(top, #fbfef1, #f8ffe2);background-image: -webkit-gradient(linear, center top, center bottom, from(#fbfef1), to(#f8ffe2));background-image: -webkit-linear-gradient(top, #fbfef1, #f8ffe2);background-image: linear-gradient(top, #fbfef1, #f8ffe2);">Скидка<br><small>(%)</small></th>
@@ -23,11 +23,10 @@
 							</thead>
 							{foreach from=$basketdata item=item}
 							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
-								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva; min-width:80px;">
-									<a href="http://{$site_host}{$item.vlink}">{foreach from=$item.content.images item=im}<img src="http://{$site_host}/{image src=$im.path width=180 folder=".180"}" width="100%;" style="min-width:80px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;"/>{break}{/foreach}</a>
-								</td>
-								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva; max-width:400px;">
-									<h3 style="font-size:16px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}{$item.vlink}">{$item.content.name}</a></h3>
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva; min-width:150px;">
+									<a href="http://{$site_host}{$item.vlink}">{foreach from=$item.content.images item=im}<img src="http://www.{$site_host}/{image src=$im.path width=180 folder=".180"}" width="100%;" style="min-width:80px;max-width:180px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;float:left; margin-right:10px;" />{break}{/foreach}</a>
+								
+									<h3 style="font-size:16px;font-family: 'trebuchet ms', geneva;min-width:100px;display:inline-block;"><a href="http://{$site_host}{$item.vlink}">{$item.content.name}</a></h3>
 									{if $item.content.articul}<p><b>Артикул: </b> {$item.content.articul}</p>{/if}
 								    {if sizeof($item.params)>0}
 							        <p><b>Опции : </b>
@@ -51,7 +50,7 @@
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
 									&nbsp;
 								</td>
-								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="7">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="6">
 									Скидка по купону "{$order_content.coupon_param.name}" - {$order_content.coupon_param.discount}%, код: {$order_content.coupon_param.coupon_id}
 								</td>
 							</tr>
@@ -61,7 +60,7 @@
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;">
 								&nbsp;
 								</td>
-								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="6">
+								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva;" colspan="5">
 									Доставка: 
 									{if $GLOBS.delivery[$order_content.delivery]}{$GLOBS.delivery[$order_content.delivery]}{else}{$order_content.delivery}{/if}
 								</td>
@@ -90,7 +89,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="border-collapse: collapse;border: none; font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;" colspan="8">
+								<td style="border-collapse: collapse;border: none; font-size:14px;font-family: 'trebuchet ms', geneva;text-align:right;" colspan="7">
 									<p style="font-size:14px;font-family: 'trebuchet ms', geneva;"><a href="http://{$site_host}/basket/?action=showorder&id={$order_id}&oh={$order_hash}">Постоянный адрес заказа</a></p>
 								</td>
 							</tr>
