@@ -19,7 +19,9 @@
 			    {foreach from=$directories_pubs item="item"}
 			    <li class="span2">
 			      <a href="{$item.vlink}" class="thumbnail">
-			        {foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 height=110 crop=true}" alt="{$im.name}">{break}{/foreach}
+			        {foreach from=$item.content.images item="im"}
+			        	<img src="/{image src=$im.path width=160 height=110 crop=true}" alt="{$im.name}">{break}
+			        {/foreach}
 			        <div class="caption">
 			          <h5>{$item.content.name}</h5>
 			        </div>
