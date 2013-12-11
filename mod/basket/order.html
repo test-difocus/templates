@@ -12,15 +12,13 @@
 		<article style="margin-top:15px;">
 			<div class="hero-unit">
 				<h1>Номер вашего заказа <u>{$order_id}</u></h1>
-				<p>
-					{*if $order_content.pay_status eq 'FP'}<span class="badge badge-success" style="vertical-align: super;">Оплачен</span>{else if $order_content.pay_status eq 'HP'}<span class="badge badge-warning" style="vertical-align: super;">Оплачен не полностью</span>{/if*}
-					Сумма вашего заказа составила <b>{$order_total|price}</b>, спасибо, что выбрали наш магазин.
-				{if $GLOBS.user_id eq 6}
-					{$text}
+				<p>Сумма вашего заказа составила <b>{$order_total|price:false} {numeral number=$order_total ends=$GLOBS.currency.name}</b>, спасибо, что выбрали наш магазин.</p>
+				{$text}
+				{if $GLOBS.user_id neq 6}
+				<p>Историю заказов можно посмотреть в <a href="/cabinet/history.html">личном кабинете</a>.</p>
 				{else}
-					Историю заказов можно посмотреть в <a href="/cabinet/history.html">личном кабинете</a>.
+				<p>Вы можете <a href="/cabinet/">зарегистрироваться</a> у нас в магазине и использовать все привилегии наших постоянных клиентов.</p>
 				{/if}
-				</p>
 				<p class="pull-right"><a href="/basket/?action=showorder&id={$order_id}&oh={$order_hash}"><small>Постоянный адрес заказа №{$order_id}</small></a></p>
 			</div>
 
