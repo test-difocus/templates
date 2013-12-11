@@ -1,6 +1,6 @@
 <ul class="nav pull-right second-navbar">
   {if $GLOBS.user_id eq 6}
-  <li><a href="/cabinet/?tmpl=short&r={$vpath|escape:url}" class="fancybox fancybox.ajax" title="Вход/Регистрация"><i class="icon-user"></i> <span class="hide">Вход/Регистрация</span></a></li>
+  <li><a href="/cabinet/?tmpl=short&r={$vpath|escape:url}" rel="nofollow" class="fancybox fancybox.ajax" title="Вход/Регистрация"><i class="icon-user"></i> <span class="hide">Вход/Регистрация</span></a></li>
   {else}
   <li>
   	<a href="/cabinet/" title="Ваш личный кабинет, {$GLOBS.userdata.name|default:$GLOBS.userdata.login}">
@@ -11,9 +11,9 @@
   {/if}
   
   <li class="divider-vertical"></li>
-  <li class=""><a href="/basket/" id="minibasket" title="Ваша корзина"><i class="icon-shopping-cart"></i> <span class="hide">Ваша корзина</span></a></li>
+  <li class=""><a href="/basket/" rel="nofollow" id="minibasket" title="Ваша корзина"><i class="icon-shopping-cart"></i> <span class="hide">Ваша корзина</span></a></li>
   <li class="divider-vertical"></li>
-  <li class=""><a href="/contacts/order.html?from={$oid}" class="fancybox fancybox.ajax" title="Отправить письмо - заявку"><i class="icon-envelope"></i> <span class="hide">Отправить заявку</span></a></li>
+  <li class=""><a href="/contacts/order.html?from={$oid}" rel="nofollow" class="fancybox fancybox.ajax" title="Отправить письмо - заявку"><i class="icon-envelope"></i> <span class="hide">Отправить заявку</span></a></li>
 </ul>
 <div class="hide">
 	<div id="forgot">
