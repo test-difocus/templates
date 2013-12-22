@@ -1,14 +1,15 @@
 {if sizeof($basketdata)>0}
 {* вывод сразу всех накопительных скидок *}
-{if sizeof($discounts)}
 <script>
 var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0};
 var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0};
 var moneyRound = {$GLOBS.currency.round|default:0};
 var discounts = [];
+{if sizeof($discounts)}
 {foreach from=$discounts item=discount}discounts.push( { 'percent' : {$discount.percent|default:0}, 'money' : {$discount.money|default:0}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } );{/foreach}
-</script>
 {/if}
+</script>
+
 <script>var eShopPostIndex = '{$postindex}';</script>
 <table class="table table-striped" style="width:640px;">
 <thead>
@@ -41,14 +42,14 @@ var discounts = [];
 	    </sup>
     </td>
     
-    <td class="nowrap">
+    <td nowrap="nowrap">
     	<span class="count">
 	    	{$item.count} {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
     	</span>
 	    {if $item.content.weight}
 	    <br>Вес: <span class="weight">{$item.content.weight} {numeral number=$item.content.weight|price:false ends='грамм,грамма,грамм'}</span>{/if}
     </td>
-    <td class="nowrap">
+    <td nowrap="nowrap">
     	<span class="price"
 			data-oldprice="{$item.content.oldprice|price:false}"
 			data-price="{$item.content.price|price:false}"
@@ -75,18 +76,20 @@ var discounts = [];
 </table>
 
 <blockquote class="pull-right">
-	<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
+	<p>
+		<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
+		
+		<small class="label label-success {if !$basketdiscount.money && !$basketdiscount.percent}hide{/if}">
+			Ваша скидка:
+				<span id="basketDiscount">
+					{if $basketdiscount.percent}{$basketdiscount.percent}% {if $basketdiscount.money} и {/if}{/if}
+					{if $basketdiscount.money}{$basketdiscount.money} {numeral number=$basketdiscount.money|price:false ends=$GLOBS.currency.name}{/if}
+				</span>
+		</small>
 	
-	<small class="label label-success {if !$basketdiscount.money && !$basketdiscount.percent}hide{/if}">
-		Ваша скидка:
-			<span id="basketDiscount">
-				{if $basketdiscount.percent}{$basketdiscount.percent}% {if $basketdiscount.money} и {/if}{/if}
-				{if $basketdiscount.money}{$basketdiscount.money} {numeral number=$basketdiscount.money|price:false ends=$GLOBS.currency.name}{/if}
-			</span>
-	</small>
-
-	<small {if $oldtotal eq  $total}class="hide"{/if}>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>
-	{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
+		<small {if $oldtotal eq  $total}class="hide"{/if}>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>
+		{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
+	</p>
 </blockquote>
 <br clear="all" />
 <p align="center"><i><a href="#" onclick="$.fancybox.close();">Продолжить покупки</a> <span class="divider">|</span> <a href="/basket/">Оформить заказ &rarr;</a></i></p>

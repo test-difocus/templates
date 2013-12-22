@@ -86,27 +86,41 @@
 	<input type="hidden" name="count" class="count" value="1" />
 	<input type="hidden" name="oid" value="{$oid}" />
 	<input type="hidden" name="time" value="{$smarty.now}" />
-	{if $price}<button type="submit" class="btn btn-primary"><i class="icon-shopping-cart icon-white"></i> Купить</button>{/if}
-	{if $ext_productscompared || $ext_bookmarked && $GLOBS.user_id neq 6}
-	&nbsp;&mdash;
+
+	{if $price}
+	{if $ext_basketextendedhelpers && $basketextendedhelpers_pageBtn}
+	{if $basketextendedhelpers_pageBtn eq 1}
+	<button type="submit" class="btn btn-primary"><i class="icon-shopping-cart icon-white"></i> В корзину</button> или 
+	<button type="button" class="btn btn-success inbasket"><i class="icon-shopping-cart icon-white"></i> Купить в один клик</button>
+	{elseif $basketextendedhelpers_pageBtn eq 2}
+	<button type="button" class="btn btn-success inbasket"><i class="icon-shopping-cart icon-white"></i> Купить в один клик</button>
 	{/if}
+	{else}
+	<button type="submit" class="btn btn-primary"><i class="icon-shopping-cart icon-white"></i> Купить</button>
+	{/if}
+	{/if}
+
+	{if $ext_productscompared || $ext_bookmarked && $GLOBS.user_id neq 6}&nbsp;&mdash;<ul class="bookmark-list-unstyled">{/if}
+	
 	{if $ext_bookmarked && $GLOBS.user_id neq 6}
 	{if $bookmarked}
-	<a class="btn btn-bookmark btn-link btn-mini" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Убрать из избранного</a>
+	<li><a class="btn-bookmark" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Убрать из избранного</a></li>
 	{else}
-	<a class="btn btn-bookmark btn-link btn-mini" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Добавить в избранное</a>
+	<li><a class="btn-bookmark" href="/cabinet/bookmarks.html?{$oid}&time={$smarty.now}">Добавить в избранное</a></li>
 	{/if}
 	{/if}
+
 	{if $ext_productscompared}
 	{if $smarty.session.ProductsCompare[$oid]}
-	<a class="btn btn-link btn-mini" href="/compare/">Сравнить</a>
-	<a class="btn btn-link btn-compare btn-mini" href="/compare/?{$oid}&r=1&time={$smarty.now}">Убрать из сравнения</a>
+	<li><a class="" href="/compare/"><b>Сравнить</b></a>
+	<a class="btn-compare" href="/compare/?{$oid}&r=1&time={$smarty.now}">Убрать из сравнения</a></li>
 	{else}
-	<a class="btn btn-link btn-compare btn-mini" href="/compare/?{$oid}&r=1&time={$smarty.now}">Добавить к сравнению</a>
+	<li><a class="btn-compare" href="/compare/?{$oid}&r=1&time={$smarty.now}">Добавить к сравнению</a></li>
 	{/if}
 	{/if}
-
-
+	
+	{if $ext_productscompared || $ext_bookmarked && $GLOBS.user_id neq 6}</ul>{/if}
+	
 </form>
 {if $ext_socialposting}
 <div class="alert alert-info">

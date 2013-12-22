@@ -77,19 +77,18 @@
 				<blockquote class="pull-right">
 					<h1>Итого</h1>
 					<p>
-					
-					<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
-					
-					<small class="label label-success {if !$basketdiscount.money && !$basketdiscount.percent}hide{/if}">
-						Ваша скидка:
-							<span id="basketDiscount">
-								{if $basketdiscount.percent}{$basketdiscount.percent}% {if $basketdiscount.money} и {/if}{/if}
-								{if $basketdiscount.money}{$basketdiscount.money} {numeral number=$basketdiscount.money|price:false ends=$GLOBS.currency.name}{/if}
-							</span>
-					</small>
-
-					<small {if $oldtotal eq  $total}class="hide"{/if}>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>
-					{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
+						<span id="basketCount">{$count}</span> шт. на сумму: <b><span id="basketTotal">{$total|price:false}</span> {numeral number=$total|price:false ends=$GLOBS.currency.name}</b><br />
+						
+						<small class="label label-success {if !$basketdiscount.money && !$basketdiscount.percent}hide{/if}">
+							Ваша скидка:
+								<span id="basketDiscount">
+									{if $basketdiscount.percent}{$basketdiscount.percent}% {if $basketdiscount.money} и {/if}{/if}
+									{if $basketdiscount.money}{$basketdiscount.money} {numeral number=$basketdiscount.money|price:false ends=$GLOBS.currency.name}{/if}
+								</span>
+						</small>
+	
+						<small {if $oldtotal eq  $total}class="hide"{/if}>Сумма без скидки: <span id="basketOldTotal">{$oldtotal|price:false}</span> {numeral number=$oldtotal|price:false ends=$GLOBS.currency.name}</small>
+						{if $totalweight}<small>Вес заказа: <span id="totalWeight">{$totalweight}</span>  {numeral number=$totalweight|price:false ends='грамм,грамма,грамм'}</small>{/if}
 					</p>
 				</blockquote>
 				<br clear="all" />

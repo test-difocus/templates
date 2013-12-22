@@ -29,7 +29,7 @@
 		    </p>
 		    {/if}
 	    </td>
-	    <td class="nowrap">
+	    <td nowrap="nowrap">
 	    	<span class="count">
 		    	{$item.count} {numeral number=$item.count ends=$item.content.units|default:'шт.,шт.,шт.'}
 	    	</span>
@@ -38,7 +38,7 @@
 	    </td>
 	    <!--td>{if $item.content.oldprice}<span class="oldprice">{$item.content.oldprice|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
 	    <!--td>{if $item.content.discount}{$item.content.discount}%{else}&mdash;{/if}</td-->
-	    <td class="nowrap">
+	    <td nowrap="nowrap">
 	    	<span class="price"
 	    			data-oldprice="{$item.content.oldprice|price:false}"
 	    			data-price="{$item.content.price|price:false}"
@@ -52,7 +52,7 @@
 	    	</span>{$GLOBS.currency.shortname}
 	    </td>
 	    <!--td>{if $item.content.oldprice}<span class="oldtotal">{($item.content.oldprice*$item.count)|price:false}</span>{$GLOBS.currency.shortname}{else}&mdash;{/if}</td-->
-	    <td class="nowrap">
+	    <td nowrap="nowrap">
 	    	<span class="total">
 	    		{($item.content.price*$item.count)|price:false}
 		    </span>{$GLOBS.currency.shortname}

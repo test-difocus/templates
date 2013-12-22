@@ -127,7 +127,7 @@ var duplicateOrder = function (order_id, order_hash)
 	<!--th>Цена без скидки</th>
 	<th>Сумма без скидки</th-->
 	<th>Кол-во</th>
-	<th>Скидка (%)</th>
+	<th>Скидка</th>
 	<th>Цена</th>
 	<th>Сумма</th>
 	<th></th>
@@ -159,7 +159,7 @@ var duplicateOrder = function (order_id, order_hash)
     <td>{$product.count}</td>
     <!--td>{$product.oldprice|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
     <td>{$product.oldtotal|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td-->
-    <td>{if $product.discount}{$product.discount}%{else}&mdash;{/if}</td>
+    <td>{if $product.discount}{$product.discount}{else}&mdash;{/if}</td>
     <td>{$product.price|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
     <td>{$product.total|price:false}{$GLOBS.allcurrencies[$order.content.currency].shortname}</td>
   </tr>

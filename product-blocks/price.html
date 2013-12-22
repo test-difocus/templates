@@ -20,7 +20,6 @@
 	    		{if $discount.percent}{$discount.percent}% {if $discount.money} и {/if}{/if}
 	    		{if $discount.money}{$discount.money|price:false} {numeral number=$discount.money|price:false ends=$GLOBS.currency.name}{/if}
 			</span>
-			
 			{if $discount.date_to_days < 30}
 			<div class="coundown" data-date="{$discount.date_to}">
 				<em class="icon-time"></em>
