@@ -35,7 +35,20 @@
 					<small>{if $content.discount}<s>Старая цена {$content.price|price}</s>{else if $content.old_price}<s>Старая цена {$content.old_price|price}</s>{/if}</small>
 				{/if}
 			</p>
+
+			{if $ext_basketextendedhelpers && $basketextendedhelpers_pageBtn}
+			{if $basketextendedhelpers_sectionBtn eq 1}
 			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-primary inbasket" rel="nofollow"><i class="icon-shopping-cart icon-white"></i> Купить</a>
+			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-success btn-mini inbasket" rel="nofollow" data-tmpl="fast"><i class="icon-shopping-cart icon-white"></i> Купить в один клик</a>
+			{elseif $basketextendedhelpers_sectionBtn eq 2}
+			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-success btn-mini inbasket" rel="nofollow" data-tmpl="fast"><i class="icon-shopping-cart icon-white"></i> Купить в один клик</a>
+			{else}
+			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-primary inbasket" rel="nofollow"><i class="icon-shopping-cart icon-white"></i> Купить</a>
+			{/if}
+			{else}
+			<a href="/basket/?action=add&oid={$oid}&time={$smarty.now}" class="btn btn-primary inbasket" rel="nofollow"><i class="icon-shopping-cart icon-white"></i> Купить</a>
+			{/if}
+
 			{else}
 			<p class="price-block">
 				Цена не указана
