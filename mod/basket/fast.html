@@ -1,14 +1,15 @@
 {if sizeof($basketdata)>0}
 {* вывод сразу всех накопительных скидок *}
-{if sizeof($discounts)}
 <script>
 var totalUserSpent = {$GLOBS.userdata.totalUserSpent|default:0};
 var totalUserCount = {$GLOBS.userdata.totalUserCount|default:0};
 var moneyRound = {$GLOBS.currency.round|default:0};
 var discounts = [];
+{if sizeof($discounts)}
 {foreach from=$discounts item=discount}discounts.push( { 'percent' : {$discount.percent|default:0}, 'money' : {$discount.money|default:0}, 'price_from' : {$discount.price_from}, 'price_to' : {$discount.price_to}, 'count_from' : {$discount.count_from}, 'count_to' : {$discount.count_to}, 'date_to_seconds' : {$discount.date_to_seconds}, 'date_from_seconds' : {$discount.date_from_seconds}, 'type': '{$discount.type}' } );{/foreach}
-</script>
 {/if}
+</script>
+
 <script>var eShopPostIndex = '{$postindex}';</script>
 <table class="table table-striped" style="width:640px;">
 <thead>
@@ -25,9 +26,7 @@ var discounts = [];
 {foreach from=$basketdata item=item}
   <tr id="product{$item.oid}" class="basket-item inbasket-item">
   	<td style="max-width:100px;">
-	  	<a class="thumbnail" href="{$item.vlink}">
-	  	{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}
-	  	</a>
+	  	<a class="thumbnail" href="{$item.vlink}">{assign var="im_showed" value=0}{if sizeof($item.params)>0}{foreach from=$item.params key=key item=value}{foreach from=$item.content.images item="im"}{if $item.content[$key][$value]['name'] eq $im.name}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{assign var="im_showed" value="1"}{break}{/if}{/foreach}{/foreach}{/if}{if empty($im_showed)}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}{/if}</a>
   	</td>
     <td>
     	<a href="{$item.content.vlink}">{$item.content.name}</a>

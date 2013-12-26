@@ -140,9 +140,7 @@ var duplicateOrder = function (order_id, order_hash)
     <!--td>{$product.code}</td-->
     <td>{$product.content.articul}</td>
     <td>
-	  	<a class="thumbnail" href="{$product.content.vlink}">
-	  	{foreach from=$product.content.images item="im"}<img src="/{image src=$im.path width=40 height=40 folder=".40x40"}" width=40 height=40 alt="{$im.name}">{break}{/foreach}
-	  	</a>
+	  	<a class="thumbnail" href="{$product.content.vlink}">{assign var="im_showed" value=0}{if sizeof($product.params)>0}{foreach from=$product.params key=key item=value}{foreach from=$product.content.images item="im"}{if $product.content[$key][$value]['name'] eq $im.name}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}" width="40">{assign var="im_showed" value="1"}{break}{/if}{/foreach}{/foreach}{/if}{if empty($im_showed)}{foreach from=$product.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}" width="40">{break}{/foreach}{/if}</a>
     </td>
     <td>
     	<a href="{$product.content.vlink}">

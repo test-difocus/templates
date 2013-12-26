@@ -1,8 +1,6 @@
 	  <tr class="basket-item inbasket-item" id="product{$item.oid}">
 	  	<td style="max-width:100px;">
-		  	<a class="thumbnail" href="{$item.vlink}">
-		  	{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}
-		  	</a>
+		  	<a class="thumbnail" href="{$item.vlink}">{assign var="im_showed" value=0}{if sizeof($item.params)>0}{foreach from=$item.params key=key item=value}{foreach from=$item.content.images item="im"}{if $item.content[$key][$value]['name'] eq $im.name}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{assign var="im_showed" value="1"}{break}{/if}{/foreach}{/foreach}{/if}{if empty($im_showed)}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}{/if}</a>
 	  	</td>
 	    <td>
 		    <h3>
