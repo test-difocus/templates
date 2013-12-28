@@ -59,8 +59,8 @@
 							{foreach from=$basketdata item=item}
 							<tr bgcolor="{cycle values="#ffffff,#f5f5f5"}">
 								<td style="border-collapse: collapse;border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;font-size:14px;font-family: 'trebuchet ms', geneva; min-width:150px;">
-									<a href="http://{$site_host}{$item.vlink}">{foreach from=$item.content.images item=im}<img src="http://www.{$site_host}/{image src=$im.path width=180 folder=".180"}" width="100%;" style="min-width:80px;max-width:180px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;float:left; margin-right:10px;" />{break}{/foreach}</a>
-								
+									<a href="http://{$site_host}{$item.vlink}">{assign var="im_showed" value=0}
+									{if sizeof($item.params)>0}{foreach from=$item.params key=key item=value}{foreach from=$item.content.images item="im"}{if $item.content[$key][$value]['name'] eq $im.name}<img src="http://{$site_host}/{image src=$im.path width=180 folder=".180"}" width="100%;" style="min-width:80px;max-width:180px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;float:left; margin-right:10px;" />{assign var="im_showed" value="1"}{break}{/if}{/foreach}{/foreach}{/if}{if empty($im_showed)}{foreach from=$item.content.images item="im"}<img src="http://{$site_host}/{image src=$im.path width=180 folder=".180"}" width="100%;" style="min-width:80px;max-width:180px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;float:left; margin-right:10px;" />{break}{/foreach}{/if}</a>
 									<h3 style="font-size:16px;font-family: 'trebuchet ms', geneva;min-width:100px;display:inline-block;"><a href="http://{$site_host}{$item.vlink}">{$item.content.name}</a></h3>
 									{if $item.content.articul}<p><b>Артикул: </b> {$item.content.articul}</p>{/if}
 								    {if sizeof($item.params)>0}
