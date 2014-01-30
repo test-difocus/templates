@@ -28,10 +28,18 @@
 			<td>Банк</td>
 			<td>{$GLOBS.merchants.invoice.bank}</td>
 		</tr>
+		{if $GLOBS.merchants.invoice.bik}
 		<tr>
 			<td>БИК</td>
 			<td>{$GLOBS.merchants.invoice.bik}</td>
 		</tr>
+		{/if}
+		{if $GLOBS.merchants.invoice.mfo}
+		<tr>
+			<td>МФО</td>
+			<td>{$GLOBS.merchants.invoice.mfo}</td>
+		</tr>
+		{/if}
 		<tr>
 			<td>К/с</td>
 			<td>{$GLOBS.merchants.invoice.ks}</td>

@@ -80,7 +80,7 @@
 				{foreach from=$basketdata item=item name="orderitems"}
 				<div class="product-item span3">
 				  <div class="product-item-inner thumbnail">
-				    <a href="{$item.vlink}">{if sizeof($item.content.images)>0}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path height=150 folder=".150"}" alt="{$im.name}" />{break}{/foreach}{else}<img src="/media0/img/no-image.png" alt="Нет изображения" height=130 />{/if}</a>
+				    <a href="{$item.vlink}">{assign var="im_showed" value=0}{if sizeof($item.content.images)>0}{if sizeof($item.params)>0}{foreach from=$item.params key=key item=value}{foreach from=$item.content.images item="im"}{if $item.content[$key][$value]['name'] eq $im.name}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{assign var="im_showed" value="1"}{break}{/if}{/foreach}{/foreach}{/if}{if empty($im_showed)}{foreach from=$item.content.images item="im"}<img src="/{image src=$im.path width=160 folder=".160"}" alt="{$im.name}">{break}{/foreach}{/if}{else}<img src="/media0/img/no-image.png" alt="Нет изображения" height=130 />{/if}</a>
 				    <div class="caption">
 					    <h5><a href="{$item.vlink}">{$item.content.name}</a></h5>
 						<p>
