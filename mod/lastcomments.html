@@ -1,5 +1,6 @@
 {if $ext_lastcomments && sizeof($lastcomments_items)>0}
 <section class="lastpublish">
+{if $lastcomments_name}<h4>{$lastcomments_name}</h4>{/if}
 {foreach from=$lastcomments_items item=item}
 	<div class="lastpublish-item">
 		<p><b>{$item.login}</b> <em class="icon-comment"></em> <a href="{$item.content.vlink}#message{$item.coid}" title="Комментарий к {$item.content.name|escape}">{$item.txt|truncate:400}</a> <span style="display:inline-block;">&mdash; <small style="font-size:10px;">{$item.created|date_format:"%d %B %Y в %H:%M"}</small></span>
