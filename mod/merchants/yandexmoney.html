@@ -1,8 +1,8 @@
-<!--iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid={$GLOBS.merchants.yandexmoney.uid}&amp;button-text=01&amp;button-size=s&amp;button-color=white&amp;targets=%d0%9e%d0%bf%d0%bb%d0%b0%d1%82%d0%b0+%d0%b7%d0%b0%d0%ba%d0%b0%d0%b7%d0%b0+{$order_id}&amp;default-sum={$summ}&amp;label={$order_id}:{$GLOBS.userdata.email}" width="140" height="31"></iframe-->
 
 <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" class="payment-form pull-left">
    <input name="receiver" type="hidden" value="{$GLOBS.merchants.yandexmoney.uid}">
    <input name="label" type="hidden" value="{$order_id}:{$order_content.email}">
+   <input name="paymentType" type="hidden" value="PC">
    <input name="writable-targets" type="hidden" value="false">
    <input name="writable-sum" type="hidden" value="false">
    <input name="comment-needed" type="hidden" value="false">
@@ -12,3 +12,18 @@
    <!-- button type="submit" name="submit-button" class="btn">{$GLOBS.merchants.yandexmoney.btn|default:'Оплатить через Яндекс.Деньги'}</button-->
    <button type="submit" name="submit-button" class="btn btn-large" title="{$GLOBS.merchants.yandexmoney.btn|default:'Оплатить через Яндекс.Деньги'}" rel="tooltip"><img src="/media0/img/merchants/Yandex.png" alt="Яндекс.Деньги" width="150" /></button>
 </form>
+
+{if $GLOBS.merchants.yandexmoney.bcard}
+<form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" class="payment-form pull-left">
+   <input name="receiver" type="hidden" value="{$GLOBS.merchants.yandexmoney.uid}">
+   <input name="label" type="hidden" value="{$order_id}:{$order_content.email}">
+   <input name="paymentType" type="hidden" value="AC">
+   <input name="writable-targets" type="hidden" value="false">
+   <input name="writable-sum" type="hidden" value="false">
+   <input name="comment-needed" type="hidden" value="false">
+   <input name="quickpay-form" type="hidden" value="shop">
+   <input type="hidden" name="targets" value="{$GLOBS.merchants.yandexmoney.serviceName|default:'Оплата заказа №'}{$order_id}">
+   <input data-type="number" type="hidden" name="sum" value="{($summ*1.02)|replace:',':'.'}">
+   <button type="submit" name="submit-button" class="btn btn-large" title="Оплатить через Visa или MasterCard" rel="tooltip"><img src="/media0/img/merchants/VisaMasterYandex.png" alt="Visa и MasterCard через Яндекс.Деньги" width="150" /></button>
+</form>
+{/if}

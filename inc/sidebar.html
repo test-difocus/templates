@@ -164,10 +164,8 @@
 					<p class="filters-content">
 					{foreach from=$filter_field item=item name="forn"}
 						{if $item.value}
-						<span>
 						<input class="styled-checkbox" type="checkbox" value="{$item.value|escape}" name="filter[{$name}][]" {if $item.checked}checked="checked"{/if} id="_{$name}_{$smarty.foreach.forn.iteration}" />
 						<label class="styled-label {$item.value|transliterate|replace:' ':''}" title="{if isset($GLOBS[$name][$item.value])}{$GLOBS[$name][$item.value]}{else}{$item.value}{/if}" rel="tooltip" for="_{$name}_{$smarty.foreach.forn.iteration}"></label>
-						</span>
 						{/if}
 					{/foreach}
 					</p>
