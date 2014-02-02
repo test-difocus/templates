@@ -24,6 +24,12 @@
 			<td>Р/с</td>
 			<td>{$GLOBS.merchants.invoice.rs}</td>
 		</tr>
+		{if $GLOBS.merchants.invoice.address}
+		<tr>
+			<td>Номер карты</td>
+			<td>{$GLOBS.merchants.invoice.bcard}</td>
+		</tr>
+		{/if}
 		<tr>
 			<td>Банк</td>
 			<td>{$GLOBS.merchants.invoice.bank}</td>
@@ -48,10 +54,12 @@
 			<td>ИНН</td>
 			<td>{$GLOBS.merchants.invoice.inn}</td>
 		</tr>
+		{if $GLOBS.merchants.invoice.kpp}
 		<tr>
 			<td>КПП</td>
 			<td>{$GLOBS.merchants.invoice.kpp}</td>
 		</tr>
+		{/if}
 	</table>
 </div>
 {/if}

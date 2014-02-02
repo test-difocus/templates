@@ -36,10 +36,11 @@
 	<script src="/media0/js/jquery.filters.js"></script>
 	<script>$(function(){ $('.filters form').filters() });</script>
 		
-	<script src="/media0/js/ion.rangeSlider.min.js"></script>
+	<script src="/media0/js/ion.rangeSlider.js"></script>
 	<link href="/media0/css/ion.rangeSlider.css" rel="stylesheet">
 	<link href="/media0/css/ion.rangeSlider.skinNice.css" rel="stylesheet">
-	
+	<link href="/media0/css/styled-checkbox.css" rel="stylesheet">
+
 	<section class="filters well">
 		<div class="filters-inner">
 			<form action="{$directories_filters_url}" method="GET">
@@ -64,7 +65,7 @@
 						{/if}
 					{/foreach}
 					</p>
-				{else}
+				{else if $directories_filters_type[$name] eq 'digit'}
 
 				{assign var="max" value=0} {* первому значению *}
 				{foreach from=$filter_field item=item}{if $item.value > $max}{assign var="max" value=$item.value}{/if}{/foreach}
@@ -98,6 +99,76 @@
 					data-from="{$directories_filters_query[$name]['from']|default:$min|default:0}"
 					data-to="{$directories_filters_query[$name]['to']|default:$max|default:0}">
 				</div>
+				{else if $directories_filters_type[$name] eq 'digit_single_slider'}
+					{assign var="max" value=0} {* первому значению *}
+					{foreach from=$filter_field item=item}{if $item.value > $max}{assign var="max" value=$item.value}{/if}{/foreach}
+					{assign var="min" value=$max}
+					{foreach from=$filter_field item=item}{if $item.value < $min}{assign var="min" value=$item.value}{/if}{/foreach}
+	
+					<div class="filter-slider">
+					
+					<input type="hidden" id="amount-filter-{$name}" name="filter[{$name}][]" value="{$directories_filters_query[$name][0]}" />
+	
+					<script>
+					$(function()
+					{
+						$("#slider-range-{$name}").ionRangeSlider({
+							onFinish: function(obj)
+							{
+								$( "#amount-filter-{$name}" ).val( obj.fromNumber );
+								$.filters.update($('#slider-range-{$name}').parent());
+							}
+						});
+					});
+					</script>
+					<input type="text" id="slider-range-{$name}" value="{$min|default:0|string_format:"%d"};{$max|default:100|string_format:"%d"}" data-type="single" data-hasgrid="true" data-from="{$directories_filters_query[$name][0]|default:$min|default:0}">
+					</div>
+				{else if $directories_filters_type[$name] eq 'string_single_slider'}
+				<div class="filter-slider">
+					<input type="hidden" id="amount-filter-{$name}" name="filter[{$name}][]" value="{$directories_filters_query[$name][0]}" />
+					<script>
+					$(function()
+					{
+						var values = [];{foreach from=$filter_field item=item}values.push('{$item.value}');{/foreach}
+						
+						$("#slider-range-{$name}").ionRangeSlider({
+							values : values,
+							from: '{$directories_filters_query[$name][0]}',
+							hideMinMax: true,
+							onFinish: function(obj)
+							{
+								$( "#amount-filter-{$name}" ).val( values[obj.fromNumber] );
+								$.filters.update($('#slider-range-{$name}').parent());
+							}
+						});
+					});
+					</script>
+					<input type="text" id="slider-range-{$name}" data-type="single" data-hasgrid="false">
+				</div>
+				{else if $directories_filters_type[$name] eq 'radio'}
+					<p class="filters-content">
+					{foreach from=$filter_field item=item}
+						{if $item.value}
+						<label>
+							<input type="radio" value="{$item.value|escape}" name="filter[{$name}][]" {if $item.checked}checked="checked"{/if} />
+							{if isset($GLOBS[$name][$item.value])}
+							{$GLOBS[$name][$item.value]}
+							{else}
+							{$item.value}
+							{/if}
+						</label>
+						{/if}
+					{/foreach}
+					</p>
+				{else if $directories_filters_type[$name] eq 'styled_string'}
+					<p class="filters-content">
+					{foreach from=$filter_field item=item name="forn"}
+						{if $item.value}
+						<input class="styled-checkbox" type="checkbox" value="{$item.value|escape}" name="filter[{$name}][]" {if $item.checked}checked="checked"{/if} id="_{$name}_{$smarty.foreach.forn.iteration}" />
+						<label class="styled-label {$item.value|transliterate|replace:' ':''}" title="{if isset($GLOBS[$name][$item.value])}{$GLOBS[$name][$item.value]}{else}{$item.value}{/if}" rel="tooltip" for="_{$name}_{$smarty.foreach.forn.iteration}"></label>
+						{/if}
+					{/foreach}
+					</p>
 				{/if}
 
 				{/foreach}
